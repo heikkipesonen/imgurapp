@@ -48,6 +48,31 @@ table {
   border-spacing: 0;
 }
 
+body, html{
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial';
+  font-size: 10pt;
+}
+
+h1,h2,h3,h4{
+  font-weight: bold;
+}
+
+h1{
+  font-size: 500%;
+}
+
+h2{
+  font-size: 300%;
+}
+
+h3{
+  font-size: 200%;
+}
+
+h4{
+  font-size: 150%;
+}
+
 /* Do not remove this comments bellow. It's the markers used by gulp-inject to inject
    all your sass files automatically */
 // injector

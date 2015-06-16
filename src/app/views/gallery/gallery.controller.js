@@ -2,17 +2,13 @@
 
 'use strict';
 
-	function GalleryController(appConfig, $http){
-		$http.get(appConfig.api +'/gallery').then(function(response){
-			console.log(response);
-			return response.data.data;
-		});
+	function GalleryController(appConfig, $http, galleryImages){
+		var me = this;
+		this.images = galleryImages;
 	}
 
 	GalleryController.prototype = {
-		get:function($http){
 
-		}
 	}
 
 	angular.module('imgurapp')

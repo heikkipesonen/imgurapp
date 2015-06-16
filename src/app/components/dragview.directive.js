@@ -28,6 +28,7 @@ angular.module('imgurapp')
 				/**
 				 * set element position (translate)
 				 * @param {int} duration animation duration in milliseconds
+				 * @return {Promise}
 				 */
 				function setPosition(duration){
 					var d = $q.defer();

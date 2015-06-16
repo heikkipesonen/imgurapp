@@ -10,18 +10,73 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
 
   .config(function ($stateProvider, $urlRouterProvider, $httpProvider, appConfig) {
 
-  	console.log($httpProvider);
   	$httpProvider.defaults.headers.common.Authorization = 'Client-ID '+ appConfig.client_id;
 
     $stateProvider
+
+    	// .state('root',{
+    	// 	abstract:true,
+    	// 	template:'<ui-view></ui-view>'
+    	// })
+
+    	// .state('root.home', {
+    	// 	url:'/',
+    	// 	templateUrl:'app/views/home/home.view.html',
+    	// 	controller:'HomeController',
+    	// 	controllerAs:'Home'
+    	// })
+
       .state('gallery', {
-        url: '/',
+      	url:'/gallery{galleryId:(?:/[^/]+)?}',
+      	resolve:{
+      		galleryImages:function($http, $stateParams){
+	      		return $http.get(appConfig.api +'/gallery').then(function(response){
+							return response.data.data;
+						});
+      		}
+      	},
         templateUrl: 'app/views/gallery/gallery.view.html',
         controller: 'GalleryController',
-        controllerAs: 'Gallery'
-      });
+        controllerAs: 'Gallery',
+      })
 
-    $urlRouterProvider.otherwise('/');
+      .state('gallery.image', {
+      	url:'/:imageId',
+      	resolve:{
+      		image:function(galleryImages, $stateParams, $q){
+      			var d = $q.defer();
+      			var img = _.find(galleryImages, {id: $stateParams.imageId});
+      			console.log(img);
+
+      			if (img){
+      				d.resolve(img);
+      			} else {
+      				d.reject(false);
+      			}
+
+      			return d.promise;
+      		},
+
+      		nextImage:function(galleryImages, image){
+      			var index = galleryImages.indexOf(image)+1;
+      					index = index === galleryImages.length ? 0 : index;
+      			return galleryImages[index];
+      		},
+
+      		prevImage:function(galleryImages, image){
+      			var index = galleryImages.indexOf(image)-1;
+      					index = index < 0 ? galleryImages.length-1 : index;
+
+      			return galleryImages[index];
+      		}
+      	},
+      	controller:'ImageController',
+      	controllerAs:'Image',
+      	templateUrl: 'app/views/image/image.view.html',
+      })
+      ;
+
+
   })
 
 

@@ -1,0 +1,24 @@
+.image-grid{
+	width: 100%;
+	text-align: center;
+
+	[image-loader]{
+		display: inline-block;
+		width: (100% / 3);
+		padding-bottom: (100% / 3);
+		height: 0px;
+		background-color: #ddd;
+		background-size: cover;
+		background-repeat: no-repeat;
+		overflow: hidden;
+
+		&.image-loading{
+			opacity:0.3;
+		}
+
+		&.image-ready{
+			transition-duration: 0.4s;
+			opacity:1;
+		}
+	}
+}
