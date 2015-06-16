@@ -23,4 +23,11 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
 
     $urlRouterProvider.otherwise('/');
   })
+
+
+  .run(function(){
+  	document.body.addEventListener('touchmove', function(evt){
+  		evt.preventDefault();
+  	})
+  })
 ;
