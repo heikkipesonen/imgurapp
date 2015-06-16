@@ -2,6 +2,23 @@
 
 angular.module('imgurapp')
 
+	.directive('box', function(){
+		return {
+			restrict:'A',
+			scope:{
+				width:'=',
+				height:'='
+			},
+			link:function($scope, $element){
+				var ratio = $scope.height / $scope.width;
+				$element.css({
+					height:0,
+					'padding-bottom': ratio*100 + '%'
+				});
+			}
+		}
+	})
+
 	.directive('scrollY', function(){
 		return {
 			restrict:'A',
@@ -37,11 +54,11 @@ angular.module('imgurapp')
 					var position = getCursor(evt);
 							delta.x += position.x - lastEvent.x;
 							delta.y += position.y - lastEvent.y;
+
 					if ( Math.abs(delta.y) > Math.abs(delta.x) ){
-console.log(delta.x, delta.y)
 						evt.stopPropagation();
 					}
-				})
+				});
 			}
 		}
 	})

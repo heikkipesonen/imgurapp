@@ -37,11 +37,7 @@ angular.module('imgurapp')
 						loadComplete();
 					};
 
-					var filename = $scope.imageLoader.is_album ? null : $scope.imageLoader.link.replace($scope.imageLoader.id, $scope.imageLoader.id+'s');
-					if ($scope.imageLoader.is_album){
-						console.log($scope.imageLoader)
-					}
-					img.src = filename;
+					img.src = $scope.imageLoader;
 				}
 
 				$scope.$watch('imageLoader', function(newVal, oldVal){
@@ -58,7 +54,7 @@ angular.module('imgurapp')
 				imageGrid:'='
 			},
 			template:'<div class="image-grid">'+
-									'<div image-loader="image" ng-repeat="(imageIndex, image) in imageGrid"></div>'+
+									'<div image-loader="image" ng-repeat="(imageIndex, image) in imageGrid track by imageIndex"></div>'+
 								'</div>'
 		};
 	})

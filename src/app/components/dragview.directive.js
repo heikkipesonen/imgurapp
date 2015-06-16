@@ -2,7 +2,7 @@
 
 angular.module('imgurapp')
 
-	.directive('dragView', function($q, $timeout){
+	.directive('dragView', function($q, $timeout, $state){
 		return {
 			restrict:'A',
 			link:function($scope, $element){
@@ -69,13 +69,16 @@ angular.module('imgurapp')
 					var stepx = currentPosition.x - lastEvent.x;
 					var stepy = currentPosition.y - lastEvent.y;
 
-
 					delta.x += stepx;
 					delta.y += stepy;
 
 					if (Math.abs(delta.x) > delta.y){
 						evt.stopPropagation();
 						evt.preventDefault();
+
+						if ( (!$state.current.prev && stepx > 0) || (!$state.current.next && stepx < 0)){
+							stepx = stepx*0.3;
+						}
 
 						offset.x += stepx;
 						setPosition();
@@ -91,8 +94,21 @@ angular.module('imgurapp')
 				 * @return {void}
 				 */
 				function dragEnd(evt){
-					var movedRatio = Math.abs(offset.x) / width;
-					console.log(movedRatio);
+					var movedRatio = offset.x / width;
+
+					if (Math.abs(movedRatio) > 0.4){
+						if (movedRatio < 0 && $state.current.next){
+							el.parentNode.classList.remove('animation-direction-back');
+							el.parentNode.classList.add('animation-direction-forward');
+							$state.go($state.current.next.name, $state.current.next.params);
+							return;
+						} else if (movedRatio > 0 && $state.current.prev){
+							el.parentNode.classList.remove('animation-direction-forward');
+							el.parentNode.classList.add('animation-direction-back');
+							$state.go($state.current.prev.name, $state.current.prev.params);
+							return;
+						}
+					}
 
 					offset.x = 0;
 					setPosition(400);

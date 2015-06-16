@@ -1,0 +1,25 @@
+.view-image{
+	[image-loader]{
+		display: block;
+		position: relative;
+		width: 100%;
+		transition: 0.4s;
+		background-color: transparent;
+	}
+}
+
+.image-caption{
+	padding: 25px 15px 25px 15px;
+	background-color: black;
+	color: #ddd;
+	text-align: left;
+
+	p{
+		margin:0;
+	}
+}
+
+[box]{
+	position: relative;
+	background-color: #000;
+}

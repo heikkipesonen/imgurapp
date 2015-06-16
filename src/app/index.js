@@ -14,55 +14,96 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
 
     $stateProvider
 
-    	// .state('root',{
-    	// 	abstract:true,
-    	// 	template:'<ui-view></ui-view>'
-    	// })
-
-    	// .state('root.home', {
-    	// 	url:'/',
-    	// 	templateUrl:'app/views/home/home.view.html',
-    	// 	controller:'HomeController',
-    	// 	controllerAs:'Home'
-    	// })
-
       .state('gallery', {
-      	url:'/gallery{galleryId:(?:/[^/]+)?}',
+        url:'/:type/:galleryId',
       	resolve:{
+          /**
+           * fetch images from gallery
+           * @param  {[type]} $http        [description]
+           * @param  {[type]} $stateParams [description]
+           * @return {promise}             gallery images
+           */
       		galleryImages:function($http, $stateParams){
-	      		return $http.get(appConfig.api +'/gallery').then(function(response){
-							return response.data.data;
+	      		return $http.get(appConfig.api +'/gallery/'+$stateParams.type + '/' + $stateParams.galleryId).then(function(response){
+              return response.data.data;
 						});
       		}
       	},
-        templateUrl: 'app/views/gallery/gallery.view.html',
         controller: 'GalleryController',
         controllerAs: 'Gallery',
+        templateUrl: 'app/views/gallery/gallery.view.html',
+        abstract:true
+      })
+
+      .state('gallery.page', {
+      	url:'/gallery',
+      	resolve:{
+          /**
+           * just to wait until images are resolved
+           * @param  {[type]} galleryImages
+           * @return {[type]}
+           */
+      		images:function(galleryImages){
+      			return galleryImages;
+      		}
+      	},
+        templateUrl: 'app/views/gallery/page/gallery.page.view.html',
       })
 
       .state('gallery.image', {
       	url:'/:imageId',
       	resolve:{
-      		image:function(galleryImages, $stateParams, $q){
-      			var d = $q.defer();
-      			var img = _.find(galleryImages, {id: $stateParams.imageId});
-      			console.log(img);
+          /**
+           * find image from galleryImages
+           * @param  {[type]} galleryImages [description]
+           * @param  {[type]} $stateParams  [description]
+           * @param  {[type]} $q            [description]
+           * @return {[type]}               [description]
+           */
+      		image:function(galleryImages, $stateParams, $q, $http, appConfig){
+            var img = _.find(galleryImages, {id: $stateParams.imageId});
+            var d = $q.defer();
 
-      			if (img){
-      				d.resolve(img);
-      			} else {
-      				d.reject(false);
-      			}
+            if (img.is_album){
+              $http.get(appConfig.api +'/album/'+img.id).then(function(response){
+                img.images = response.data.data.images;
+                console.log('joo:',img.images);
+                d.resolve(img);
+                return response.data.data;
+              }, function(){
+                d.reject();
+              });
+            } else {
+              if (img){
+                d.resolve(img);
+              } else {
+                d.reject(false);
+              }
+            }
 
-      			return d.promise;
+            return d.promise;
       		},
 
+          /**
+           * next image
+           * @param  {[type]} galleryImages [description]
+           * @param  {[type]} image         [description]
+           * @return {[type]}               [description]
+           */
       		nextImage:function(galleryImages, image){
+            console.log(image);
       			var index = galleryImages.indexOf(image)+1;
       					index = index === galleryImages.length ? 0 : index;
+
       			return galleryImages[index];
       		},
 
+          /**
+           * prev image
+           * @param  {[type]} galleryImages [description]
+           * @param  {[type]} image         [description]
+           * @return {[type]}               [description]
+           */
       		prevImage:function(galleryImages, image){
       			var index = galleryImages.indexOf(image)-1;
       					index = index < 0 ? galleryImages.length-1 : index;
@@ -72,11 +113,11 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
       	},
       	controller:'ImageController',
       	controllerAs:'Image',
-      	templateUrl: 'app/views/image/image.view.html',
+      	templateUrl: 'app/views/gallery/image/image.view.html',
       })
       ;
 
-
+      $urlRouterProvider.otherwise('/hot/viral/gallery');
   })
 
 
