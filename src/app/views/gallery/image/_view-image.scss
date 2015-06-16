@@ -1,10 +1,16 @@
 .view-image{
+	.image-wrapper{
+		background-color: #eee;
+	}
+
 	[image-loader]{
 		display: block;
 		position: relative;
 		width: 100%;
 		transition: 0.4s;
+		transition-property: opacity;
 		background-color: transparent;
+		background-size: contain;
 	}
 }
 

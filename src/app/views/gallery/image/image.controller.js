@@ -2,16 +2,15 @@
 
 'use strict';
 
-	function ImageController(appConfig, $http, image, $state, nextImage, prevImage){
+	function ImageController(image, $state, nextImage, prevImage, $timeout, $http, appConfig){
+		var me = this;
 		this.image = image;
-		// if (this.image.is_album){
-		// 	this.getAlbum().then(function(album){
-		// 		me.images = album.images;
-		// 	});
 
-		// } else {
-		// 	this.images.push(this.image);
-		// }
+		if (this.image.is_album){
+      $http.get(appConfig.api +'/album/'+this.image.id).then(function(response){
+        me.image.images = response.data.data.images;
+      });
+		}
 
 
 		$state.current.next = {
@@ -31,11 +30,6 @@
 	}
 
 	ImageController.prototype = {
-		// getAlbum:function(){
-		// 	return this.http.get(this.config.api +'/album/'+this.image.id).then(function(response){
-		// 		return response.data.data;
-		// 	});
-		// }
 	}
 
 	angular.module('imgurapp')

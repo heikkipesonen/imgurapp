@@ -2,23 +2,6 @@
 
 angular.module('imgurapp')
 
-	.directive('box', function(){
-		return {
-			restrict:'A',
-			scope:{
-				width:'=',
-				height:'='
-			},
-			link:function($scope, $element){
-				var ratio = $scope.height / $scope.width;
-				$element.css({
-					height:0,
-					'padding-bottom': ratio*100 + '%'
-				});
-			}
-		}
-	})
-
 	.directive('scrollY', function(){
 		return {
 			restrict:'A',
@@ -60,7 +43,7 @@ angular.module('imgurapp')
 					}
 				});
 			}
-		}
+		};
 	})
 
 	.directive('layoutCenter', function(){

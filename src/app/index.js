@@ -60,25 +60,14 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
            * @param  {[type]} $q            [description]
            * @return {[type]}               [description]
            */
-      		image:function(galleryImages, $stateParams, $q, $http, appConfig){
+      		image:function(galleryImages, $stateParams, $q){
             var img = _.find(galleryImages, {id: $stateParams.imageId});
             var d = $q.defer();
 
-            if (img.is_album){
-              $http.get(appConfig.api +'/album/'+img.id).then(function(response){
-                img.images = response.data.data.images;
-                console.log('joo:',img.images);
-                d.resolve(img);
-                return response.data.data;
-              }, function(){
-                d.reject();
-              });
+            if (img){
+              d.resolve(img);
             } else {
-              if (img){
-                d.resolve(img);
-              } else {
-                d.reject(false);
-              }
+              d.reject(false);
             }
 
             return d.promise;
@@ -91,7 +80,6 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
            * @return {[type]}               [description]
            */
       		nextImage:function(galleryImages, image){
-            console.log(image);
       			var index = galleryImages.indexOf(image)+1;
       					index = index === galleryImages.length ? 0 : index;
 
