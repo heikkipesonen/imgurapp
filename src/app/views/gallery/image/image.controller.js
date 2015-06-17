@@ -2,7 +2,7 @@
 
 'use strict';
 
-	function ImageController(image, $state, nextImage, prevImage, $timeout, $http, appConfig, Utils){
+	function ImageController(image, $state, nextImage, prevImage, $timeout, $http, appConfig){
 		var me = this;
 		this.image = image;
 
@@ -12,6 +12,15 @@
       });
 		}
 
+
+
+		$state.current.up = {
+			name:'gallery.page',
+			params:{
+				galleryId: $state.params.galleryId,
+				type: $state.params.type
+			}
+		};
 
 		$state.current.next = {
 			name:'gallery.image',

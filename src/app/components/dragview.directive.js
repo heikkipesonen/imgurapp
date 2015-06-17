@@ -121,10 +121,9 @@ angular.module('imgurapp')
 
 							offset.x += stepx;
 						} else if (direction === 'y'){
-							if ( (!$state.current.down && stepy > 0) || (!$state.current.up && stepy < 0)){
+							if ( (!$state.current.up && stepy > 0) || (!$state.current.down && stepy < 0)){
 								stepy = stepy*0.3;
 							}
-
 							offset.y += stepy;
 						}
 						setPosition();
@@ -142,14 +141,42 @@ angular.module('imgurapp')
 				function dragEnd(evt){
 					var movedRatio = {x: offset.x / width, y: offset.y / height };
 
+					if (Math.abs(movedRatio.y) > 0.4){
+						if (movedRatio.y < 0 && $state.current.down){
+							el.parentNode.classList.remove('animation-direction-back');
+							el.parentNode.classList.remove('animation-direction-forward');
+							el.parentNode.classList.remove('animation-direction-up');
+
+							el.parentNode.classList.add('animation-direction-down');
+
+							$state.go($state.current.down.name, $state.current.down.params);
+							return;
+						} else if (movedRatio.y > 0 && $state.current.up){
+							el.parentNode.classList.remove('animation-direction-forward');
+							el.parentNode.classList.remove('animation-direction-back');
+							el.parentNode.classList.remove('animation-direction-down');
+
+							el.parentNode.classList.add('animation-direction-up');
+
+							$state.go($state.current.up.name, $state.current.up.params);
+							return;
+						}
+					}
+
 					if (Math.abs(movedRatio.x) > 0.4){
 						if (movedRatio.x < 0 && $state.current.next){
 							el.parentNode.classList.remove('animation-direction-back');
+							el.parentNode.classList.remove('animation-direction-down');
+							el.parentNode.classList.remove('animation-direction-up');
+
 							el.parentNode.classList.add('animation-direction-forward');
 							$state.go($state.current.next.name, $state.current.next.params);
 							return;
 						} else if (movedRatio.x > 0 && $state.current.prev){
 							el.parentNode.classList.remove('animation-direction-forward');
+							el.parentNode.classList.remove('animation-direction-down');
+							el.parentNode.classList.remove('animation-direction-up');
+
 							el.parentNode.classList.add('animation-direction-back');
 							$state.go($state.current.prev.name, $state.current.prev.params);
 							return;
