@@ -16,11 +16,11 @@
 	left:0;
 	right: 0;
 	bottom: 0;
-	background-color: white;
 }
 
 
 .view-background{
+	@extend .view;
 	background-color: white;
 }
 
@@ -39,9 +39,12 @@
 }
 
 // (c) liljeblad
+
+
+$view-transition-duration: 0.4s;
 .view-animate{
 	&.ng-animate{
-		transition: 0.4s !important;
+		transition: $view-transition-duration !important;
 	}
 
 	&.ng-enter{
@@ -63,9 +66,10 @@
 		z-index: 1;
 	}
 }
+
 .animation-direction-back .view-animate{
 	&.ng-animate{
-		transition: 0.4s !important;
+		transition: $view-transition-duration !important;
 	}
 
 	&.ng-enter{
@@ -90,7 +94,7 @@
 
 .animation-direction-up .view-animate{
 	&.ng-animate{
-		transition: 0.4s !important;
+		transition: $view-transition-duration !important;
 	}
 
 	&.ng-enter{
@@ -109,6 +113,31 @@
 
 	&.ng-leave{
 		transform: translate3d(0,100%,0) !important;
+		z-index: 1;
+	}
+}
+
+.animation-direction-down .view-animate{
+	&.ng-animate{
+		transition: $view-transition-duration !important;
+	}
+
+	&.ng-enter{
+		transform: translate3d(0,100%,0) !important;
+		z-index: 2;
+	}
+
+	&.ng-enter-active{
+		transform: translate3d(0, 0,0) !important;
+	}
+
+	&.ng-leave-active{
+		transform: translate3d(0, 0,0) !important;
+		z-index: 1;
+	}
+
+	&.ng-leave{
+		transform: translate3d(0,-100%,0) !important;
 		z-index: 1;
 	}
 }

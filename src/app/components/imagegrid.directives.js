@@ -2,12 +2,12 @@
 
 angular.module('imgurapp')
 
-	.directive('imageLoader', function(){
+	.directive('imageLoader', function(imgurApi){
 		return {
 			scope:{
 				imageLoader:'='
 			},
-			link:function($scope, $element){
+			link:function($scope, $element, $attrs){
 				var el = $element[0];
 				var img = null;
 
@@ -29,6 +29,7 @@ angular.module('imgurapp')
 					el.classList.remove('image-ready');
 
 					img = new Image();
+
 					img.onload = function(){
 						loadComplete();
 					};
@@ -37,7 +38,15 @@ angular.module('imgurapp')
 						loadComplete();
 					};
 
-					img.src = $scope.imageLoader;
+					if (/\.(gif|jpg|jpeg|png)$/i.test($scope.imageLoader)){
+						if ($attrs.thumbnail !== ''){
+							img.src = imgurApi.getThumbnail($scope.imageLoader, $attrs.thumbnail);
+						} else {
+							img.src = $scope.imageLoader;
+						}
+
+					}
+
 				}
 
 				$scope.$watch('imageLoader', function(newVal, oldVal){
@@ -54,6 +63,6 @@ angular.module('imgurapp')
 				imageGrid:'='
 			},
 			replace:true,
-			template:'<a ng-href="{{::image.href}}" class="grid-image" image-loader="::image.src"  ng-repeat="(imageIndex, image) in imageGrid track by imageIndex"></a>'
+			template:'<a ng-href="{{::image.href}}" class="grid-image" image-loader="::image.link"  ng-repeat="(imageIndex, image) in imageGrid track by imageIndex"></a>'
 		};
 	})

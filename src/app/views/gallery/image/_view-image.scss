@@ -1,9 +1,29 @@
+
+.view-background-image{
+	.view-background-title{
+		padding: 30px;
+		line-height: initial;
+	}
+	background-color: white;
+}
 .view-image{
-	.image-wrapper{
-		background-color: #eee;
+	.view-background-title{
+		opacity:0;
+		padding: 30px;
+		line-height: initial;
 	}
 
-	[image-loader]{
+	.image-wrapper{
+		background-color: #eee;
+		font-size: 0;
+	}
+
+	.grid-image{
+		width: (100%/3);
+		padding-bottom: (100%/3);
+	}
+
+	.image-full{
 		display: block;
 		position: relative;
 		width: 100%;
@@ -12,20 +32,4 @@
 		background-color: transparent;
 		background-size: contain;
 	}
-}
-
-.image-caption{
-	padding: 25px 15px 25px 15px;
-	background-color: black;
-	color: #ddd;
-	text-align: left;
-
-	p{
-		margin:0;
-	}
-}
-
-[box]{
-	position: relative;
-	background-color: #000;
 }

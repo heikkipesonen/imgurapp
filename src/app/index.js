@@ -14,50 +14,61 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
     imgurApiProvider.client_secret = appConfig.client_secret;
 
     $stateProvider
+      .state('root', {
+        abstract:true,
+        resolve:{
+          galleries:function(imgurApi){
+            return imgurApi.getGalleries();
+          }
+        },
+        templateUrl:'app/views/root/root.view.html'
+      })
 
-      .state('gallery', {
+      .state('root.gallery', {
         url:'/:type/:galleryId',
-      	resolve:{
-          subreddits:function($http){
-            return $http.get('app/subreddits.txt').then(function(response){
-              return _.map( response.data.split('\n') , function(subreddit){
-                return subreddit.replace('http://imgur.com/','');
-              });
-            });
-          },
-
+        resolve:{
           /**
            * fetch images from gallery
            * @param  {[type]} $http        [description]
            * @param  {[type]} $stateParams [description]
            * @return {promise}             gallery images
            */
-      		galleryImages:function($http, $stateParams, imgurApi){
+      		galleryImages:function($stateParams, imgurApi){
             return imgurApi.getGallery($stateParams.type, $stateParams.galleryId);
-      		}
+      		},
+
+          nextGallery:function($stateParams, galleries, Utils){
+            return Utils.nextItem( galleries, $stateParams.type + '/' + $stateParams.galleryId );
+          },
+
+          prevGallery:function($stateParams, galleries, Utils){
+            return Utils.prevItem( galleries, $stateParams.type + '/' + $stateParams.galleryId );
+          }
       	},
-        controller: 'GalleryController',
-        controllerAs: 'Gallery',
         templateUrl: 'app/views/gallery/gallery.view.html',
-        abstract:true
+        abstract:true,
+        controller: 'GalleryPageController',
+        controllerAs: 'Gallery',
       })
 
-      .state('gallery.page', {
-      	url:'/gallery',
-      	resolve:{
+      .state('root.gallery.page', {
+        url:'/gallery',
+        resolve:{
           /**
-           * just to wait until images are resolved
+           * just to wait until images and galleries are resolved
            * @param  {[type]} galleryImages
            * @return {[type]}
            */
-      		images:function(galleryImages){
-      			return galleryImages;
-      		}
-      	},
+          images:function(galleryImages){
+            return galleryImages;
+          }
+        },
+        controller: 'GalleryPageController',
+        controllerAs: 'GalleryPage',
         templateUrl: 'app/views/gallery/page/gallery.page.view.html',
       })
 
-      .state('gallery.image', {
+      .state('root.gallery.image', {
       	url:'/:imageId',
       	resolve:{
           /**
@@ -68,16 +79,7 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
            * @return {[type]}               [description]
            */
       		image:function(galleryImages, $stateParams, $q){
-            var img = _.find(galleryImages, {id: $stateParams.imageId});
-            var d = $q.defer();
-
-            if (img){
-              d.resolve(img);
-            } else {
-              d.reject(false);
-            }
-
-            return d.promise;
+            return _.find(galleryImages, {id: $stateParams.imageId});
       		},
 
           /**
@@ -86,11 +88,8 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
            * @param  {[type]} image         [description]
            * @return {[type]}               [description]
            */
-      		nextImage:function(galleryImages, image){
-      			var index = galleryImages.indexOf(image)+1;
-      					index = index === galleryImages.length ? 0 : index;
-
-      			return galleryImages[index];
+      		nextImage:function(galleryImages, image, Utils){
+            return Utils.nextItem(galleryImages, image);
       		},
 
           /**
@@ -99,11 +98,8 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
            * @param  {[type]} image         [description]
            * @return {[type]}               [description]
            */
-      		prevImage:function(galleryImages, image){
-      			var index = galleryImages.indexOf(image)-1;
-      					index = index < 0 ? galleryImages.length-1 : index;
-
-      			return galleryImages[index];
+      		prevImage:function(galleryImages, image, Utils){
+            return Utils.prevItem(galleryImages, image);
       		}
       	},
       	controller:'ImageController',
@@ -116,9 +112,22 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
   })
 
 
-  .run(function(){
+  .run(function(transitionManager, $rootScope){
+    transitionManager.setAnimationDirection();
+
+    var current = null;
+    $rootScope.$on('$stateChangeSuccess', function(evt, state){
+      current = state.name;
+    });
+
+    $rootScope.$on('$stateChangeStart', function(evt, newstate){
+      if (current === 'root.gallery.page' && newstate.name === 'root.gallery.image'){
+        transitionManager.setAnimationDirection('down');
+      }
+    });
+
   	document.body.addEventListener('touchmove', function(evt){
   		evt.preventDefault();
-  	})
+  	});
   })
 ;

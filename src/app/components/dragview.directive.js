@@ -22,7 +22,7 @@ angular.module('imgurapp')
 		};
 	})
 
-	.directive('dragView', function($q, $timeout, $state){
+	.directive('dragView', function($q, $timeout, $state, transitionManager, directionManager){
 		return {
 			restrict:'A',
 			link:function($scope, $element, $attrs){
@@ -129,7 +129,6 @@ angular.module('imgurapp')
 					} else if (direction === null && Math.abs(delta.y) > Math.abs(delta.x)){
 						direction = 'y';
 					}
-
 					// when direction is clear, proceed blocking the events
 					if (direction !== null){
 						evt.stopPropagation();
@@ -138,7 +137,7 @@ angular.module('imgurapp')
 						if (direction === 'x'){
 
 							// if nothing can be get from the side, apply rubberband-like tension
-							if ( (!$state.current.prev && stepx > 0) || (!$state.current.next && stepx < 0)){
+							if ( (!directionManager.left && stepx > 0 && offset.x > 0 ) || (!directionManager.right && stepx < 0 && offset.x < 0)){
 								stepx = stepx*0.3;
 								startTimer().then(function(side){
 									$scope.$emit('drag.hold.'+side);
@@ -147,7 +146,7 @@ angular.module('imgurapp')
 
 							offset.x += stepx;
 						} else if (direction === 'y'){
-							if ( (!$state.current.up && stepy > 0) || (!$state.current.down && stepy < 0)){
+							if ( (!directionManager.up && stepy > 0 && offset.y > 0) || (!directionManager.down && stepy < 0 && offset.y < 0)){
 								stepy = stepy*0.3;
 								startTimer().then(function(side){
 									$scope.$emit('drag.hold.'+side);
@@ -174,43 +173,38 @@ angular.module('imgurapp')
 					var movedRatio = {x: offset.x / width, y: offset.y / height };
 
 					if (Math.abs(movedRatio.y) > 0.4){
-						if (movedRatio.y < 0 && $state.current.down){
-							el.parentNode.classList.remove('animation-direction-back');
-							el.parentNode.classList.remove('animation-direction-forward');
-							el.parentNode.classList.remove('animation-direction-up');
+						if (movedRatio.y < 0 && directionManager.down){
+							transitionManager.setAnimationDirection('down');
+							$state.go(directionManager.down.name, directionManager.down.params);
 
-							el.parentNode.classList.add('animation-direction-down');
-
-							$state.go($state.current.down.name, $state.current.down.params);
+							offset.y = -height;
+							setPosition(200);
 							return;
-						} else if (movedRatio.y > 0 && $state.current.up){
-							el.parentNode.classList.remove('animation-direction-forward');
-							el.parentNode.classList.remove('animation-direction-back');
-							el.parentNode.classList.remove('animation-direction-down');
+						} else if (movedRatio.y > 0 && directionManager.up){
+							transitionManager.setAnimationDirection('up');
+							$state.go(directionManager.up.name, directionManager.up.params);
 
-							el.parentNode.classList.add('animation-direction-up');
-
-							$state.go($state.current.up.name, $state.current.up.params);
+							offset.y = height;
+							setPosition(200);
 							return;
 						}
+
 					}
 
 					if (Math.abs(movedRatio.x) > 0.4){
-						if (movedRatio.x < 0 && $state.current.next){
-							el.parentNode.classList.remove('animation-direction-back');
-							el.parentNode.classList.remove('animation-direction-down');
-							el.parentNode.classList.remove('animation-direction-up');
+						if (movedRatio.x < 0 && directionManager.right){
+							transitionManager.setAnimationDirection('forward');
+							$state.go(directionManager.right.name, directionManager.right.params);
 
-							el.parentNode.classList.add('animation-direction-forward');
-							$state.go($state.current.next.name, $state.current.next.params);
+							offset.x = -width;
+							setPosition(200);
 							return;
-						} else if (movedRatio.x > 0 && $state.current.prev){
-							el.parentNode.classList.remove('animation-direction-forward');
-							el.parentNode.classList.remove('animation-direction-down');
-							el.parentNode.classList.remove('animation-direction-up');
+						} else if (movedRatio.x > 0 && directionManager.left){
+							transitionManager.setAnimationDirection('back');
+							$state.go(directionManager.left.name, directionManager.left.params);
 
-							el.parentNode.classList.add('animation-direction-back');
-							$state.go($state.current.prev.name, $state.current.prev.params);
+							offset.x = width;
+							setPosition(200);
 							return;
 						}
 					}
@@ -221,6 +215,7 @@ angular.module('imgurapp')
 				}
 
 
+				setPosition();
 				el.addEventListener('touchstart', dragStart);
 				el.addEventListener('touchmove', dragMove);
 				el.addEventListener('touchend', dragEnd);

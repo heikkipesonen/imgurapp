@@ -1,1 +1,5 @@
-<ui-view class="view view-animate" drag-view drag-y="true"></ui-view>
+<div class="view-background view-gallery-page" layout-center>
+	<h2 class="view-background-title view-forward-title" ng-bind="::Gallery.next"></h2>
+	<h2 class="view-background-title view-back-title" ng-bind="::Gallery.prev"></h2>
+</div>
+<ui-view class="view view-animate view-gallery-page" drag-view drag-y="true"></ui-view>

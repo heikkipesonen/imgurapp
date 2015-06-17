@@ -1,15 +1,16 @@
+<div class="view-background view-background-image">
+	<h3 class="view-background-title" ng-bind="Image.image.title"></h3>
+	<p class="view-background-text" ng-bind="Image.image.description"></p>
+</div>
 <div class="view view-image" scroll-y>
-	<div layout-center>
-		<div class="image-caption" ng-if="Image.image.images"><p ng-bind="Image.image.title"></p></div>
+	<h3 class="view-background-title" ng-bind="Image.image.title"></h3>
+	<p class="view-background-text" ng-bind="Image.image.description"></p>
 
-		<div ng-if="Image.image.images" class="image-wrapper" ng-repeat="(imageIndex, image) in Image.image.images track by imageIndex">
-			<div image-loader="image.link" style="height:0; padding-bottom: {{image.height / image.width * 100}}%"></div>
-			<div class="image-caption" ng-if="image.title"><p ng-bind="image.title"></p></div>
-		</div>
+	<div ng-if="Image.image.is_album" class="image-wrapper image-album">
+		<div image-grid="Image.thumbnails" thumbnail="true"></div>
+	</div>
 
-		<div ng-if="!Image.image.images" class="image-wrapper">
-			<div image-loader="Image.image.link" style="height:0; padding-bottom: {{Image.image.height / Image.image.width * 100}}%"></div>
-			<div class="image-caption" ng-if="Image.image.title"><p ng-bind="Image.image.title"></p></div>
-		</div>
+	<div ng-if="!Image.image.is_album" class="image-wrapper">
+		<div class="image-full" thumbnail="{{thumbnailSize}}" image-loader="Image.image.link" style="height:0; padding-bottom: {{Image.image.height / Image.image.width * 100}}%"></div>
 	</div>
 </div>
