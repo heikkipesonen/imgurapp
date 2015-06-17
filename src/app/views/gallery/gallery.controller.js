@@ -2,13 +2,13 @@
 
 'use strict';
 
-	function GalleryController(appConfig, $http, galleryImages, $state){
+	function GalleryController(appConfig, $http, galleryImages, $state, Utils){
 		/**
 		 * make thumbnails (add 's' on image file name)
 		 */
 		this.thumbnails = galleryImages.map(function(image){
 			return {
-				src:image.link.replace(image.id, image.id+'s'),
+				src: Utils.getThumbnail(image),
 				href: $state.href('gallery.image', {imageId: image.id})
 			};
 		});

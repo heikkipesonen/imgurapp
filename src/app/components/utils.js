@@ -9,8 +9,9 @@ angular.module('imgurapp')
 			size = size ? size : 's';
 			var parts = url.split('.');
 			var end = parts.splice(parts.length-2, 2);
+					end[0] += size;
 
-			return parts.join('.') + end[0] + size + '.' +  end[1];
+			return _.union(parts, end).join('.');
 		}
 
 	});

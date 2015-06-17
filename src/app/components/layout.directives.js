@@ -40,7 +40,7 @@ angular.module('imgurapp')
 
 					var isAtBottom = el.scrollTop >= el.scrollHeight - height - 1 && delta.y < 0;
 					var isAtTop = el.scrollTop < 2 && delta.y > 0;
-console.log(isAtTop,isAtBottom)
+
 					if ( Math.abs(delta.y) > Math.abs(delta.x) && !isAtTop && !isAtBottom ){
 						evt.stopPropagation();
 					}
