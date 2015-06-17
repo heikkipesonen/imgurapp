@@ -53,8 +53,11 @@ angular.module('imgurapp')
 			scope:{
 				imageGrid:'='
 			},
+			replace:true,
 			template:'<div class="image-grid">'+
-									'<div image-loader="image" ng-repeat="(imageIndex, image) in imageGrid track by imageIndex"></div>'+
+									'<a href="{{image.href}}" ng-repeat="(imageIndex, image) in imageGrid track by imageIndex">'+
+										'<div image-loader="image.src"></div>'+
+									'</a>'+
 								'</div>'
 		};
 	})

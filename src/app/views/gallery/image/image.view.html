@@ -1,15 +1,15 @@
-<div class="view view-image" scroll-y layout-center>
+<div class="view view-image" scroll-y>
+	<div layout-center>
+		<div class="image-caption" ng-if="Image.image.images"><p ng-bind="Image.image.title"></p></div>
 
-	<div class="image-caption" ng-if="Image.image.images"><p ng-bind="Image.image.title"></p></div>
+		<div ng-if="Image.image.images" class="image-wrapper" ng-repeat="(imageIndex, image) in Image.image.images track by imageIndex">
+			<div image-loader="image.link" style="height:0; padding-bottom: {{image.height / image.width * 100}}%"></div>
+			<div class="image-caption" ng-if="image.title"><p ng-bind="image.title"></p></div>
+		</div>
 
-	<div ng-if="Image.image.images" class="image-wrapper" ng-repeat="(imageIndex, image) in Image.image.images track by imageIndex">
-		<div image-loader="image.link" style="height:0; padding-bottom: {{image.height / image.width * 100}}%"></div>
-		<div class="image-caption" ng-if="image.title"><p ng-bind="image.title"></p></div>
+		<div ng-if="!Image.image.images" class="image-wrapper">
+			<div image-loader="Image.image.link" style="height:0; padding-bottom: {{Image.image.height / Image.image.width * 100}}%"></div>
+			<div class="image-caption" ng-if="Image.image.title"><p ng-bind="Image.image.title"></p></div>
+		</div>
 	</div>
-
-	<div ng-if="!Image.image.images" class="image-wrapper">
-		<div image-loader="Image.image.link" style="height:0; padding-bottom: {{Image.image.height / Image.image.width * 100}}%"></div>
-		<div class="image-caption" ng-if="Image.image.title"><p ng-bind="Image.image.title"></p></div>
-	</div>
-
 </div>
