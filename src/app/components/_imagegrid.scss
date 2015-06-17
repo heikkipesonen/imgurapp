@@ -1,13 +1,14 @@
 .image-grid{
 	width: 100%;
 	text-align: center;
+}
 
-	[image-loader]{
-		display: inline-block;
-		width: (100% / 3);
-		padding-bottom: (100% / 3);
-		height: 0px;
-	}
+
+.grid-image{
+	display: inline-block;
+	width: 25%;
+	padding-bottom: 25%;
+	height: 0px;
 }
 
 [image-loader]{

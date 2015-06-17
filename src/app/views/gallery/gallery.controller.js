@@ -2,7 +2,9 @@
 
 'use strict';
 
-	function GalleryController(appConfig, $http, galleryImages, $state, Utils){
+	function GalleryController($scope, $http, $stateParams, $state, galleryImages, Utils){
+		this.name = $stateParams.type + '/' + $stateParams.galleryId;
+
 		/**
 		 * make thumbnails (add 's' on image file name)
 		 */
@@ -13,8 +15,14 @@
 			};
 		});
 
-
+		// $scope.$on('drag.hold.up', function(){
+		// 	console.log('holdup')
+		// });
+		// $scope.$on('drag.hold.down', function(){
+		// 	console.log('holddownp')
+		// });
 		/**
+		 *
 		 * get next and prev items
 		 * yesyes array[0] and [1]
 		 */
@@ -38,6 +46,10 @@
 				imageId:prev.id
 			}
 		};
+
+		this.imageClick = function(image){
+			console.log(image);
+		}
 	}
 
 

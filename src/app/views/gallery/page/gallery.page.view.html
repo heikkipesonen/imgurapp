@@ -1,3 +1,6 @@
-<div class="view" scroll-y>
-	<div image-grid="Gallery.thumbnails"></div>
+<div class="view view-background">
+	<h2 class="view-background-title" ng-bind="Gallery.name"></h2>
+</div>
+<div class="view view-gallery" scroll-y>
+	<div image-grid="Gallery.thumbnails" image-click="Gallery.imageClick"></div>
 </div>

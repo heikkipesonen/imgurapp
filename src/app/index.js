@@ -8,25 +8,32 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
 		client_secret: '8ebf546494d982fdd5b9c4155218ab1ddd06cbbd'
 	})
 
-  .config(function ($stateProvider, $urlRouterProvider, $httpProvider, appConfig) {
 
-  	$httpProvider.defaults.headers.common.Authorization = 'Client-ID '+ appConfig.client_id;
+  .config(function ($stateProvider, $urlRouterProvider, $httpProvider, appConfig, imgurApiProvider) {
+    imgurApiProvider.client_id = appConfig.client_id;
+    imgurApiProvider.client_secret = appConfig.client_secret;
 
     $stateProvider
 
       .state('gallery', {
         url:'/:type/:galleryId',
       	resolve:{
+          subreddits:function($http){
+            return $http.get('app/subreddits.txt').then(function(response){
+              return _.map( response.data.split('\n') , function(subreddit){
+                return subreddit.replace('http://imgur.com/','');
+              });
+            });
+          },
+
           /**
            * fetch images from gallery
            * @param  {[type]} $http        [description]
            * @param  {[type]} $stateParams [description]
            * @return {promise}             gallery images
            */
-      		galleryImages:function($http, $stateParams){
-	      		return $http.get(appConfig.api +'/gallery/'+$stateParams.type + '/' + $stateParams.galleryId).then(function(response){
-              return response.data.data;
-						});
+      		galleryImages:function($http, $stateParams, imgurApi){
+            return imgurApi.getGallery($stateParams.type, $stateParams.galleryId);
       		}
       	},
         controller: 'GalleryController',

@@ -1,0 +1,22 @@
+button{
+	outline: none;
+	background-color: transparent;
+	border: none;
+	font-size: inherit;
+	font-family: inherit;
+	text-transform: uppercase;
+	border-radius: 0;
+	color: inherit;
+	padding: 10px;
+
+	&:focus, &:hover, &:active{
+		border:inherit;
+		outline: inherit;
+		background-color: inherit;
+	}
+}
+
+button.ghost{
+	border: 2px solid white;
+	color: white;
+}
