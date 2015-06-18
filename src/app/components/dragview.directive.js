@@ -2,41 +2,19 @@
 
 angular.module('imgurapp')
 
-	.factory('rectangle', function(){
-		function Rectangle(x,y,width,height){
-			this.x = x || 0;
-			this.y = y || 0;
-			this.width = width || 0;
-			this.height = height || 0;
-		}
-
-		Rectangle.prototype = {
-			contains:function(point){
-				return this.x + this.width >= point.x && this.y + this.height >= point.y;
-			},
-
-			intersects:function(rectangle){
-				return 	this.contains({x:rectangle.x, y:rectangle.y }) ||
-								this.contains({x:rectangle.x + rectangle.width, y:rectangle.y + rectangle.height });
-			}
-		};
-	})
-
 	.directive('dragView', function($q, $timeout, $state, transitionManager, directionManager){
 		return {
 			restrict:'A',
-			link:function($scope, $element, $attrs){
+			link:function($scope, $element){
 				var el = $element[0];
 				var offset = {x:0, y:0};
 				var delta = {x:0, y:0};
 				var lastEvent = false;
 				var width = null;
 				var height = null;
-				var dragy = $attrs.dragY === 'true';
+				// var dragy = $attrs.dragY === 'true';
 				var direction = null;
 				var timer = false;
-
-				var scrollOver = false;
 
 				/**
 				 * get cursor position from touch and mouse event
@@ -173,13 +151,18 @@ angular.module('imgurapp')
 				 * @param  {mouseevent} evt
 				 * @return {void}
 				 */
-				function dragEnd(evt){
+				function dragEnd(){
 					endTimer();
 					lastEvent = false;
 
 					var movedRatio = {x: offset.x / width, y: offset.y / height };
 
+
+					/**
+					 * decide action when dragging has stopped
+					 */
 					if (Math.abs(movedRatio.y) > 0.4){
+						// if drag was down
 						if (movedRatio.y < 0 && directionManager.down){
 							transitionManager.setAnimationDirection('down');
 							$state.go(directionManager.down.name, directionManager.down.params);
@@ -187,7 +170,7 @@ angular.module('imgurapp')
 							offset.y = -height;
 							setPosition(200);
 							return;
-						} else if (movedRatio.y > 0 && directionManager.up){
+						} else if (movedRatio.y > 0 && directionManager.up){ // drag was up
 							transitionManager.setAnimationDirection('up');
 							$state.go(directionManager.up.name, directionManager.up.params);
 
@@ -198,6 +181,7 @@ angular.module('imgurapp')
 
 					}
 
+					// left and right dragging
 					if (Math.abs(movedRatio.x) > 0.4){
 						if (movedRatio.x < 0 && directionManager.right){
 							transitionManager.setAnimationDirection('forward');
@@ -227,6 +211,7 @@ angular.module('imgurapp')
 				el.addEventListener('touchmove', dragMove);
 				el.addEventListener('touchend', dragEnd);
 
+				// remove event listeners when view is destroyed
 				$scope.$on('$destroy', function(){
 					el.removeEventListener('touchstart', dragStart);
 					el.removeEventListener('touchmove', dragMove);

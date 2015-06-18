@@ -17,11 +17,26 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
       .state('root', {
         abstract:true,
         resolve:{
-          galleries:function(imgurApi){
-            return imgurApi.getGalleries();
+          galleries:function(imgurApi, $q){
+            var d = $q.defer();
+            imgurApi.getGalleries().then(function(success){
+              d.resolve(success);
+              return success;
+            }, function(){
+              d.resolve([]);
+            });
+
+            return d.promise;
           }
         },
         templateUrl:'app/views/root/root.view.html'
+      })
+
+      .state('root.home',{
+        url:'/',
+        templateUrl:'app/views/home/home.view.html',
+        controller:'HomeController',
+        controllerAs:'Home'
       })
 
       .state('root.gallery', {
@@ -78,7 +93,7 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
            * @param  {[type]} $q            [description]
            * @return {[type]}               [description]
            */
-      		image:function(galleryImages, $stateParams, $q){
+      		image:function(galleryImages, $stateParams){
             return _.find(galleryImages, {id: $stateParams.imageId});
       		},
 
@@ -106,9 +121,41 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
       	controllerAs:'Image',
       	templateUrl: 'app/views/gallery/image/image.view.html',
       })
+
+    .state('root.gallery.album', {
+      url:'/:imageId/:albumImageId',
+      controller:'ImageAlbumController',
+      controllerAs:'Album',
+      templateUrl: 'app/views/gallery/image/album/image.album.view.html',
+
+      resolve:{
+        album:function($stateParams, galleryImages, imgurApi){
+          var inCache = _.find(galleryImages, { id:$stateParams.imageId });
+            console.log(inCache)
+
+          if (!inCache.images){
+            return imgurApi.getAlbum($stateParams.imageId);
+          } else {
+            return inCache;
+          }
+        },
+
+        albumImage:function($stateParams, album){
+          return _.find(album.images, {id : $stateParams.albumImageId });
+        },
+
+        nextAlbumImage:function(album, albumImage, Utils){
+          return Utils.nextItem(album.images, albumImage);
+        },
+
+        prevAlbumImage:function(album, albumImage, Utils){
+          return Utils.prevItem(album.images, albumImage);
+        }
+      }
+    })
       ;
 
-      $urlRouterProvider.otherwise('/hot/viral/gallery');
+      $urlRouterProvider.otherwise('/');
   })
 
 

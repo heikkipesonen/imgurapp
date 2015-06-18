@@ -2,7 +2,7 @@
 
 angular.module('imgurapp')
 
-.service('Utils', function(){
+.service('Utils', function($state){
 	angular.extend(this, {
 
 		findClosest:function(array, value){
@@ -19,6 +19,14 @@ angular.module('imgurapp')
 					end[0] += size;
 
 			return _.union(parts, end).join('.');
+		},
+
+		getGalleryLink:function(name){
+			var parts = name.split('/');
+			return $state.href('root.gallery.page',{
+				type:parts[0],
+				galleryId:parts[1]
+			});
 		},
 
 		nextItem : function(array, item){

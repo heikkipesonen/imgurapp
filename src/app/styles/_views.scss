@@ -1,3 +1,5 @@
+$view-header-height: 120px;
+
 [layout-center]{
 	display: table;
 	height: 100%;
@@ -18,6 +20,9 @@
 	bottom: 0;
 }
 
+.view-header-offset{
+	height: $view-header-height;
+}
 
 .view-background{
 	@extend .view;
@@ -35,7 +40,7 @@
 .view-background-title{
 	@extend .view-background-text;
 	padding:0;
-	line-height: 120px;
+	line-height: $view-header-height;
 }
 
 // (c) liljeblad

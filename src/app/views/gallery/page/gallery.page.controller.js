@@ -18,7 +18,6 @@
 		});
 
 
-
 		/**
 		 * state link object
 		 * @type {Object}
@@ -50,7 +49,10 @@
 			directionManager.set('down');
 		}
 
-		directionManager.set('up');
+		directionManager.set('up', {
+			name:'root.home',
+			params:{}
+		});
 	}
 
 

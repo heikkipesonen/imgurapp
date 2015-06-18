@@ -7,6 +7,9 @@
 	background-color: white;
 }
 .view-image{
+	.view-background-text{
+		opacity:0;
+	}
 	.view-background-title{
 		opacity:0;
 		padding: 30px;
@@ -19,8 +22,8 @@
 	}
 
 	.grid-image{
-		width: (100%/3);
-		padding-bottom: (100%/3);
+		width: (100%/3) -1%;
+		padding-bottom: (100%/3) -1%;
 	}
 
 	.image-full{

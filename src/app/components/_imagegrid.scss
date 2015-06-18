@@ -6,19 +6,21 @@
 
 .grid-image{
 	display: inline-block;
-	width: 25%;
-	padding-bottom: 25%;
+	margin:0.5%;
+	width: 24%;
+	padding-bottom: 24%;
 	height: 0px;
 }
 
 [image-loader]{
-	background-color: #ddd;
+	background-color: #EFEFEF;
 	background-size: cover;
 	background-repeat: no-repeat;
+	background-position: center center;
 	overflow: hidden;
 
 	&.image-loading{
-		opacity:0.3;
+		opacity:0.8;
 	}
 
 	&.image-ready{

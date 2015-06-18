@@ -23,6 +23,7 @@ angular.module('imgurapp')
 				el.addEventListener('touchstart', function(evt){
 					height = el.offsetHeight;
 
+
 					if (height < el.scrollHeight && el.scrollTop === 0){
 						el.scrollTop = 1;
 					} else if (height < el.scrollHeight && el.scrollTop === el.scrollHeight - height){

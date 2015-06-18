@@ -1,0 +1,12 @@
+<div class="view-background view-background-image view-background-image-album">
+	<h3 class="view-background-title" ng-bind="Album.image.title"></h3>
+	<p ng-if="Album.image.description" class="view-background-text" ng-bind="Album.image.description"></p>
+</div>
+<div class="view view-image" scroll-y>
+	<h3 class="view-background-title" ng-bind="Album.image.title"></h3>
+	<p ng-if="Album.image.description" class="view-background-text" ng-bind="Album.image.description"></p>
+
+	<div class="image-wrapper">
+		<div class="image-full" thumbnail="{{Album.imageSize.name}}" image-loader="Album.image.link" style="height:0; padding-bottom: {{Album.image.height / Album.image.width * 100}}%"></div>
+	</div>
+</div>

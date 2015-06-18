@@ -1,5 +1,8 @@
-<div class="view">
-	<div layout-center>
-		<h2 ui-sref="root.gallery">G</h2>
-	</div>
+<div class="view-background view-list-background">
+	<h3 class="view-background-title">List of galleries</h3>
+</div>
+
+<div class="view" scroll-y>
+	<div class="view-header-offset"></div>
+	<a class="list-item" ng-href="{{gallery.href}}" ng-repeat="(GalleryIndex, gallery) in Home.galleries" ng-bind="gallery.url"></a>
 </div>

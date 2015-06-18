@@ -1,0 +1,14 @@
+.list{
+	list-style-type: none;
+
+}
+
+.list-item{
+	display: block;
+	padding: 15px 15px;
+	text-align: center;
+
+	&:not(:last-of-type){
+		border-bottom: 1px solid #eee;
+	}
+}

@@ -34,12 +34,12 @@ angular.module('imgurapp')
 						loadComplete();
 					};
 
-					img.onError = function(){
+					img.onerror = function(){
 						loadComplete();
 					};
 
-					if (/\.(gif|jpg|jpeg|png)$/i.test($scope.imageLoader)){
-						if ($attrs.thumbnail !== ''){
+					if ( /\.(gif|jpg|jpeg|png)$/i.test($scope.imageLoader)){
+						if ($attrs.thumbnail && $attrs.thumbnail !== ''){
 							img.src = imgurApi.getThumbnail($scope.imageLoader, $attrs.thumbnail);
 						} else {
 							img.src = $scope.imageLoader;
