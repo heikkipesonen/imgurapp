@@ -1,18 +1,26 @@
 
+.view-image-title{
+	font-size: 14pt;
+}
+
+.view-image-text{
+	font-size: 10pt;
+}
+
 .view-background-image{
 	.view-background-title{
-		padding: 30px;
+		padding: 30px 15px;
 		line-height: initial;
 	}
 	background-color: white;
 }
 .view-image{
-	.view-background-text{
+	.view-image-text{
 		opacity:0;
 	}
-	.view-background-title{
+	.view-image-title{
 		opacity:0;
-		padding: 30px;
+		padding: 30px 15px;
 		line-height: initial;
 	}
 

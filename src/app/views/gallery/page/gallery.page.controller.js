@@ -6,7 +6,6 @@
 		this.name = $stateParams.type + '/' + $stateParams.galleryId;
 		this.next = nextGallery;
 		this.prev = prevGallery;
-
 		this.thumbnailSize = imgurApi.findThumbnail( window.innerWidth * window.devicePixelRatio / 4 );
 
 		/**

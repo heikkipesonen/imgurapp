@@ -62,7 +62,7 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
       	},
         templateUrl: 'app/views/gallery/gallery.view.html',
         abstract:true,
-        controller: 'GalleryPageController',
+        controller: 'GalleryController',
         controllerAs: 'Gallery',
       })
 

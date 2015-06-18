@@ -1,11 +1,11 @@
 <div class="view-background view-background-image">
-	<h3 class="view-background-title" ng-bind="Image.image.title"></h3>
-	<p ng-if="Image.image.description" class="view-background-text" ng-bind="Image.image.description"></p>
+	<h3 class="view-background-title view-image-title" ng-bind="Image.image.title"></h3>
+	<p class="view-background-text view-image-text" ng-if="Image.image.description" ng-bind="Image.image.description"></p>
 </div>
 
 <div class="view view-image" scroll-y>
-	<h3 class="view-background-title" ng-bind="Image.image.title"></h3>
-	<p ng-if="Image.image.description" class="view-background-text" ng-bind="Image.image.description"></p>
+	<h3 class="view-background-title view-image-title" ng-bind="Image.image.title"></h3>
+	<p  class="view-background-text view-image-text" ng-if="Image.image.description" ng-bind="Image.image.description"></p>
 
 	<div ng-if="!Image.image.is_album" class="image-wrapper">
 		<div class="image-full" thumbnail="{{Image.imageSize.name}}" image-loader="Image.image.link" style="height:0; padding-bottom: {{Image.image.height / Image.image.width * 100}}%"></div>
