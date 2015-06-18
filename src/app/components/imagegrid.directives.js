@@ -44,7 +44,8 @@ angular.module('imgurapp')
 						} else {
 							img.src = $scope.imageLoader;
 						}
-
+					} else {
+						img.src = null;
 					}
 
 				}

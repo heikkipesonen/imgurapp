@@ -2,10 +2,12 @@
 
 'use strict';
 
-	function GalleryPageController($scope, $http, $stateParams, $state, $timeout, galleryImages, Utils, nextGallery, prevGallery, directionManager){
+	function GalleryPageController($scope, $http, $stateParams, $state, $timeout, imgurApi, galleryImages, Utils, nextGallery, prevGallery, directionManager){
 		this.name = $stateParams.type + '/' + $stateParams.galleryId;
 		this.next = nextGallery;
 		this.prev = prevGallery;
+
+		this.thumbnailSize = imgurApi.findThumbnail( window.innerWidth * window.devicePixelRatio / 4 );
 
 		/**
 		 * make thumbnails (add 's' on image file name)

@@ -37,6 +37,19 @@ h Huge Thumbnail  1024x1024 Yes
             });
           },
 
+          findLargerThumbnail:function(size){
+            var result = this.findThumbnail(size);
+
+            for (var i in this.thumbnails){
+              if (this.thumbnails[i].size >= size){
+                result = this.thumbnails[i];
+                break;
+              }
+            }
+
+            return result;
+          },
+
           /**
            * get data over http with imgur auth headers
            * @param  {string} url

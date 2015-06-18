@@ -36,6 +36,8 @@ angular.module('imgurapp')
 				var direction = null;
 				var timer = false;
 
+				var scrollOver = false;
+
 				/**
 				 * get cursor position from touch and mouse event
 				 * @param  {event} evt
@@ -115,50 +117,54 @@ angular.module('imgurapp')
 				function dragMove(evt){
 					var currentPosition = getCursor(evt);
 
-					var stepx = currentPosition.x - lastEvent.x;
-					var stepy = currentPosition.y - lastEvent.y;
+					if (lastEvent){
+						var stepx = currentPosition.x - lastEvent.x;
+						var stepy = currentPosition.y - lastEvent.y;
 
-					delta.x += stepx;
-					delta.y += stepy;
+						delta.x += stepx;
+						delta.y += stepy;
 
-					/**
-					 * decide scroll direction after first event
-					 */
-					if (direction === null && Math.abs(delta.x) > Math.abs(delta.y)){
-						direction = 'x';
-					} else if (direction === null && Math.abs(delta.y) > Math.abs(delta.x)){
-						direction = 'y';
-					}
-					// when direction is clear, proceed blocking the events
-					if (direction !== null){
-						evt.stopPropagation();
-						evt.preventDefault();
+						/**
+						 * decide scroll direction after first event
+						 */
+						if (direction === null && Math.abs(delta.x) > Math.abs(delta.y)){
+							direction = 'x';
+						} else if (direction === null && Math.abs(delta.y) > Math.abs(delta.x)){
+							direction = 'y';
+						}
+						// when direction is clear, proceed blocking the events
+						if (direction !== null){
+							evt.stopPropagation();
+							evt.preventDefault();
 
-						if (direction === 'x'){
+							if (direction === 'x'){
 
-							// if nothing can be get from the side, apply rubberband-like tension
-							if ( (!directionManager.left && stepx > 0 && offset.x > 0 ) || (!directionManager.right && stepx < 0 && offset.x < 0)){
-								stepx = stepx*0.3;
-								startTimer().then(function(side){
-									$scope.$emit('drag.hold.'+side);
-								});
+								// if nothing can be get from the side, apply rubberband-like tension
+								if ( (!directionManager.left && stepx > 0 && offset.x > 0 ) || (!directionManager.right && stepx < 0 && offset.x < 0)){
+									stepx = stepx*0.3;
+									startTimer().then(function(side){
+										$scope.$emit('drag.hold.'+side);
+									});
+								}
+
+								offset.x += stepx;
+							} else if (direction === 'y'){
+								if ( (!directionManager.up && stepy > 0 && offset.y > 0) || (!directionManager.down && stepy < 0 && offset.y < 0)){
+									stepy = stepy*0.3;
+									startTimer().then(function(side){
+										$scope.$emit('drag.hold.'+side);
+									});
+								}
+								offset.y += stepy;
 							}
 
-							offset.x += stepx;
-						} else if (direction === 'y'){
-							if ( (!directionManager.up && stepy > 0 && offset.y > 0) || (!directionManager.down && stepy < 0 && offset.y < 0)){
-								stepy = stepy*0.3;
-								startTimer().then(function(side){
-									$scope.$emit('drag.hold.'+side);
-								});
-							}
-							offset.y += stepy;
+							setPosition();
 						}
 
-						setPosition();
+						lastEvent = currentPosition;
+					} else {
+						dragStart(evt);
 					}
-
-					lastEvent = currentPosition;
 				}
 
 
@@ -169,6 +175,7 @@ angular.module('imgurapp')
 				 */
 				function dragEnd(evt){
 					endTimer();
+					lastEvent = false;
 
 					var movedRatio = {x: offset.x / width, y: offset.y / height };
 
