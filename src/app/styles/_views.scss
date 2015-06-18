@@ -26,12 +26,10 @@ $view-header-height: 120px;
 
 .view-background{
 	@extend .view;
-	background-color: white;
 }
 
 .view-background-text{
 	display: block;
-	color: #666;
 	font-weight: 100;
 	text-align: center;
 	padding: 10px 15px;
@@ -39,13 +37,9 @@ $view-header-height: 120px;
 
 .view-background-title{
 	@extend .view-background-text;
-	padding:0;
-	line-height: $view-header-height;
 }
 
 // (c) liljeblad
-
-
 $view-transition-duration: 0.4s;
 .view-animate{
 	&.ng-animate{

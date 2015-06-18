@@ -96,9 +96,12 @@ angular.module('imgurapp')
 					var currentPosition = getCursor(evt);
 
 					if (lastEvent){
+
+						// step distance from last event
 						var stepx = currentPosition.x - lastEvent.x;
 						var stepy = currentPosition.y - lastEvent.y;
 
+						// current event distance
 						delta.x += stepx;
 						delta.y += stepy;
 
@@ -120,6 +123,11 @@ angular.module('imgurapp')
 								// if nothing can be get from the side, apply rubberband-like tension
 								if ( (!directionManager.left && stepx > 0 && offset.x > 0 ) || (!directionManager.right && stepx < 0 && offset.x < 0)){
 									stepx = stepx*0.3;
+								}
+
+								// detect hold event on horizontal axis
+								// the page has been dragged and held (touch event does not end)
+								if (stepx > 0 && offset.x > 0 ||  stepx < 0 && offset.x < 0){
 									startTimer().then(function(side){
 										$scope.$emit('drag.hold.'+side);
 									});
@@ -129,10 +137,15 @@ angular.module('imgurapp')
 							} else if (direction === 'y'){
 								if ( (!directionManager.up && stepy > 0 && offset.y > 0) || (!directionManager.down && stepy < 0 && offset.y < 0)){
 									stepy = stepy*0.3;
+								}
+
+								// detect hold event on vertical  axis
+								if (stepy > 0 && offset.y > 0 ||  stepy < 0 && offset.y < 0){
 									startTimer().then(function(side){
-										$scope.$emit('drag.hold.'+side);
+										console.log(side);
 									});
 								}
+
 								offset.y += stepy;
 							}
 
@@ -155,6 +168,8 @@ angular.module('imgurapp')
 					endTimer();
 					lastEvent = false;
 
+					// ratio of page dimensios related to drag distance
+					// used for calulcating if page should be changed
 					var movedRatio = {x: offset.x / width, y: offset.y / height };
 
 
@@ -165,14 +180,14 @@ angular.module('imgurapp')
 						// if drag was down
 						if (movedRatio.y < 0 && directionManager.down){
 							transitionManager.setAnimationDirection('down');
-							$state.go(directionManager.down.name, directionManager.down.params);
+							directionManager.go('down');
 
 							offset.y = -height;
 							setPosition(200);
 							return;
 						} else if (movedRatio.y > 0 && directionManager.up){ // drag was up
 							transitionManager.setAnimationDirection('up');
-							$state.go(directionManager.up.name, directionManager.up.params);
+							directionManager.go('up');
 
 							offset.y = height;
 							setPosition(200);
@@ -185,14 +200,14 @@ angular.module('imgurapp')
 					if (Math.abs(movedRatio.x) > 0.4){
 						if (movedRatio.x < 0 && directionManager.right){
 							transitionManager.setAnimationDirection('forward');
-							$state.go(directionManager.right.name, directionManager.right.params);
+							directionManager.go('right');
 
 							offset.x = -width;
 							setPosition(200);
 							return;
 						} else if (movedRatio.x > 0 && directionManager.left){
 							transitionManager.setAnimationDirection('back');
-							$state.go(directionManager.left.name, directionManager.left.params);
+							directionManager.go('left');
 
 							offset.x = width;
 							setPosition(200);

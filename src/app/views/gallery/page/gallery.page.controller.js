@@ -4,6 +4,7 @@
 
 	function GalleryPageController($scope, $http, $stateParams, $state, $timeout, imgurApi, galleryImages, Utils, nextGallery, prevGallery, directionManager){
 		this.name = $stateParams.type + '/' + $stateParams.galleryId;
+		console.log(this.name)
 		this.next = nextGallery;
 		this.prev = prevGallery;
 		this.thumbnailSize = imgurApi.findThumbnail( window.innerWidth * window.devicePixelRatio / 4 );

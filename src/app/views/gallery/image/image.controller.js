@@ -10,10 +10,16 @@
 		this.imageSize = null;
 		this.thumbnailSize = imgurApi.findThumbnail(window.innerWidth/3);
 
-		if (!this.image.animated){
+		// check if image is not na animation, if it is do not resize
+		// else get suitable thumbnail for screen size
+		if (this.image && !this.image.animated){
+			// if image has outragous aspect ratio
 			if (this.image.height > this.image.width * 2){
+
+				// find almost correct image from api image sizes
 				this.imageSize = imgurApi.findThumbnail(window.innerHeight);
 
+				// if image has horrible aspect ratio, get the original one
 				if (this.imageSize.width / this.image.height * this.image.width < window.innerWidth){
 					this.imageSize = null;
 				}
@@ -22,10 +28,14 @@
 			}
 		}
 
-		if (this.image.is_album){
+
+		// if this is an album, not an image, then album is fetched from imgur api
+		if (this.image && this.image.is_album){
 			imgurApi.getAlbum(image.id).then(function(album){
 				me.images = image.images = album.images;
 
+				// set down as available drag direction to reveal
+				// gallery contents as images
 				directionManager.set('down', {
 					name:'root.gallery.album',
 					params:{
@@ -37,6 +47,8 @@
 			});
 		}
 
+
+		// setup available directions for dragging
 		directionManager.set('up',{
 			name:'root.gallery.page',
 			params:{

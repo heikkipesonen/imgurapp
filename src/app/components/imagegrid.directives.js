@@ -31,7 +31,10 @@ angular.module('imgurapp')
 					img = new Image();
 
 					img.onload = function(){
+						setTimeout(function(){
+
 						loadComplete();
+					}, Math.random()*300)
 					};
 
 					img.onerror = function(){

@@ -1,0 +1,28 @@
+body{
+	background-color: #2A41B3;
+}
+
+.view-colored{
+	background-color: #2A41B3;
+}
+
+.view-image-title{
+	height: 60px;
+	line-height: 50px;
+	color: white;
+	font-size: 20pt;
+}
+
+.view-image-title-offset{
+	height: 80px;
+	background-image: url('../assets/gradient-image-view.png');
+	background-size: 1px 24px;
+	background-position: left bottom;
+	background-repeat: repeat-x;
+}
+
+.view-image-title.view-title-large, .view-image-title-offset.view-title-large{
+	height: 200px;
+	line-height: 200px;
+	background-size: 1px 64px;
+}

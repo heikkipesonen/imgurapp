@@ -1,6 +1,9 @@
-<div class="view view-background">
-	<h2 class="view-background-title view-gallery-title" ng-bind="::GalleryPage.name"></h2>
+<div class="view view-background view-gallery-title">
+	<h2 class="view-background-title view-image-title view-title-large" ng-bind="::GalleryPage.name"></h2>
 </div>
 <div class="view view-gallery" scroll-y="Gallery.scroll">
-	<div image-grid="GalleryPage.thumbnails" thumbnail="{{GalleryPage.thumbnailSize.name}}"></div>
+	<div class="view-image-title-offset view-title-large"></div>
+	<div class="view-content view-colored">
+		<div image-grid="GalleryPage.thumbnails" thumbnail="{{GalleryPage.thumbnailSize.name}}"></div>
+	</div>
 </div>
