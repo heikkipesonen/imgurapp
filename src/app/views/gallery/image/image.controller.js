@@ -8,7 +8,7 @@
 		this.image = image;
 		this.thumbnails = [];
 		this.imageSize = null;
-		this.thumbnailSize = imgurApi.findThumbnail(window.innerWidth/3);
+		this.thumbnailSize = imgurApi.findThumbnail(window.innerWidth * window.devicePixelRatio /3);
 
 		// check if image is not na animation, if it is do not resize
 		// else get suitable thumbnail for screen size
@@ -31,6 +31,7 @@
 
 		// if this is an album, not an image, then album is fetched from imgur api
 		if (this.image && this.image.is_album){
+			console.log('ye')
 			imgurApi.getAlbum(image.id).then(function(album){
 				me.images = image.images = album.images;
 

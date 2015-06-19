@@ -18,6 +18,7 @@ $view-header-height: 120px;
 	left:0;
 	right: 0;
 	bottom: 0;
+	overflow: hidden;
 }
 
 .view-header-offset{
@@ -28,16 +29,7 @@ $view-header-height: 120px;
 	@extend .view;
 }
 
-.view-background-text{
-	display: block;
-	font-weight: 100;
-	text-align: center;
-	padding: 10px 15px;
-}
 
-.view-background-title{
-	@extend .view-background-text;
-}
 
 // (c) liljeblad
 $view-transition-duration: 0.4s;

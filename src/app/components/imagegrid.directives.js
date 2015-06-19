@@ -4,6 +4,7 @@ angular.module('imgurapp')
 
 	.directive('imageLoader', function(imgurApi){
 		return {
+			restrict:'A',
 			scope:{
 				imageLoader:'='
 			},
@@ -31,10 +32,7 @@ angular.module('imgurapp')
 					img = new Image();
 
 					img.onload = function(){
-						setTimeout(function(){
-
 						loadComplete();
-					}, Math.random()*300)
 					};
 
 					img.onerror = function(){
@@ -63,10 +61,12 @@ angular.module('imgurapp')
 
 	.directive('imageGrid', function(){
 		return {
+			restrict:'A',
 			scope:{
-				imageGrid:'='
+				imageGrid:'=',
+				thumbnail:'@'
 			},
-			replace:true,
-			template:'<a ng-href="{{::image.href}}" class="grid-image" image-loader="::image.link"  ng-repeat="(imageIndex, image) in imageGrid track by imageIndex"></a>'
+
+			template:'<a ng-href="{{::image.href}}" class="grid-image" image-loader="::image.link" thumbnail="{{thumbnail}}"  ng-repeat="(imageIndex, image) in imageGrid track by image.id"></a>'
 		};
 	})
