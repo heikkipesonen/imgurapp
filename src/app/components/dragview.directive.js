@@ -2,7 +2,7 @@
 
 angular.module('imgurapp')
 
-	.directive('dragView', function($q, $timeout, $state, transitionManager, directionManager){
+	.directive('dragView', function($q, $timeout, $state, transitionManager, directionManager, Utils){
 		return {
 			restrict:'A',
 			link:function($scope, $element){
@@ -15,19 +15,9 @@ angular.module('imgurapp')
 				// var dragy = $attrs.dragY === 'true';
 				var direction = null;
 				var timer = false;
+				var velocity = {x:0,y:0}; // current event velocity (px/ms)
 
-				/**
-				 * get cursor position from touch and mouse event
-				 * @param  {event} evt
-				 * @return {object} {x: int, y: int}
-				 */
-				function getCursor(evt){
-					if (evt.touches.length > 0){
-						return {x:evt.touches[0].pageX,y:evt.touches[0].pageY};
-					} else {
-						return {x:evt.pageX,y:evt.pageY};
-					}
-				}
+
 
 				/**
 				 * set element position (translate)
@@ -69,7 +59,9 @@ angular.module('imgurapp')
 				}
 
 				/**
-				 * draggin started
+				 * dragging started
+				 *
+				 * reset all required variables and calculate widths & heights of the draggable element
 				 * @param  {mouse event} evt
 				 * @return {void}
 				 */
@@ -77,9 +69,11 @@ angular.module('imgurapp')
 					var style = window.getComputedStyle(el);
 					width = _.parseInt( style.width );
 					height = _.parseInt( style.height );
-					lastEvent = getCursor(evt);
+					lastEvent = Utils.getCursor(evt);
 					delta.x = 0;
 					delta.y = 0;
+					velocity.x = 0;
+					velocity.y = 0;
 					direction = null;
 				}
 
@@ -89,7 +83,7 @@ angular.module('imgurapp')
 				 * @return {void}
 				 */
 				function dragMove(evt){
-					var currentPosition = getCursor(evt);
+					var currentPosition = Utils.getCursor(evt);
 
 					if (lastEvent){
 
@@ -97,13 +91,17 @@ angular.module('imgurapp')
 						var stepx = currentPosition.x - lastEvent.x;
 						var stepy = currentPosition.y - lastEvent.y;
 
+						// step velocity
+						velocity.x = stepx / (currentPosition.timeStamp - lastEvent.timeStamp);
+						velocity.y = stepy / (currentPosition.timeStamp - lastEvent.timeStamp);
+
 						// current event distance
 						delta.x += stepx;
 						delta.y += stepy;
 
-						/**
-						 * decide scroll direction after first event
-						 */
+
+						//decide scroll direction after first event
+
 						if (direction === null && Math.abs(delta.x) > Math.abs(delta.y)){
 							direction = 'x';
 						} else if (direction === null && Math.abs(delta.y) > Math.abs(delta.x)){
@@ -166,7 +164,7 @@ angular.module('imgurapp')
 					/**
 					 * decide action when dragging has stopped
 					 */
-					if (Math.abs(movedRatio.y) > 0.4){
+					if (Math.abs(movedRatio.y) > 0.4 || Math.abs(velocity.y) > 1){
 						// if drag was down
 						if (movedRatio.y < 0 && directionManager.down){
 							transitionManager.setAnimationDirection('down');
@@ -187,7 +185,7 @@ angular.module('imgurapp')
 					}
 
 					// left and right dragging
-					if (Math.abs(movedRatio.x) > 0.4){
+					if (Math.abs(movedRatio.x) > 0.4 || Math.abs(velocity.x) > 1){
 						if (movedRatio.x < 0 && directionManager.right){
 							transitionManager.setAnimationDirection('forward');
 							directionManager.go('right');
@@ -204,6 +202,9 @@ angular.module('imgurapp')
 							return;
 						}
 					}
+
+					velocity.x = 0;
+					velocity.y = 0;
 
 					offset.x = 0;
 					offset.y = 0;

@@ -12,9 +12,9 @@ angular.module('imgurapp')
 		 */
 		getCursor:function(evt){
 			if (evt.touches.length > 0){
-				return {x:evt.touches[0].pageX,y:evt.touches[0].pageY};
+				return {x:evt.touches[0].pageX, y:evt.touches[0].pageY, timeStamp:evt.timeStamp};
 			} else {
-				return {x:evt.pageX,y:evt.pageY};
+				return {x:evt.pageX, y:evt.pageY, timeStamp:evt.timeStamp};
 			}
 		},
 
