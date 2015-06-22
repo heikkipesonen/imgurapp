@@ -2,7 +2,7 @@
 
 'use strict';
 
-	function ImageAlbumController($state, $stateParams, album, albumImage, nextAlbumImage, prevAlbumImage, imgurApi, directionManager){
+	function AlbumImageController($state, $stateParams, album, albumImage, nextAlbumImage, prevAlbumImage, imgurApi, directionManager){
 
 		this.album = album;
 		this.image = albumImage;
@@ -46,8 +46,8 @@
 		directionManager.set('down', null);
 	}
 
-	ImageAlbumController.prototype = {};
+	AlbumImageController.prototype = {};
 
 	angular.module('imgurapp')
-	  .controller('ImageAlbumController', ImageAlbumController);
+	  .controller('AlbumImageController', AlbumImageController);
 })();
