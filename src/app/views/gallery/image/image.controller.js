@@ -4,7 +4,7 @@
 
 	function ImageController(image, $state, $stateParams, nextImage, prevImage, imgurApi, directionManager){
 		var me = this;
-console.log(image);
+
 		this.image = image;
 		this.thumbnails = [];
 		this.imageSize = null;
@@ -31,7 +31,6 @@ console.log(image);
 
 		// if this is an album, not an image, then album is fetched from imgur api
 		if (this.image && this.image.is_album){
-			console.log('ye')
 			imgurApi.getAlbum(image.id).then(function(album){
 				me.images = image.images = album.images;
 
@@ -76,7 +75,7 @@ console.log(image);
 	}
 
 	ImageController.prototype = {
-	}
+	};
 
 	angular.module('imgurapp')
 	  .controller('ImageController', ImageController);

@@ -3,13 +3,17 @@
 'use strict';
 
 	function GalleryPageController($scope, $http, $stateParams, $state, $timeout, imgurApi, galleryImages, Utils, nextGallery, prevGallery, directionManager){
+
+		// name displayed on galleri page
 		this.name = $stateParams.type + '/' + $stateParams.galleryId;
 
+		// next and previous gallery page
 		this.next = nextGallery;
 		this.prev = prevGallery;
 
+		// thumbnail images for gallery, take account devicePixelRatio
 		this.thumbnailSize = imgurApi.findThumbnail( window.innerWidth * window.devicePixelRatio / 4 );
-console.log(this.thumbnailSize)
+
 		/**
 		 * make thumbnails (add 's' on image file name)
 		 */
@@ -59,7 +63,7 @@ console.log(this.thumbnailSize)
 
 	GalleryPageController.prototype = {
 
-	}
+	};
 
 	angular.module('imgurapp')
 	  .controller('GalleryPageController', GalleryPageController);

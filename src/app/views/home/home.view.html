@@ -3,7 +3,7 @@
 </div>
 <div class="view" scroll-y="Root.homeScroll">
 	<div class="view-gallery-title-offset"></div>
-	<div class="view-colored">
-		<a class="list-item" ng-href="{{gallery.href}}" ng-repeat="(GalleryIndex, gallery) in Home.galleries" ng-bind="gallery.url"></a>
+	<div class="view-colored" slide-list>
+		<a class="list-item" slide-item="x" ng-href="{{gallery.href}}" ng-repeat="(GalleryIndex, gallery) in Home.galleries" ng-bind="gallery.url"></a>
 	</div>
 </div>

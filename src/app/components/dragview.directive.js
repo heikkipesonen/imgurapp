@@ -62,7 +62,7 @@ angular.module('imgurapp')
 					endTimer();
 
 					timer = $timeout(function(){
-						return getExposedSide();
+						$scope.$emit('drag.hold.'+ getExposedSide() );
 					}, delay || 500);
 
 					return timer;
@@ -114,32 +114,26 @@ angular.module('imgurapp')
 							evt.stopPropagation();
 							evt.preventDefault();
 
+							// if nothing can be get from the side, apply rubberband-like tension
+							var tensionX = (!directionManager.left && stepx > 0 && offset.x > 0 ) || (!directionManager.right && stepx < 0 && offset.x < 0) ? 0.3 : 1;
+							var tensionY = (!directionManager.up && stepy > 0 && offset.y > 0) || (!directionManager.down && stepy < 0 && offset.y < 0) ? 0.3 : 1;
+
+							stepx = stepx*tensionX;
+							stepy = stepy*tensionY;
+
 							if (direction === 'x'){
-
-								// if nothing can be get from the side, apply rubberband-like tension
-								if ( (!directionManager.left && stepx > 0 && offset.x > 0 ) || (!directionManager.right && stepx < 0 && offset.x < 0)){
-									stepx = stepx*0.3;
-								}
-
 								// detect hold event on horizontal axis
 								// the page has been dragged and held (touch event does not end)
 								if (stepx > 0 && offset.x > 0 ||  stepx < 0 && offset.x < 0){
-									startTimer().then(function(side){
-										$scope.$emit('drag.hold.'+side);
-									});
+									startTimer();
 								}
 
 								offset.x += stepx;
 							} else if (direction === 'y'){
-								if ( (!directionManager.up && stepy > 0 && offset.y > 0) || (!directionManager.down && stepy < 0 && offset.y < 0)){
-									stepy = stepy*0.3;
-								}
 
 								// detect hold event on vertical  axis
 								if (stepy > 0 && offset.y > 0 ||  stepy < 0 && offset.y < 0){
-									startTimer().then(function(side){
-										console.log(side);
-									});
+									startTimer();
 								}
 
 								offset.y += stepy;
