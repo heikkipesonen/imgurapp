@@ -13,7 +13,7 @@
 		if (!this.image.animated){
 			this.imageSize = imgurApi.findThumbnail(window.innerWidth);
 		}
-console.log(this.album)
+
 		directionManager.set('up',{
 			name:'root.gallery.image',
 			params:{
@@ -46,8 +46,7 @@ console.log(this.album)
 		directionManager.set('down', null);
 	}
 
-	ImageAlbumController.prototype = {
-	}
+	ImageAlbumController.prototype = {};
 
 	angular.module('imgurapp')
 	  .controller('ImageAlbumController', ImageAlbumController);
