@@ -40,6 +40,7 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
         templateUrl:'app/views/root/root.view.html'
       })
 
+      // home view
       .state('root.home',{
         url:'/',
         templateUrl:'app/views/home/home.view.html',
@@ -137,7 +138,16 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
       templateUrl: 'app/views/gallery/image/album/image.album.view.html',
 
       resolve:{
+        /**
+         * get album of images (image which has many images)
+         * @param  {[type]} $stateParams  [description]
+         * @param  {[type]} galleryImages [description]
+         * @param  {[type]} imgurApi      [description]
+         * @return {[type]}               [description]
+         */
         album:function($stateParams, galleryImages, imgurApi){
+          // check if album is found from already loaded elements,
+          // if not, try http get it from imgur api
           var inCache = _.find(galleryImages, { id:$stateParams.imageId });
 
           if (!inCache.images){
@@ -147,14 +157,34 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
           }
         },
 
+        /**
+         * one image of album
+         * @param  {[type]} $stateParams [description]
+         * @param  {[type]} album        [description]
+         * @return {[type]}              [description]
+         */
         albumImage:function($stateParams, album){
           return _.find(album.images, {id : $stateParams.albumImageId });
         },
 
+        /**
+         * next image of album according to current one
+         * @param  {[type]} album      [description]
+         * @param  {[type]} albumImage [description]
+         * @param  {[type]} Utils      [description]
+         * @return {[type]}            [description]
+         */
         nextAlbumImage:function(album, albumImage, Utils){
           return Utils.nextItem(album.images, albumImage);
         },
 
+        /**
+         * last image of album according to current one
+         * @param  {[type]} album      [description]
+         * @param  {[type]} albumImage [description]
+         * @param  {[type]} Utils      [description]
+         * @return {[type]}            [description]
+         */
         prevAlbumImage:function(album, albumImage, Utils){
           return Utils.prevItem(album.images, albumImage);
         }
@@ -175,7 +205,13 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
     });
 
     $rootScope.$on('$stateChangeStart', function(evt, newstate){
+      // when on gallery page, set animation to downward
       if (current === 'root.gallery.page' && newstate.name === 'root.gallery.image'){
+        transitionManager.setAnimationDirection('down');
+      } else if (current === 'root.gallery.image' && newstate.name === 'root.gallery.album'){
+        transitionManager.setAnimationDirection('down');
+      }  else if (current === 'root.home'){
+        // on home view, the only direction is down
         transitionManager.setAnimationDirection('down');
       }
     });

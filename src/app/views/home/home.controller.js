@@ -8,8 +8,6 @@ function HomeController(galleries, Utils, transitionManager){
 			href:Utils.getGalleryLink(gallery)
 		}
 	});
-
-	transitionManager.setAnimationDirection('down');
 }
 
 angular.module('imgurapp')

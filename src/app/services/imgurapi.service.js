@@ -63,6 +63,7 @@ h Huge Thumbnail  1024x1024 Yes
               },
               method:method || 'GET',
               url:url,
+              cache:true
             });
           },
 

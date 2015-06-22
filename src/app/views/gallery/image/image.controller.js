@@ -33,6 +33,9 @@
 		if (this.image && this.image.is_album){
 			imgurApi.getAlbum(image.id).then(function(album){
 				me.images = image.images = album.images;
+				_.forEach( me.images, function(image){
+					image.href = $state.href('root.gallery.album', {galleryId: $stateParams.galleryId, imageId: me.image.id, albumImageId: image.id});
+				});
 
 				// set down as available drag direction to reveal
 				// gallery contents as images
