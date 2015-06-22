@@ -19,3 +19,17 @@
 		background-size: contain;
 	}
 }
+
+.view-image-user{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	padding: 10px;
+	color: white;
+	font-weight: 100;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 9pt;
+}

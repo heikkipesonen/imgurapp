@@ -4,7 +4,7 @@
 
 	function ImageController(image, $state, $stateParams, nextImage, prevImage, imgurApi, directionManager){
 		var me = this;
-
+console.log(image);
 		this.image = image;
 		this.thumbnails = [];
 		this.imageSize = null;

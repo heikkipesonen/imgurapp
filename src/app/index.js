@@ -29,6 +29,8 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
             return d.promise;
           }
         },
+        controller:'RootController',
+        controllerAs:'Root',
         templateUrl:'app/views/root/root.view.html'
       })
 

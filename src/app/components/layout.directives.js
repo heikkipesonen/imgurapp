@@ -59,6 +59,12 @@ angular.module('imgurapp')
 				}
 
 				function onTouchMove(evt){
+
+					if (evt.touches.length > 1){
+						evt.preventDefault();
+						return;
+					}
+
 					var position = getCursor(evt);
 							delta.x += position.x - lastEvent.x;
 							delta.y += position.y - lastEvent.y;

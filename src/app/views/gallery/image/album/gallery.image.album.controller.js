@@ -2,9 +2,9 @@
 
 'use strict';
 
-	function ImageAlbumController($state, $stateParams, albumImage, nextAlbumImage, prevAlbumImage, imgurApi, directionManager){
-		var me = this;
+	function ImageAlbumController($state, $stateParams, album, albumImage, nextAlbumImage, prevAlbumImage, imgurApi, directionManager){
 
+		this.album = album;
 		this.image = albumImage;
 		this.thumbnails = [];
 		this.imageSize = null;
@@ -13,7 +13,7 @@
 		if (!this.image.animated){
 			this.imageSize = imgurApi.findThumbnail(window.innerWidth);
 		}
-console.log(this.image)
+console.log(this.album)
 		directionManager.set('up',{
 			name:'root.gallery.image',
 			params:{

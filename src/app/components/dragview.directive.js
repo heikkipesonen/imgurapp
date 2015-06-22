@@ -35,17 +35,13 @@ angular.module('imgurapp')
 				 * @return {Promise}
 				 */
 				function setPosition(duration){
-					var d = $q.defer();
+
+
+					var scale = 1-( Math.abs( offset.x ) / (width * 3) || offset.x);
 
 					el.style.transition = duration ? duration +'ms' : '';
-					el.style.transform = 'translate3d('+offset.x+'px,'+offset.y+'px,0)';
-					el.style['-webkit-transform'] = 'translate3d('+offset.x+'px,'+offset.y+'px,0)';
-
-					$timeout(function(){
-						d.resolve(offset);
-					}, duration || 1);
-
-					return d.promise;
+					el.style.transform = 'translate3d('+offset.x+'px,'+offset.y+'px,0) scale3d('+scale +','+ scale +',1)';
+					el.style['-webkit-transform'] = 'translate3d('+offset.x+'px,'+offset.y+'px,0) scale3d('+scale +', '+scale+',1)';
 				}
 
 				function getExposedSide(){

@@ -4,20 +4,20 @@
 <div class="view view-image" scroll-y>
 	<div class="view-image-title-offset">
 		<h2 class="view-background-title view-image-title text-hidden" ng-bind="::Image.image.title"></h2>
+		<p class="view-image-user" ng-bind="::Image.image.account_url"></p>
 	</div>
 
-		<div
-			ng-if="!Image.image.is_album"
-			class="image-full"
-			thumbnail="{{Image.imageSize.name}}"
-			image-loader="Image.image.link"
-			style="height:0; padding-bottom: {{Image.image.height / Image.image.width * 100}}%">
-		</div>
+	<div
+		ng-if="Image.image.is_album"
+		image-grid="Image.images"
+		thumbnail="{{Image.thumbnailSize.name}}">
+	</div>
 
-		<div
-			ng-if="Image.image.is_album"
-			image-grid="Image.images"
-			thumbnail="{{Image.thumbnailSize.name}}">
-		</div>
-
+	<div
+		ng-if="!Image.image.is_album"
+		class="image-full"
+		thumbnail="{{Image.imageSize.name}}"
+		image-loader="Image.image.link"
+		style="height:0; padding-bottom: {{Image.image.height / Image.image.width * 100}}%">
+	</div>
 </div>
