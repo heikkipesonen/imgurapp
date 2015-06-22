@@ -17,6 +17,12 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
       .state('root', {
         abstract:true,
         resolve:{
+          /**
+           * get gallery listing from api (not really, but could...)
+           * @param  {object} imgurApi
+           * @param  {object} $q
+           * @return {object}         promise
+           */
           galleries:function(imgurApi, $q){
             var d = $q.defer();
             imgurApi.getGalleries().then(function(success){
@@ -72,7 +78,7 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
         url:'/gallery',
         resolve:{
           /**
-           * just to wait until images and galleries are resolved
+           * wait until images and galleries are resolved
            * @param  {[type]} galleryImages
            * @return {[type]}
            */
@@ -126,14 +132,13 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
 
     .state('root.gallery.album', {
       url:'/:imageId/:albumImageId',
-      controller:'ImageAlbumController',
+      controller:'AlbumImageController',
       controllerAs:'Album',
       templateUrl: 'app/views/gallery/image/album/image.album.view.html',
 
       resolve:{
         album:function($stateParams, galleryImages, imgurApi){
           var inCache = _.find(galleryImages, { id:$stateParams.imageId });
-            console.log(inCache)
 
           if (!inCache.images){
             return imgurApi.getAlbum($stateParams.imageId);
