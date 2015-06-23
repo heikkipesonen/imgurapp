@@ -1,10 +1,11 @@
 body{
-	background-color: #2A41B3;
+	// background-color: #2A41B3;
 }
 
 .view-colored{
 	// background-color: rgba(255,255,255,0.8);
-	background-color: #2A41B3;
+	// background-color: #2A41B3;
+	background-color: white;
 }
 
 
@@ -23,7 +24,6 @@ body{
 
 
 .view-image-title{
-	color: white;
 	font-size: 14pt;
 	padding: 64px 15px;
 }
@@ -34,7 +34,7 @@ body{
 
 .view-image-title-offset,  .view-gallery-title-offset{
 	position:relative;
-	background-image: url('../assets/gradient-image-view.png');
+	background-image: url('../assets/gradient-image-view-white.png');
 	background-size: 1px 24px;
 	background-position: left bottom;
 	background-repeat: repeat-x;
@@ -44,7 +44,6 @@ body{
 	height: 200px;
 	line-height: 200px;
 	background-size: 1px 64px;
-	color: white;
 	font-size: 20pt;
 }
 

@@ -12,7 +12,7 @@ angular.module('imgurapp')
 		 * @param  {array} images
 		 * @return {array}        list of images
 		 */
-		makeGrid:function(images, gridSize){
+		makeGrid:function(images, gridSize, gutter){
 	    var Utils = this;
 	    var grid = [];
 	    var gridWidth = 4;
@@ -75,9 +75,12 @@ angular.module('imgurapp')
                 reserveGrid(x, y, size, image.id);
 
                 result.items.push({
-                	x: x * gridSize,
-                	y: y * gridSize,
-                	image:image
+                	left: x * gridSize + gutter/2,
+                	top: y * gridSize + gutter/2,
+                	width: gridSize * size.w - gutter,
+                	height: gridSize * size.h - gutter,
+                	image:image,
+                	href: Utils.getGalleryLink(image.link)
                 });
 
                 break;

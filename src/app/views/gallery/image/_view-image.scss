@@ -5,6 +5,7 @@
 	}
 
 	.grid-image{
+		height: 0;
 		width: (100%/3) -1%;
 		padding-bottom: (100%/3) -1%;
 	}
@@ -27,8 +28,7 @@
 	width: 100%;
 	text-align: center;
 	padding: 10px;
-	color: white;
-	font-weight: 100;
+	font-weight: 200;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	font-size: 9pt;

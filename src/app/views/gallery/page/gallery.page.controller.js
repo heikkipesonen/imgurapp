@@ -23,7 +23,7 @@
 		});
 
 		var gridItemSize = window.innerWidth/4;
-		this.grid = Utils.makeGrid(thumbnails, gridItemSize);
+		this.grid = Utils.makeGrid(thumbnails, gridItemSize, 10);
 console.log(this.grid);
 		/**
 		 * state link object
