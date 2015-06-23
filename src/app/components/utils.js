@@ -2,9 +2,26 @@
 
 angular.module('imgurapp')
 
+
 .service('Utils', function($state){
 	angular.extend(this, {
 
+		/**
+		 * sort images
+		 * @param  {array} images
+		 * @return {array}        list of images
+		 */
+		sortImages:function(images, gridWidth){
+			gridWidth = gridWidth ? gridWidth : 4;
+
+			return images;
+		},
+
+		/**
+		 * get image tile size
+		 * @param  {object} image
+		 * @return {array}       image tile size [width, height]
+		 */
 		getImageTileSize:function(image){
 			var size = [1,1];
 

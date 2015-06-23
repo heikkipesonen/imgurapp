@@ -17,10 +17,12 @@
 		/**
 		 * make thumbnails (add 's' on image file name)
 		 */
-		this.thumbnails = galleryImages.map(function(image){
+		this.thumbnails = Utils.sortImages(galleryImages.map(function(image){
 			image.href = $state.href('root.gallery.image', {imageId: image.id});
 			return image;
-		});
+		}) );
+
+
 
 		/**
 		 * state link object
