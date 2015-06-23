@@ -5,6 +5,22 @@ angular.module('imgurapp')
 .service('Utils', function($state){
 	angular.extend(this, {
 
+		getImageTileSize:function(image){
+			var size = [1,1];
+
+			if ( image.width > image.height * 1.5 ){
+				size[1] = 2;
+			} else if (image.height > image.width * 1.5){
+				size[0] = 2;
+			} else if (image.width > 2048 && image.height > 2048){
+				size[0] = 2;
+				size[1] = 2;
+			}
+
+			return size;
+		},
+
+
 		/**
 		 * get cursor position of touch or mouse event
 		 * @param  {event} evt

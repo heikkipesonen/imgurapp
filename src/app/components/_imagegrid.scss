@@ -5,11 +5,27 @@
 
 
 .grid-image{
+	$image-margin : 2%;
+	$image-width: 100%/4;
+
 	display: inline-block;
-	margin:0.5%;
-	width: 24%;
-	padding-bottom: 24%;
+	margin: $image-margin/2;
+	width: $image-width - $image-margin;
+	padding-bottom: $image-width;
 	height: 0px;
+
+	&.image-wide{
+		width: ($image-width * 2) - $image-margin;
+	}
+
+	&.image-tall{
+		padding-bottom: ($image-width * 2) - $image-margin;
+	}
+
+	&.image-large{
+		width: ($image-width * 2) - $image-margin;
+		padding-bottom: ($image-width * 2) - $image-margin;
+	}
 }
 
 [image-loader]{

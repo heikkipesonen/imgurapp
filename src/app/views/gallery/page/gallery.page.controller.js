@@ -22,7 +22,6 @@
 			return image;
 		});
 
-
 		/**
 		 * state link object
 		 * @type {Object}

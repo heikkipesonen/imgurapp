@@ -23,6 +23,10 @@ h Huge Thumbnail  1024x1024 Yes
 
         ImgurApiService.prototype = {
 
+          /**
+           * imgur thumbnail sizes
+           * @type {Array}
+           */
           thumbnails:[
             {name:'s', width:90},
             {name:'b', width:160},
@@ -31,12 +35,22 @@ h Huge Thumbnail  1024x1024 Yes
             {name:'h', width:1024}
           ],
 
+          /**
+           * find thumbnail for width
+           * @param  {int} size container width
+           * @return {object}      nearest thumbnail size
+           */
           findThumbnail:function(size){
             return this.thumbnails.reduce(function (prev, curr) {
               return (Math.abs(curr.width - size) < Math.abs(prev.width - size) ? curr : prev);
             });
           },
 
+          /**
+           * find thumbnail that is at least size width
+           * @param  {int} size
+           * @return {object}      thumbnail
+           */
           findLargerThumbnail:function(size){
             var result = this.findThumbnail(size);
 
@@ -85,8 +99,8 @@ h Huge Thumbnail  1024x1024 Yes
            * @param  {string} gallery gallery name
            * @return {Promise}
            */
-          getGallery:function(type, gallery){
-            return this._get(this.options.url +'/gallery/'+type + '/' + gallery).then(function(response){
+          getGallery:function(type, gallery, page){
+            return this._get(this.options.url +'/gallery/'+type + '/' + gallery + '/'+ page).then(function(response){
               return response.data.data;
             });
           },

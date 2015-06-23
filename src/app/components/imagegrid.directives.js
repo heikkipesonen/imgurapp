@@ -39,16 +39,23 @@ angular.module('imgurapp')
 						loadComplete();
 					};
 
-					if ( /\.(gif|jpg|jpeg|png)$/i.test($scope.imageLoader)){
+					if ( /\.(gif|jpg|jpeg|png)$/i.test($scope.imageLoader.link)){
 						if ($attrs.thumbnail && $attrs.thumbnail !== ''){
-							img.src = imgurApi.getThumbnail($scope.imageLoader, $attrs.thumbnail);
+							img.src = imgurApi.getThumbnail($scope.imageLoader.link, $attrs.thumbnail);
 						} else {
-							img.src = $scope.imageLoader;
+							img.src = $scope.imageLoader.link;
 						}
 					} else {
 						img.src = null;
 					}
 
+					if ( $scope.imageLoader.width > $scope.imageLoader.height * 1.5 ){
+						el.classList.add('image-wide');
+					} else if ($scope.imageLoader.height > $scope.imageLoader.width * 1.5){
+						el.classList.add('image-tall');
+					} else if ($scope.imageLoader.width > 2048 && $scope.imageLoader.height > 2048){
+						el.classList.add('image-large');
+					}
 				}
 
 				$scope.$watch('imageLoader', function(newVal, oldVal){
@@ -67,6 +74,12 @@ angular.module('imgurapp')
 				thumbnail:'@'
 			},
 
-			template:'<a ng-href="{{::image.href}}" class="grid-image" image-loader="::image.link" thumbnail="{{thumbnail}}"  ng-repeat="(imageIndex, image) in imageGrid track by image.id"></a>'
+			template:'<a '+
+				'ng-href="{{::image.href}}"'+
+				'class="grid-image"'+
+				'image-loader="::image"'+
+				'thumbnail="{{thumbnail}}"'+
+				'ng-repeat="(imageIndex, image) in imageGrid track by image.id">'+
+			'</a>'
 		};
 	})
