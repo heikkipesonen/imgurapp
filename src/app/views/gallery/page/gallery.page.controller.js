@@ -2,29 +2,16 @@
 
 'use strict';
 
-	function GalleryPageController($scope, $http, $stateParams, $state, $timeout, imgurApi, galleryImages, Utils, nextGallery, prevGallery, directionManager){
+	function GalleryPageController($stateParams, galleryImages, nextGallery, prevGallery, directionManager, thumbnails){
 
 		// name displayed on galleri page
 		this.name = $stateParams.type + '/' + $stateParams.galleryId;
+		this.thumbnails = thumbnails;
 
 		// next and previous gallery page
 		this.next = nextGallery;
 		this.prev = prevGallery;
 
-		// thumbnail images for gallery, take account devicePixelRatio
-		this.thumbnailSize = imgurApi.findThumbnail( window.innerWidth * window.devicePixelRatio / 4 );
-
-		/**
-		 * make thumbnails (add 's' on image file name)
-		 */
-		var thumbnails = galleryImages.map(function(image){
-			image.href = $state.href('root.gallery.image', {imageId: image.id});
-			return image;
-		});
-
-		var gridItemSize = window.innerWidth/4;
-		this.grid = Utils.makeGrid(thumbnails, gridItemSize, 10);
-console.log(this.grid);
 		/**
 		 * state link object
 		 * @type {Object}

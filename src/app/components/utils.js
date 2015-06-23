@@ -3,7 +3,7 @@
 angular.module('imgurapp')
 
 
-.service('Utils', function($state){
+.service('Utils', function($state, imgurApi){
 	angular.extend(this, {
 
 		/**
@@ -55,15 +55,25 @@ angular.module('imgurapp')
 	    };
 
 	    var isFree = function (x, y, size) {
-	        return getPoints(x, y, size).every(function (point) {
-	            if (grid[point.y] && grid[point.y][point.x]) {
-	                return false;
-	            }
-	            return true;
-	        });
+        return getPoints(x, y, size).every(function (point) {
+          if (grid[point.y] && grid[point.y][point.x]) {
+            return false;
+          }
+          return true;
+        });
 	    };
 
-	    var result = {items:[], height:0};
+	    var result = {
+	    	items:[],
+	    	height:0
+	    };
+
+	    var pixelRatio = window.devicePixelRatio;
+	    var thumbnails = {
+	    	1:imgurApi.findThumbnail( (gridSize-gutter) * pixelRatio ),
+	    	2:imgurApi.findThumbnail( (gridSize*2-gutter)	* pixelRatio )
+	    };
+
 			images.forEach(function (image) {
         var x = 0;
         var y = sY;
@@ -71,26 +81,27 @@ angular.module('imgurapp')
         var size = Utils.getImageTileSize(image);
 
         while (true) {
-            if (!grid[y] || isFree(x, y, size)) {
-                reserveGrid(x, y, size, image.id);
+          if (!grid[y] || isFree(x, y, size)) {
+            reserveGrid(x, y, size, image.id);
 
-                result.items.push({
-                	left: x * gridSize + gutter/2,
-                	top: y * gridSize + gutter/2,
-                	width: gridSize * size.w - gutter,
-                	height: gridSize * size.h - gutter,
-                	image:image,
-                	href: Utils.getGalleryLink(image.link)
-                });
+            result.items.push({
+            	left: x * gridSize + gutter/2,
+            	top: y * gridSize + gutter/2,
+            	width: gridSize * size.w - gutter,
+            	height: gridSize * size.h - gutter,
+            	image:image,
+            	href: Utils.getGalleryLink(image.link),
+            	thumbnail: thumbnails[size.w]
+            });
 
-                break;
-            } else {
-                x++;
-                if (x + size.w > gridWidth) {
-                    x = 0;
-                    y++;
-                }
+            break;
+          } else {
+            x++;
+            if (x + size.w > gridWidth) {
+                x = 0;
+                y++;
             }
+          }
         }
     	});
 

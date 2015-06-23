@@ -7,17 +7,21 @@
 		<p class="view-image-user" ng-bind="::Image.image.account_url"></p>
 	</div>
 
-	<div
-		ng-if="Image.image.is_album"
-		image-grid="Image.images"
-		thumbnail="{{Image.thumbnailSize.name}}">
-	</div>
+	<!-- 	<div
+			ng-if="Image.image.is_album"
+			image-grid="Image.images"
+			thumbnail="{{Image.thumbnailSize.name}}">
+		</div> -->
+		<div ng-if="Image.image.grid" class="container view-colored">
+			<div image-grid="Image.image.grid"></div>
+		</div>
 
-	<div
-		ng-if="!Image.image.is_album"
-		class="image-full"
-		thumbnail="{{Image.imageSize.name}}"
-		image-loader="Image.image"
-		style="height:0; padding-bottom: {{Image.image.height / Image.image.width * 100}}%">
-	</div>
+		<div
+			ng-if="!Image.image.grid"
+			class="image-full"
+			thumbnail="{{Image.imageSize.name}}"
+			image-loader="Image.image"
+			style="height:0; padding-bottom: {{Image.image.height / Image.image.width * 100}}%">
+		</div>
+
 </div>

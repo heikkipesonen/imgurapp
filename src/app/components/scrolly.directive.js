@@ -25,6 +25,7 @@ angular.module('imgurapp')
 				var height = 0;
 				var delta = {x:0, y:0};
 				var lastEvent = false;
+				var direction = false;
 
 				/**
 				 * wait until page has rendered first time, then check if scrollheight differs
@@ -53,6 +54,7 @@ angular.module('imgurapp')
 
 					evt.stopPropagation();
 
+					direction = false;
 					delta.x = 0;
 					delta.y = 0;
 					lastEvent = getCursor(evt);
@@ -72,13 +74,20 @@ angular.module('imgurapp')
 					var isAtBottom = el.scrollTop >= el.scrollHeight - height - 1 && delta.y < 0;
 					var isAtTop = el.scrollTop < 2 && delta.y > 0;
 
+					if (direction === false){
+						if (Math.abs(delta.y) > Math.abs(delta.x)){
+							direction = 'y';
+						} else if (Math.abs(delta.y) < Math.abs(delta.x)){
+							direction = 'x';
+						}
+					}
 
 					/**
 					 * if touch event is still scrolling this div
 					 * block the element from propagating, otherwise let it propagate to next scrolling one
 					 * in this case usually the draggable one, under scroller.
 					 */
-					if ( Math.abs(delta.y) > Math.abs(delta.x) && !isAtTop && !isAtBottom ){
+					if ( direction==='y' && !isAtTop && !isAtBottom ){
 						evt.stopPropagation();
 					}
 				}

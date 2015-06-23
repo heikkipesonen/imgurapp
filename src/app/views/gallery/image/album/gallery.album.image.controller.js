@@ -8,7 +8,7 @@
 		this.image = albumImage;
 		this.thumbnails = [];
 		this.imageSize = null;
-		this.thumbnailSize = imgurApi.findThumbnail(window.innerWidth/3);
+
 
 		if (!this.image.animated){
 			this.imageSize = imgurApi.findThumbnail(window.innerWidth);

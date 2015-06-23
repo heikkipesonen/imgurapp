@@ -5,6 +5,10 @@ function RootController(){
 	this.homeScroll = {
 		x:0,
 		y:0
+	};
+
+	this.abortStateChange = function(){
+		window.history.back();
 	}
 }
 

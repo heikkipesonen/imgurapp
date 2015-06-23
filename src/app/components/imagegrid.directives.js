@@ -6,9 +6,7 @@ angular.module('imgurapp')
 		return {
 			restrict:'A',
 			scope:{
-				imageLoader:'=',
-				position:'=',
-				size:'='
+				imageLoader:'='
 			},
 			link:function($scope, $element, $attrs){
 				var el = $element[0];
@@ -52,30 +50,13 @@ angular.module('imgurapp')
 					} else {
 						img.src = null;
 					}
-
-
-
-					// TODO: not so purkka fix
-					if ($scope.position){
-						el.style.position = 'absolute';
-						el.style.top = $scope.position.y + 'px';
-						el.style.left = $scope.position.x + 'px';
-					}
-
-
-					// if ( $scope.imageLoader.width > $scope.imageLoader.height * 1.5 ){
-					// 	el.classList.add('image-wide');
-					// } else if ($scope.imageLoader.height > $scope.imageLoader.width * 1.5){
-					// 	el.classList.add('image-tall');
-					// } else if ($scope.imageLoader.width > 2048 && $scope.imageLoader.height > 2048){
-					// 	el.classList.add('image-large');
-					// }
 				}
 
-				$scope.$watch('imageLoader', function(newVal, oldVal){
-					if (newVal === oldVal && img && img.src) return;
-					preload();
-				});
+				preload();
+				// $scope.$watch('imageLoader', function(newVal, oldVal){
+				// 	if (newVal === oldVal && img && img.src) return;
+				// 	preload();
+				// });
 			}
 		};
 	})
@@ -120,8 +101,8 @@ angular.module('imgurapp')
 					};
 
 					if ( /\.(gif|jpg|jpeg|png)$/i.test(item.image.link)){
-						if ($attrs.thumbnail && $attrs.thumbnail !== ''){
-							img.src = imgurApi.getThumbnail(item.image.link, $attrs.thumbnail);
+						if (item.thumbnail){
+							img.src = imgurApi.getThumbnail(item.image.link, item.thumbnail.name);
 						} else {
 							img.src = item.image.link;
 						}
@@ -135,11 +116,11 @@ angular.module('imgurapp')
 					el.style.width = item.width + 'px';
 					el.style.height = item.height + 'px';
 				}
-
-				$scope.$watch('gridImage', function(newVal, oldVal){
-					if (newVal === oldVal && img && img.src) return;
-					preload();
-				});
+				preload();
+				// $scope.$watch('gridImage', function(newVal, oldVal){
+				// 	if (newVal === oldVal && img && img.src) return;
+				// 	preload();
+				// });
 			}
 		};
 	})
@@ -147,8 +128,7 @@ angular.module('imgurapp')
 		return {
 			restrict:'A',
 			scope:{
-				imageGrid:'=',
-				thumbnail:'@'
+				imageGrid:'='
 			},
 			link:function($scope, $element){
 				$element.css('height', $scope.imageGrid.height+'px');
@@ -159,7 +139,6 @@ angular.module('imgurapp')
 					'ng-href="{{::item.image.href}}"'+
 					'class="grid-image"'+
 					'grid-image="::item"'+
-					'thumbnail="{{::thumbnail}}"'+
 					'ng-repeat="(itemIndex, item) in imageGrid.items track by item.image.id">'+
 				'</a>'+
 			'</div>'

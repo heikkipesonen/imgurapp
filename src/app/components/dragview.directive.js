@@ -2,6 +2,12 @@
 	'use strict';
 
 	function DragViewController($scope, $element, $q, $timeout, $state, transitionManager, directionManager, Utils){
+		this.options = {
+			changeVelocity:0.8,
+			changeDragDistance:0.3,
+			tension:0.3
+		};
+
 		this.$timeout = $timeout;
 		this.Utils = Utils;
 		this.$scope = $scope;
@@ -145,8 +151,8 @@
 					evt.preventDefault();
 
 					// if nothing can be get from the side, apply rubberband-like tension
-					var tensionX = (!this.directionManager.left && stepx > 0 && this.offset.x > 0 ) || (!this.directionManager.right && stepx < 0 && this.offset.x < 0) ? 0.3 : 1;
-					var tensionY = (!this.directionManager.up && stepy > 0 && this.offset.y > 0) || (!this.directionManager.down && stepy < 0 && this.offset.y < 0) ? 0.3 : 1;
+					var tensionX = (!this.directionManager.left && stepx > 0 && this.offset.x > 0 ) || (!this.directionManager.right && stepx < 0 && this.offset.x < 0) ? this.options.tension : 1;
+					var tensionY = (!this.directionManager.up && stepy > 0 && this.offset.y > 0) || (!this.directionManager.down && stepy < 0 && this.offset.y < 0) ? this.options.tension : 1;
 
 					stepx = stepx*tensionX;
 					stepy = stepy*tensionY;
@@ -197,7 +203,7 @@
 			/**
 			 * decide action when dragging has stopped
 			 */
-			if (Math.abs(movedRatio.y) > 0.4 || Math.abs(this.velocity.y) > 1){
+			if (Math.abs(movedRatio.y) > this.options.changeDragDistance || Math.abs(this.velocity.y) > this.options.changeVelocity){
 				// if drag was down (moved < 0 and there is something down of here)
 				if (movedRatio.y < 0 && this.directionManager.down){
 					// set animation to down
@@ -222,7 +228,7 @@
 			}
 
 			// left and right dragging
-			if (Math.abs(movedRatio.x) > 0.4 || Math.abs(this.velocity.x) > 1){
+			if (Math.abs(movedRatio.x) > this.options.changeDragDistance || Math.abs(this.velocity.x) > this.options.changeVelocity){
 				if (movedRatio.x < 0 && this.directionManager.right){
 					this.transitionManager.setAnimationDirection('forward');
 					this.directionManager.go('right');

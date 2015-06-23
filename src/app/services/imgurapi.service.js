@@ -100,6 +100,7 @@ h Huge Thumbnail  1024x1024 Yes
            * @return {Promise}
            */
           getGallery:function(type, gallery, page){
+            if (page === undefined) page = '';
             return this._get(this.options.url +'/gallery/'+type + '/' + gallery + '/'+ page).then(function(response){
               return response.data.data;
             });
