@@ -20,18 +20,18 @@ angular.module('imgurapp')
 		/**
 		 * get image tile size
 		 * @param  {object} image
-		 * @return {array}       image tile size [width, height]
+		 * @return {object}       image tile size {w:width, h:height} in grid
 		 */
 		getImageTileSize:function(image){
-			var size = [1,1];
+			var size = {w:1,h:1};
 
 			if ( image.width > image.height * 1.5 ){
-				size[1] = 2;
+				size.w = 2;
 			} else if (image.height > image.width * 1.5){
-				size[0] = 2;
+				size.h = 2;
 			} else if (image.width > 2048 && image.height > 2048){
-				size[0] = 2;
-				size[1] = 2;
+				size.w = 2;
+				size.h = 2;
 			}
 
 			return size;
