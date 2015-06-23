@@ -7,20 +7,98 @@ angular.module('imgurapp')
 	angular.extend(this, {
 
 		/**
-		 * sort images
+		 * generate grid of images
+		 * (C) joni
 		 * @param  {array} images
 		 * @return {array}        list of images
 		 */
-		sortImages:function(images, gridWidth){
-			gridWidth = gridWidth ? gridWidth : 4;
+		makeGrid:function(images, gridSize){
+	    var Utils = this;
+	    var grid = [];
+	    var gridWidth = 4;
+	    var sY = 0;
 
-			return images;
+	    var reservePoint = function (x, y, id) {
+	        if (!grid[y]) {
+	            grid[y] = [false, false, false, false];
+	        }
+	        grid[y][x] = id;
+	    };
+
+	    var getPoints = function (sx, sy, size) {
+	        var points = [];
+	        for (var x = sx; x < sx + size.w; x++) {
+	            for (var y = sy; y < sy + size.h; y++) {
+	                points.push({
+	                    x: x,
+	                    y: y
+	                });
+	            }
+	        }
+	        return points;
+	    };
+
+	    var reserveGrid = function (x, y, size, id) {
+	        getPoints(x, y, size).forEach(function (point) {
+	            reservePoint(point.x, point.y, id);
+	        });
+
+	        for (var y = sY; y < grid.length; y++) {
+	            if (grid[y].every(function (id) {
+	                return id;
+	            })) {
+	                sY = y + 1;
+	            } else {
+	                break;
+	            }
+	        }
+	    };
+
+	    var isFree = function (x, y, size) {
+	        return getPoints(x, y, size).every(function (point) {
+	            if (grid[point.y] && grid[point.y][point.x]) {
+	                return false;
+	            }
+	            return true;
+	        });
+	    };
+
+	    var result = {items:[], height:0};
+			images.forEach(function (image) {
+        var x = 0;
+        var y = sY;
+
+        var size = Utils.getImageTileSize(image);
+
+        while (true) {
+            if (!grid[y] || isFree(x, y, size)) {
+                reserveGrid(x, y, size, image.id);
+
+                result.items.push({
+                	x: x * gridSize,
+                	y: y * gridSize,
+                	image:image
+                });
+
+                break;
+            } else {
+                x++;
+                if (x + size.w > gridWidth) {
+                    x = 0;
+                    y++;
+                }
+            }
+        }
+    	});
+
+			result.height = grid.length * gridSize;
+			return result;
 		},
 
 		/**
 		 * get image tile size
 		 * @param  {object} image
-		 * @return {object}       image tile size {w:width, h:height} in grid
+		 * @return {object}       image tile size {w:int, h:int} in grid
 		 */
 		getImageTileSize:function(image){
 			var size = {w:1,h:1};

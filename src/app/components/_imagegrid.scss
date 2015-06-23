@@ -1,11 +1,12 @@
 .image-grid{
+	position: relative;
 	width: 100%;
 	text-align: center;
 }
 
 
 .grid-image{
-	$image-margin : 2%;
+	$image-margin : 0%;
 	$image-width: 100%/4;
 
 	display: inline-block;

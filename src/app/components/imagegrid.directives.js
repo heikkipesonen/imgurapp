@@ -6,7 +6,8 @@ angular.module('imgurapp')
 		return {
 			restrict:'A',
 			scope:{
-				imageLoader:'='
+				imageLoader:'=',
+				position:'='
 			},
 			link:function($scope, $element, $attrs){
 				var el = $element[0];
@@ -26,6 +27,8 @@ angular.module('imgurapp')
 				}
 
 				function preload(){
+					var image = $scope.imageLoader;
+
 					el.classList.add('image-loading');
 					el.classList.remove('image-ready');
 
@@ -48,6 +51,16 @@ angular.module('imgurapp')
 					} else {
 						img.src = null;
 					}
+
+
+
+					// TODO: not so purkka fix
+					if ($scope.position){
+						el.style.position = 'absolute';
+						el.style.top = $scope.position.y + 'px';
+						el.style.left = $scope.position.x + 'px';
+					}
+
 
 					if ( $scope.imageLoader.width > $scope.imageLoader.height * 1.5 ){
 						el.classList.add('image-wide');
@@ -73,13 +86,19 @@ angular.module('imgurapp')
 				imageGrid:'=',
 				thumbnail:'@'
 			},
-
-			template:'<a '+
-				'ng-href="{{::image.href}}"'+
-				'class="grid-image"'+
-				'image-loader="::image"'+
-				'thumbnail="{{thumbnail}}"'+
-				'ng-repeat="(imageIndex, image) in imageGrid track by image.id">'+
-			'</a>'
+			link:function($scope, $element){
+				$element.css('height', $scope.imageGrid.height+'px');
+			},
+			template:
+			'<div class="image-grid">'+
+				'<a '+
+					'ng-href="{{::image.href}}"'+
+					'class="grid-image"'+
+					'image-loader="::item.image"'+
+					'position="item"'+
+					'thumbnail="{{thumbnail}}"'+
+					'ng-repeat="(itemIndex, item) in imageGrid.items track by item.image.id">'+
+				'</a>'+
+			'</div>'
 		};
 	})

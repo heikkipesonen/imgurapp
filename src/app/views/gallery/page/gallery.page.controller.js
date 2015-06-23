@@ -17,13 +17,14 @@
 		/**
 		 * make thumbnails (add 's' on image file name)
 		 */
-		this.thumbnails = Utils.sortImages(galleryImages.map(function(image){
+		var thumbnails = galleryImages.map(function(image){
 			image.href = $state.href('root.gallery.image', {imageId: image.id});
 			return image;
-		}) );
+		});
 
-
-
+		var gridItemSize = window.innerWidth/4;
+		this.grid = Utils.makeGrid(thumbnails, gridItemSize);
+console.log(this.grid);
 		/**
 		 * state link object
 		 * @type {Object}
