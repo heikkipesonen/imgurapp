@@ -27,8 +27,6 @@ angular.module('imgurapp', ['angular-loading-bar','ngAnimate', 'ngCookies', 'ngT
         name:state.name,
         params:angular.extend({}, params)
       };
-
-      console.log(this.lastResolved);
     };
 
   })
