@@ -5,7 +5,7 @@ angular.module('imgurapp')
 	/**
 	 * fix native scrolling on ios and other things
 	 */
-	.directive('scrollY', function($timeout){
+	.directive('scrollY', function($timeout, $q){
 		return {
 			restrict:'A',
 			scope:{
@@ -26,7 +26,8 @@ angular.module('imgurapp')
 				var delta = {x:0, y:0};
 				var lastEvent = false;
 				var direction = false;
-
+				var holdScrollPosition = false;
+				var lastScrollPosition = false;
 				/**
 				 * wait until page has rendered first time, then check if scrollheight differs
 				 */
@@ -36,9 +37,57 @@ angular.module('imgurapp')
 					}
 				});
 
+				function easeInOutQuad(t, b, c, d){
+			    t /= d/2;
+			    if (t < 1) return c/2*t*t + b;
+			    t--;
+			    return -c/2 * (t*(t-2) - 1) + b;
+				}
+
+				function scrollTo(to, duration) {
+					var d = $q.defer();
+			    var start = el.scrollTop,
+			        change = to - start,
+			        currentTime = Date.now();
+
+			    var animateScroll = function(){
+			        var now = Date.now();
+			        var val = easeInOutQuad(now - currentTime, start, change, duration);
+			        el.scrollTop = val;
+			        if(now - currentTime < duration) {
+		            window.requestAnimationFrame(animateScroll);
+		            // setTimeout(animateScroll, increment);
+			        } else {
+			        	d.resolve();
+			        }
+			    };
+
+			    animateScroll();
+			    return d.promise;
+				}
+
+				// hold scroll at position in relation to an element, until released
+				function holdScroll(element){
+					var top  = element.offsetTop;
+					el.scrollTop += top - lastScrollPosition;
+					lastScrollPosition = top;
+
+					if (holdScrollPosition){
+						window.requestAnimationFrame(function(){
+						 holdScroll(element);
+						});
+					}
+				}
+
 
 				// on touch start
 				function onTouchStart(evt){
+					if (holdScrollPosition){
+						evt.stopPropagation();
+						evt.preventDefault();
+						return;
+					}
+
 					height = el.offsetHeight;
 
 					/**
@@ -61,6 +110,11 @@ angular.module('imgurapp')
 				}
 
 				function onTouchMove(evt){
+					if (holdScrollPosition){
+						evt.stopPropagation();
+						evt.preventDefault();
+						return;
+					}
 
 					if (evt.touches.length > 1){
 						evt.preventDefault();
@@ -101,6 +155,24 @@ angular.module('imgurapp')
 						$scope.scrollY.y = el.scrollTop;
 					});
 				}
+
+				$scope.$on('scroll.to', function(evt, data){
+					el.scrollTop = data;
+				});
+
+				$scope.$on('scroll.toAnimated', function(evt, data){
+					scrollTo(data, 400);
+				});
+
+				$scope.$on('scroll.hold', function(evt, element){
+					lastScrollPosition = element.offsetTop;
+					holdScrollPosition = true;
+					holdScroll(element);
+				});
+
+				$scope.$on('scroll.release', function(evt){
+					holdScrollPosition = false;
+				});
 
 				// remove when destroyed
 				$scope.$on('$destroy', function(){

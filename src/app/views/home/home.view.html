@@ -1,21 +1,27 @@
-<div class="view view-background view-gallery-title has-bar-left">
+<div class="view view-background view-gallery-title view-home-title">
 	<h2 class="view-background-title view-gallery-title">Galleries</h2>
 </div>
-<div class="view-bar-left" scroll-y>
-	<div class="view-bar-item"
-			ng-repeat="(galleryGroupIndex, galleries) in Home.galleryGroups track by galleryGroupIndex"
-			ng-bind="::galleries.name"></div>
-</div>
-<div class="view has-bar-left" scroll-y="Root.homeScroll">
+
+<div class="view" scroll-y="Root.homeScroll">
 	<div class="view-gallery-title-offset"></div>
 
 	<div class="view-colored" slide-list>
-		<div ng-repeat="(galleryGroupIndex, galleries) in Home.galleryGroups track by galleryGroupIndex">
-			<a class="list-item"
+		<div
+				id="gallery-{{galleryGroupIndex}}"
+				class="list-item gallery-group"
+				ng-repeat="(galleryGroupIndex, galleryGroup) in Home.galleryGroups track by galleryGroupIndex">
+
+			<h2 class="group-title-label"
+					ng-click="Home.toggleGalleryGroup(galleryGroup, $event)"
+					ng-bind="::galleryGroup.name"></h2>
+
+			<a
+				ng-if="galleryGroup.active"
+				class="list-item list-animate"
 				slide-item="x"
 				ng-href="{{gallery.href}}"
-				ng-repeat="(galleryIndex, gallery) in galleries.items track by galleryIndex"
-				ng-bind="gallery.name"></a>
+				ng-repeat="(galleryIndex, gallery) in galleryGroup.items track by galleryIndex"
+				ng-bind="::gallery.name"></a>
 		</div>
 	</div>
 </div>
