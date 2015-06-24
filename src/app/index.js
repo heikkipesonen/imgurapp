@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ui.router'])
+angular.module('imgurapp', ['angular-loading-bar','ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ui.router'])
 
 	.constant('appConfig', {
 		api:'https://api.imgur.com/3',
@@ -13,6 +13,10 @@ angular.module('imgurapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
   .config(function(imgurApiProvider, appConfig) {
     imgurApiProvider.client_id = appConfig.client_id;
     imgurApiProvider.client_secret = appConfig.client_secret;
+  })
+
+  .config(function(cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.includeSpinner = false;
   })
 
   .run(function(transitionManager, $rootScope, $timeout){

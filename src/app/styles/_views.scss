@@ -1,5 +1,13 @@
 $view-header-height: 120px;
 
+#loading-bar .bar {
+  background: #29d;
+  height: 4px;
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+
 [layout-center]{
 	display: table;
 	height: 100%;

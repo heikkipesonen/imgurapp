@@ -8,7 +8,7 @@
 		this.image = image;
 		this.thumbnails = [];
 		this.imageSize = null;
-
+console.log(image);
 		// imgurApi.getComments(this.image.id).then(function(comments){
 		// 	console.log(comments);
 		// })

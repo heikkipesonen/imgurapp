@@ -2,64 +2,6 @@
 
 angular.module('imgurapp')
 
-	.directive('imageLoader', function(imgurApi){
-		return {
-			restrict:'A',
-			scope:{
-				imageLoader:'='
-			},
-			link:function($scope, $element, $attrs){
-				var el = $element[0];
-				var img = null;
-
-				function loadComplete(){
-					el.classList.remove('image-loading');
-					el.classList.add('image-ready');
-
-					if (el.nodeName === 'IMG'){
-						el.src = img.src;
-					} else {
-						el.style['background-image'] = 'url('+img.src+')';
-					}
-
-					img = null;
-				}
-
-				function preload(){
-					var image = $scope.imageLoader;
-
-					el.classList.add('image-loading');
-					el.classList.remove('image-ready');
-
-					img = new Image();
-
-					img.onload = function(){
-						loadComplete();
-					};
-
-					img.onerror = function(){
-						loadComplete();
-					};
-
-					if ( /\.(gif|jpg|jpeg|png)$/i.test(image.link)){
-						if ($attrs.thumbnail && $attrs.thumbnail !== ''){
-							img.src = imgurApi.getThumbnail(image.link, $attrs.thumbnail);
-						} else {
-							img.src = image.link;
-						}
-					} else {
-						img.src = null;
-					}
-				}
-
-				preload();
-				// $scope.$watch('imageLoader', function(newVal, oldVal){
-				// 	if (newVal === oldVal && img && img.src) return;
-				// 	preload();
-				// });
-			}
-		};
-	})
 
 	.directive('gridImage', function(imgurApi){
 		return {
@@ -67,7 +9,7 @@ angular.module('imgurapp')
 			scope:{
 				gridImage:'=',
 			},
-			link:function($scope, $element, $attrs){
+			link:function($scope, $element){
 				var el = $element[0];
 				var img = null;
 
@@ -124,6 +66,7 @@ angular.module('imgurapp')
 			}
 		};
 	})
+
 	.directive('imageGrid', function(){
 		return {
 			restrict:'A',
@@ -143,4 +86,4 @@ angular.module('imgurapp')
 				'</a>'+
 			'</div>'
 		};
-	})
+	});

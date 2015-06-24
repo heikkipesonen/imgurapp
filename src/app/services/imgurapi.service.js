@@ -137,6 +137,9 @@ h Huge Thumbnail  1024x1024 Yes
            * @return {string}      thumbnail url
            */
           getThumbnail:function(url, size){
+            if (url.indexOf('h.gif') > -1){
+              url = url.replace('h.gif', '.gif');
+            }
             return url.replace(/(\w+)(\.\w+)$/i, '$1'+size+'$2');
           }
 
