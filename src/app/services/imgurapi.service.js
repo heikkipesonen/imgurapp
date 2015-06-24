@@ -76,7 +76,7 @@ h Huge Thumbnail  1024x1024 Yes
                 Authorization: 'Client-ID '+ this.options.client_id
               },
               method:method || 'GET',
-              url:url,
+              url:this.options.url + '/' + url,
               cache:true
             });
           },
@@ -101,7 +101,7 @@ h Huge Thumbnail  1024x1024 Yes
            */
           getGallery:function(type, gallery, page){
             if (page === undefined) page = '';
-            return this._get(this.options.url +'/gallery/'+type + '/' + gallery + '/'+ page).then(function(response){
+            return this._get('gallery/'+type + '/' + gallery + '/'+ page).then(function(response){
               return response.data.data;
             });
           },
@@ -112,37 +112,32 @@ h Huge Thumbnail  1024x1024 Yes
            * @return {Promise}
            */
           getAlbum:function(id){
-            return this._get(this.options.url +'/album/'+id).then(function(response){
+            return this._get('album/'+id).then(function(response){
+              return response.data.data;
+            });
+          },
+
+          /**
+           * get comments for album / image
+           * @param  {string} imageId
+           * @return {promise}         hideous array of comments
+           */
+          getComments:function(imageId){
+            return this._get('gallery/'+imageId+'/comments').then(function(response){
               return response.data.data;
             });
           },
 
 
           /**
-           * get image thumbnails from a list of images
-           * @param  {array} images
-           * @param  {string} size
-           * @return {array}        list of thumbnail urls
+           * get image thumbnail url from image url
+           * adds thumbnail size character to the end of the filename
+           * @param  {string} url  image url
+           * @param  {string} size imgur thumbnail size
+           * @return {string}      thumbnail url
            */
-          getThumbnails:function(images, size){
-            size = size ? size : 's';
-
-            return _.map(images, function(image){
-              var parts = image.link.split('.');
-              var end = parts.splice(parts.length-2, 2);
-                  end[0] += size;
-
-              return {src: _.union(parts, end).join('.'), id:image.id};
-            });
-          },
-
           getThumbnail:function(url, size){
-            size = size ? size : 's';
-            var parts = url.split('.');
-            var end = parts.splice(parts.length-2, 2);
-                end[0] += size;
-
-            return _.union(parts, end).join('.');
+            return url.replace(/(\w+)(\.\w+)$/i, '$1'+size+'$2');
           }
 
         };

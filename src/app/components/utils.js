@@ -157,29 +157,12 @@ angular.module('imgurapp')
 		},
 
 		/**
-		 * get thumbnail url from imgur image
-		 * @param  {string} url  image url
-		 * @param  {string} size imgur thumbnail size
-		 * @return {string}      thumbnail image url
-		 */
-		getThumbnail:function(url, size){
-			url = typeof(url) === 'object' ? url.link : url;
-			size = size ? size : 's';
-			var parts = url.split('.');
-			var end = parts.splice(parts.length-2, 2);
-					end[0] += size;
-
-			return _.union(parts, end).join('.');
-		},
-
-		/**
 		 * compose string link to gallery
 		 * @param  {string} name gallery id
 		 * @return {strign}      href link for ui-router
 		 */
 		getGalleryLink:function(name, page){
 			var parts = name.split('/');
-			console.log(page);
 			return $state.href('root.gallery.page',{
 				type:parts[0],
 				galleryId:parts[1],

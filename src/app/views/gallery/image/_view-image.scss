@@ -16,18 +16,19 @@
 		width: 100%;
 		transition: 0.4s;
 		transition-property: opacity;
-		background-color: transparent;
+		// background-color: transparent;
 		background-size: contain;
 	}
 }
 
-.view-image-user{
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
+.view-image-description{
 	text-align: center;
-	padding: 10px;
+	padding: 10px 20px 40px 20px;
+}
+
+.view-image-user{
+	text-align: center;
+	padding: 30px 10px 10px 10px;
 	font-weight: 200;
 	overflow: hidden;
 	text-overflow: ellipsis;

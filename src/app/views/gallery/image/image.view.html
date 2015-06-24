@@ -1,10 +1,13 @@
 <div class="view view-background">
+	<p class="view-image-user" ng-bind="::Image.image.account_url"></p>
 	<h2 class="view-background-title view-image-title" ng-bind="::Image.image.title"></h2>
+	<p  class="view-image-description" ng-if="::Image.image.description" ng-bind="::Image.image.description"></p>
 </div>
 <div class="view view-image" scroll-y>
 	<div class="view-image-title-offset">
+		<p class="view-image-user text-hidden" ng-bind="::Image.image.account_url"></p>
 		<h2 class="view-background-title view-image-title text-hidden" ng-bind="::Image.image.title"></h2>
-		<p class="view-image-user" ng-bind="::Image.image.account_url"></p>
+		<p class="view-image-description text-hidden" ng-if="::Image.image.description" ng-bind="::Image.image.description"></p>
 	</div>
 
 		<div ng-if="Image.image.grid" class="container view-colored">
