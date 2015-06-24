@@ -4,13 +4,7 @@
 	text-align: center;
 }
 
-[grid-image]{
-	display: block;
-	background-color: #EFEFEF;
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center center;
-}
+
 
 .grid-image{
 	// $image-margin : 0%;
@@ -36,7 +30,7 @@
 	// }
 }
 
-[image-loader]{
+[image-loader], [grid-image]{
 	background-color: #EFEFEF;
 	background-size: cover;
 	background-repeat: no-repeat;
