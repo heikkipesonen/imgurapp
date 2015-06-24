@@ -8,7 +8,7 @@
 		this.image = image;
 		this.thumbnails = [];
 		this.imageSize = null;
-		this.position = imagePosition.index + '/' + imagePosition.count;
+		this.position = imagePosition.index +1 + '/' + imagePosition.count;
 
 		// imgurApi.getComments(this.image.id).then(function(comments){
 		// 	console.log(comments);

@@ -259,7 +259,6 @@ angular.module('imgurapp')
             return inCache;
           }
         },
-
         /**
          * one image of album
          * @param  {[type]} $stateParams [description]
@@ -270,6 +269,18 @@ angular.module('imgurapp')
           return _.find(album.images, {id : $stateParams.albumImageId });
         },
 
+        /**
+         * get position of image in album
+         * @param  {array} album images
+         * @param  {object} image         image object in array
+         * @return {object}               {currentIndex: int, max: images.length}
+         */
+        albumImagePosition:function(album, albumImage){
+          return {
+            index:album.images.indexOf(albumImage),
+            count:album.images.length
+          };
+        },
         /**
          * next image of album according to current one
          * @param  {[type]} album      [description]

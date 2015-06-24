@@ -1,16 +1,22 @@
 <div class="view view-background">
-	<h2 class="view-background-title view-image-title" ng-bind="::Album.album.title"></h2>
+	<h2 class="view-image-position-counter" ng-bind="::Album.position"></h2>
+	<h2 class="view-background-title view-image-title" ng-bind="::Album.image.title || Album.album.title"></h2>
 </div>
+
 <div class="view view-image" scroll-y>
 	<div class="view-image-title-offset">
-		<h2 class="view-background-title view-image-title text-hidden" ng-bind="::Album.album.title"></h2>
+		<h2 class="view-background-title view-image-title text-hidden" ng-bind="::Album.image.title || Album.album.title"></h2>
 	</div>
 
-	<div
-		class="image-full"
-		image-loader="Album.image"
-		style="height:0; padding-bottom: {{Album.image.height / Album.image.width * 100}}%">
-	</div>
+		<div class="container view-colored">
+			<div
+				class="image-full"
+				thumbnail="{{Album.imageSize.name}}"
+				image-loader="Album.image"
+				style="height:0; padding-bottom: {{Album.image.height / Album.image.width * 100}}%">
+			</div>
 
-	<p class="view-image-description" ng-if="::Album.image.description" ng-bind="::Album.image.description"></p>
+			<p class="view-image-description" ng-if="::Album.image.description" ng-bind="::Album.image.description"></p>
+			<p class="view-image-user" ng-bind="::Album.album.account_url"></p>
+		</div>
 </div>

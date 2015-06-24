@@ -2,13 +2,13 @@
 
 'use strict';
 
-	function AlbumImageController($state, $stateParams, album, albumImage, nextAlbumImage, prevAlbumImage, imgurApi, directionManager){
+	function AlbumImageController($state, $stateParams, album, albumImage, albumImagePosition, nextAlbumImage, prevAlbumImage, imgurApi, directionManager){
 
 		this.album = album;
 		this.image = albumImage;
 		this.thumbnails = [];
 		this.imageSize = null;
-
+		this.position = albumImagePosition.index+1 + '/' + albumImagePosition.count;
 
 		if (!this.image.animated){
 			this.imageSize = imgurApi.findThumbnail(window.innerWidth);
