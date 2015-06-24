@@ -20,6 +20,22 @@ $view-header-height: 120px;
 	}
 }
 
+.view-bar-left{
+	position: absolute;
+	top:0;
+	left:0;
+	width: 64px;
+	bottom: 0;
+}
+
+.view-bar-item{
+	line-height: 64px;
+	font-size: 20pt;
+	text-align: center;
+	text-transform: uppercase;
+	opacity:0.4;
+}
+
 .view{
 	position: absolute;
 	top:0;
@@ -28,6 +44,9 @@ $view-header-height: 120px;
 	bottom: 0;
 	overflow: hidden;
 
+	&.has-bar-left{
+		left:64px;
+	}
 
 	&.on-load{
 		-webkit-filter: blur(10px);

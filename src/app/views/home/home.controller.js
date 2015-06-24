@@ -1,13 +1,8 @@
 (function(){
 'use strict';
 
-function HomeController(galleries, Utils, transitionManager){
-	this.galleries = _.map(galleries, function(gallery){
-		return {
-			url:gallery,
-			href:Utils.getGalleryLink(gallery)
-		}
-	});
+function HomeController(galleries, galleryGroups, Utils){
+	this.galleryGroups = galleryGroups;
 }
 
 angular.module('imgurapp')

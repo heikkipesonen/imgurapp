@@ -24,6 +24,40 @@ angular.module('imgurapp')
             });
 
             return d.promise;
+          },
+
+          /**
+           * group galleries by name start letter
+           * @param  {array} galleries list of galleries
+           * @param  {object} Utils
+           * @return {object}           grouped list of galleries
+           */
+          galleryGroups:function(galleries, Utils){
+            return _.chain(galleries)
+
+              .map(function(gallery){
+                return {
+                  name:gallery,
+                  href:Utils.getGalleryLink(gallery)
+                };
+              })
+
+              .groupBy(function(gallery){
+                if (/(\/.\/)?[0-9]+/.test(gallery.name)){
+                  return '1-10';
+                } else {
+                  return gallery.name.slice(gallery.name.lastIndexOf('/')).substring(1,2).toLowerCase();
+                }
+              })
+
+              .map(function(group, groupIndex){
+                return {
+                  name:groupIndex,
+                  items:group
+                };
+              })
+
+              .sortBy('name').value();
           }
         },
         controller:'RootController',
