@@ -45,7 +45,7 @@ angular.module('imgurapp')
               })
 
               .groupBy(function(gallery){
-                if (/(\/.\/)?[0-9]+/.test(gallery.name)){
+                if (/.(\/)[0-9]+/.test(gallery.name)){
                   return '1-10';
                 } else {
                   return gallery.name.slice(gallery.name.lastIndexOf('/')).substring(1,2).toLowerCase();
