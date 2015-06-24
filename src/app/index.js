@@ -19,24 +19,55 @@ angular.module('imgurapp', ['angular-loading-bar','ngAnimate', 'ngCookies', 'ngT
     cfpLoadingBarProvider.includeSpinner = false;
   })
 
-  .run(function(transitionManager, $rootScope, $timeout){
+  .service('stateHistory', function(){
+    this.lastResolved = null;
+
+    this.setLastResolved = function(state, params){
+      this.lastResolved = {
+        name:state.name,
+        params:angular.extend({}, params)
+      };
+
+      console.log(this.lastResolved);
+    };
+
+  })
+
+
+  /**
+   * application init
+   */
+  .run(function(transitionManager, $rootScope, $timeout, $stateParams, stateHistory){
+
+    // set initial transitions
     transitionManager.setAnimationDirection();
     $rootScope.showLoadScreen = false;
 
+    // load screen timeout
     var timer = null;
+    // current state for setting the correct animation direction
     var current = null;
 
+    // listen on state change
     $rootScope.$on('$stateChangeSuccess', function(evt, state){
       current = state.name;
-      $rootScope.showLoadScreen = false;
+      // set as last correctly resolved state
+      // if errors occur, we can go back to this
+      stateHistory.setLastResolved(state, $stateParams);
 
+      // hide loadscreen and cancel loading screen timer
+      $rootScope.showLoadScreen = false;
       $timeout.cancel(timer);
     });
 
     $rootScope.$on('$stateChangeStart', function(evt, newstate){
+
+      // initialize timer
+      // if loading takes longer than 200ms, something is done in the view
       timer = $timeout(function(){
         $rootScope.showLoadScreen = true;
       },200);
+
       // when on gallery page, set animation to downward
       if (current === 'root.gallery.page' && newstate.name === 'root.gallery.image'){
         transitionManager.setAnimationDirection('down');
@@ -48,6 +79,8 @@ angular.module('imgurapp', ['angular-loading-bar','ngAnimate', 'ngCookies', 'ngT
       }
     });
 
+
+    // prevent ios body scrolling
   	document.body.addEventListener('touchmove', function(evt){
   		evt.preventDefault();
   	});
