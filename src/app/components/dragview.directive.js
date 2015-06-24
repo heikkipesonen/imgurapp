@@ -139,7 +139,7 @@
 				//decide scroll direction after first event
 				if (this.direction === null && Math.abs(this.delta.x) > Math.abs(this.delta.y)){
 					this.direction = 'x';
-				} else if (this.direction === null && Math.abs(this.delta.y) > Math.abs(this.delta.x)){
+				} else if (this.direction === null && Math.abs(this.delta.y) >= Math.abs(this.delta.x)){
 					this.direction = 'y';
 				}
 				// when direction is clear, proceed blocking the events

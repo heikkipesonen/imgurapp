@@ -33,11 +33,42 @@
 	padding: 10px 40px;
 }
 
+
+.view-image-footer-offset{
+	height: 113px;
+}
+
 .view-image-description{
 	text-align: left;
 	font-size: 10pt;
 	line-height: 15pt;
 	padding: 40px 40px 15px 40px;
+}
+
+.comments-title{
+	padding: 15px 0px;
+
+	&.has-comments{
+		transition: 0.4s;
+		font-size: 16pt;
+	}
+}
+.image-comments-text{
+	position: absolute;
+	bottom: 0;
+	left:0;
+	width: 100%;
+	text-align: center;
+	padding: 15px 40px;
+	background-color: #eee;
+}
+
+.image-comments{
+	display: block;
+	padding: 0 40px;
+	font-weight: 100;
+	text-align: center;
+	background-color: #eee;
 }
 
 .view-image-user{

@@ -131,7 +131,7 @@ angular.module('imgurapp')
 					if (direction === false){
 						if (Math.abs(delta.y) > Math.abs(delta.x)){
 							direction = 'y';
-						} else if (Math.abs(delta.y) < Math.abs(delta.x)){
+						} else if (Math.abs(delta.y) <= Math.abs(delta.x)){
 							direction = 'x';
 						}
 					}

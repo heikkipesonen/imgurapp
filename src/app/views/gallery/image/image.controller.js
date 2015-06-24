@@ -2,19 +2,34 @@
 
 'use strict';
 
-	function ImageController(image, $state, imagePosition, $stateParams, nextImage, prevImage, imgurApi, directionManager, Utils){
+	function ImageController($scope, image, $state, imagePosition, $stateParams, nextImage, prevImage, imgurApi, directionManager, Utils){
 		// var imageController = this;
-
+		var imageController = this;
 		this.image = image;
 		this.thumbnails = [];
 		this.imageSize = null;
 		this.position = imagePosition.index +1 + '/' + imagePosition.count;
 
+		this.commentsLoaded = false;
+		this.comments = [];
+		this.commentLimit = 30;
 		// imgurApi.getComments(this.image.id).then(function(comments){
 		// 	console.log(comments);
 		// })
 
+		this.loadComments = function(){
+			if (!imageController.commentsLoaded){
+				return imgurApi.getComments(imageController.image.id).then(function(comments){
+					imageController.comments = comments;
+				}).finally(function(){
+					imageController.commentsLoaded = true;
+				});
+			}
+		};
 
+		$scope.$on('drag.hold.down', function(){
+			imageController.loadComments();
+		});
 		// check if image is not an animation, if it is do not resize
 		// else get suitable thumbnail for screen size
 		if (this.image && !this.image.animated){
