@@ -35,6 +35,8 @@ angular.module('imgurapp')
           galleryGroups:function(galleries, Utils){
             return _.chain(galleries)
 
+              .uniq()
+
               .map(function(gallery){
                 return {
                   name:gallery,
