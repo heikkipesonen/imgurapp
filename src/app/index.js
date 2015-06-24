@@ -36,7 +36,7 @@ angular.module('imgurapp', ['angular-loading-bar','ngAnimate', 'ngCookies', 'ngT
     $rootScope.$on('$stateChangeStart', function(evt, newstate){
       timer = $timeout(function(){
         $rootScope.showLoadScreen = true;
-      },0);
+      },200);
       // when on gallery page, set animation to downward
       if (current === 'root.gallery.page' && newstate.name === 'root.gallery.image'){
         transitionManager.setAnimationDirection('down');

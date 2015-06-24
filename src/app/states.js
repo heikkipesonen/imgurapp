@@ -8,13 +8,6 @@ angular.module('imgurapp')
       .state('root', {
         abstract:true,
         resolve:{
-          thumbnailSize:function(){
-            return window.innerWidth/4;
-          },
-
-          imageSize:function(){
-            return window.innerWidth;
-          },
           /**
            * get gallery listing from api (not really, but could...)
            * @param  {object} imgurApi
@@ -49,6 +42,19 @@ angular.module('imgurapp')
       .state('root.gallery', {
         url:'/:type/{galleryId:[a-zA-Z0-9]+}/{galleryPage:[0-9]+}',
         resolve:{
+
+
+          /**
+           * precalculate thumbnail sizes (for uniformity)
+           * @return {int} thumbnail width
+           */
+          thumbnailSize:function(){
+            return window.innerWidth/4;
+          },
+
+          imageSize:function(){
+            return window.innerWidth;
+          },
           /**
            * fetch images from gallery
            * @param  {[type]} $http        [description]
