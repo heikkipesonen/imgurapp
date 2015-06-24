@@ -58,6 +58,13 @@ angular.module('imgurapp', ['angular-loading-bar','ngAnimate', 'ngCookies', 'ngT
       $timeout.cancel(timer);
     });
 
+
+    $rootScope.$on('$stateChangeError', function(evt, state){
+      console.log(evt,state, stateHistory);
+      $rootScope.showLoadScreen = false;
+      $timeout.cancel(timer);
+    });
+
     $rootScope.$on('$stateChangeStart', function(evt, newstate){
 
       // initialize timer

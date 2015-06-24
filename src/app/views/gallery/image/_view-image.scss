@@ -21,14 +21,28 @@
 	}
 }
 
-.view-image-description{
+
+.view-image-position-counter{
+	position: absolute;
+	top:0;
+	left:0;
+	width: 100%;
 	text-align: center;
-	padding: 40px 20px 40px 20px;
+	opacity: 0.3;
+	font-size: 20pt;
+	padding: 10px 40px;
+}
+
+.view-image-description{
+	text-align: left;
+	font-size: 10pt;
+	line-height: 15pt;
+	padding: 40px 40px 15px 40px;
 }
 
 .view-image-user{
-	text-align: center;
-	padding: 30px 10px 10px 10px;
+	text-align: right;
+	padding: 15px 40px;
 	font-weight: 200;
 	overflow: hidden;
 	text-overflow: ellipsis;

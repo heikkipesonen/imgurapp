@@ -197,6 +197,19 @@ angular.module('imgurapp')
       		},
 
           /**
+           * get position of image in array
+           * @param  {array} galleryImages
+           * @param  {object} image         image object in array
+           * @return {object}               {currentIndex: int, max: images.length}
+           */
+          imagePosition:function(galleryImages, image){
+            return {
+              index:galleryImages.indexOf(image),
+              count:galleryImages.length
+            };
+          },
+
+          /**
            * next image
            * @param  {[type]} galleryImages [description]
            * @param  {[type]} image         [description]

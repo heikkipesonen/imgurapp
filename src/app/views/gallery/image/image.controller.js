@@ -2,12 +2,13 @@
 
 'use strict';
 
-	function ImageController(image, $state, $stateParams, nextImage, prevImage, imgurApi, directionManager, Utils){
+	function ImageController(image, $state, imagePosition, $stateParams, nextImage, prevImage, imgurApi, directionManager, Utils){
 		// var imageController = this;
 
 		this.image = image;
 		this.thumbnails = [];
 		this.imageSize = null;
+		this.position = imagePosition.index + '/' + imagePosition.count;
 
 		// imgurApi.getComments(this.image.id).then(function(comments){
 		// 	console.log(comments);
