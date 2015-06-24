@@ -3,6 +3,8 @@
 	text-align: left;
 	line-height: 150%;
 	font-weight: 300;
+	overflow: hidden;
+	border-bottom: 1px solid #ddd;
 }
 
 .comment-author{
@@ -13,4 +15,10 @@
 
 .comment-comment{
 
+}
+
+.comment-children{
+	opacity: 0.5;
+	margin-top: 10px;
+	text-align: right;
 }

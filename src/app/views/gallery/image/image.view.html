@@ -2,11 +2,7 @@
 	<h2 class="view-image-position-counter" ng-bind="::Image.position"></h2>
 	<h2 class="view-background-title view-image-title" ng-bind="::Image.image.title"></h2>
 
-	<div class="image-comments-text" ng-hide="Image.comments.length > 0">
-		<h2 ng-class="{'has-comments' : Image.commentsLoaded && Image.comments.length > 1}" class="comments-title">Comments</h2>
-	<span ng-show="!Image.commentsLoaded">Load comments</span>
-	<span ng-show="Image.commentsLoaded && Image.comments.length < 1">No Comments received</span>
-	</div>
+
 </div>
 <div class="view view-image" scroll-y>
 	<div class="view-image-title-offset">
@@ -24,14 +20,17 @@
 				style="height:0; padding-bottom: {{Image.image.height / Image.image.width * 100}}%">
 			</div>
 
-			<p class="view-image-description" ng-if="::Image.image.description" ng-bind="::Image.image.description"></p>
+			<p ng-if="::Image.image.description" class="view-image-description"  ng-bind="::Image.image.description"></p>
 			<p ng-if="::Image.image.account_url" class="view-image-user" ng-bind="::Image.image.account_url"></p>
 		</div>
 
+	<div class="image-comments-text" ng-hide="Image.comments.length > 0" ng-click="Image.loadComments()">
+		<h2 ng-class="{'has-comments' : Image.commentsLoaded && Image.comments.length > 1}" class="comments-title">Comments</h2>
+	<span ng-show="!Image.commentsLoaded">Load comments</span>
+	<span ng-show="Image.commentsLoaded && Image.comments.length < 1">No Comments received</span>
+	</div>
+
 		<div class="image-comments">
 			<div comment="comment" ng-repeat="(commentIndex, comment) in Image.comments | limitTo: Image.commentLimit track by commentIndex"></div>
-		</div>
-
-		<div ng-hide="Image.comments.length > 0" class="view-image-footer-offset" ng-click="Image.loadComments()">
 		</div>
 </div>
