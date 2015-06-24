@@ -139,7 +139,7 @@ angular.module('imgurapp')
 					'ng-href="{{::item.image.href}}"'+
 					'class="grid-image"'+
 					'grid-image="::item"'+
-					'ng-repeat="(itemIndex, item) in imageGrid.items track by item.image.id">'+
+					'ng-repeat="(itemIndex, item) in imageGrid.items track by itemIndex">'+
 				'</a>'+
 			'</div>'
 		};

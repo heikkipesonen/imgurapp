@@ -47,7 +47,7 @@ angular.module('imgurapp')
       })
 
       .state('root.gallery', {
-        url:'/:type/:galleryId/:galleryPage',
+        url:'/:type/{galleryId:[a-zA-Z0-9]+}/{galleryPage:[0-9]+}',
         resolve:{
           /**
            * fetch images from gallery
@@ -56,8 +56,7 @@ angular.module('imgurapp')
            * @return {promise}             gallery images
            */
       		galleryImages:function($stateParams, imgurApi){
-            console.log($stateParams)
-            return imgurApi.getGallery($stateParams.type, $stateParams.galleryId);
+            return imgurApi.getGallery($stateParams.type, $stateParams.galleryId, $stateParams.galleryPage);
       		},
 
           nextGallery:function($stateParams, galleries, Utils){
@@ -90,6 +89,7 @@ angular.module('imgurapp')
               image.href = $state.href('root.gallery.image', {
                 type: $stateParams.type,
                 galleryId: $stateParams.galleryId,
+                galleryPage: $stateParams.galleryPage,
                 imageId: image.id
               });
 
@@ -119,6 +119,7 @@ angular.module('imgurapp')
            */
       		image:function(galleryImages, $state, $stateParams, imgurApi, thumbnailSize, Utils){
             var image =  _.find(galleryImages, {id: $stateParams.imageId});
+
             if (image.is_album){
               return imgurApi.getAlbum(image.id).then(function(album){
 
@@ -239,5 +240,5 @@ angular.module('imgurapp')
     })
       ;
 
-      $urlRouterProvider.otherwise('/');
-  })
+    $urlRouterProvider.otherwise('/');
+  });

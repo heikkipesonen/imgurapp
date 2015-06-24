@@ -62,7 +62,8 @@
 			name:'root.gallery.page',
 			params:{
 				galleryId: $stateParams.galleryId,
-				type: $stateParams.type
+				type: $stateParams.type,
+				page: $stateParams.galleryPage
 			}
 		});
 

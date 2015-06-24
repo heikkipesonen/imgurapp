@@ -3,6 +3,7 @@
 angular.module('imgurapp')
 
 
+
 .service('Utils', function($state, imgurApi){
 	angular.extend(this, {
 
@@ -90,8 +91,8 @@ angular.module('imgurapp')
             	width: gridSize * size.w - gutter,
             	height: gridSize * size.h - gutter,
             	image:image,
-            	href: Utils.getGalleryLink(image.link),
-            	thumbnail: thumbnails[size.w]
+            	// href: Utils.getGalleryLink(image.link),
+            	thumbnail: thumbnails[ size.w >= size.h ? size.w : size.h ]
             });
 
             break;
@@ -176,11 +177,13 @@ angular.module('imgurapp')
 		 * @param  {string} name gallery id
 		 * @return {strign}      href link for ui-router
 		 */
-		getGalleryLink:function(name){
+		getGalleryLink:function(name, page){
 			var parts = name.split('/');
+			console.log(page);
 			return $state.href('root.gallery.page',{
 				type:parts[0],
-				galleryId:parts[1]
+				galleryId:parts[1],
+				galleryPage:page || '0'
 			});
 		},
 
