@@ -32,15 +32,18 @@
 
 			// $scope.$broadcast('scroll.hold', evt.srcElement);
 
-			$timeout(function(){
-				// $scope.$broadcast('scroll.release');
-				// $timeout(function(){
-					$scope.$broadcast('scroll.toAnimated', evt.srcElement.offsetTop);
-				// },100)
-			}, 500);
 
 			// $scope.$broadcast('scrollto', evt.srcElement.offsetTop);
 			galleryGroup.active = !galleryGroup.active;
+
+			if (galleryGroup.active){
+				$timeout(function(){
+					// $scope.$broadcast('scroll.release');
+					// $timeout(function(){
+						$scope.$broadcast('scroll.toAnimated', evt.srcElement.offsetTop);
+					// },100)
+				}, 500);
+			}
 		};
 	}
 
