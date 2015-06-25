@@ -2,17 +2,14 @@
 
 'use strict';
 
-	function AlbumImageController($state, $stateParams, album, albumImage, albumImagePosition, nextAlbumImage, prevAlbumImage, imgurApi, directionManager){
+	function AlbumImageController($state, $stateParams, album, albumImage, albumImagePosition, nextAlbumImage, prevAlbumImage, imgurApi, directionManager, imageSize){
 
 		this.album = album;
 		this.image = albumImage;
 		this.thumbnails = [];
-		this.imageSize = null;
-		this.position = albumImagePosition.index+1 + '/' + albumImagePosition.count;
+		this.imageSize = imageSize.getResizedImage(this.image, window.innerWidth * window.devicePixelRatio);
+		// this.position = albumImagePosition.index+1 + '/' + albumImagePosition.count;
 
-		if (!this.image.animated){
-			this.imageSize = imgurApi.findThumbnail(window.innerWidth);
-		}
 
 		directionManager.set('up',{
 			name:'root.gallery.image',

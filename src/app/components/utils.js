@@ -4,7 +4,7 @@ angular.module('imgurapp')
 
 
 
-.service('Utils', function($state, imgurApi){
+.service('Utils', function($state, imgurApi, imageSize){
 	angular.extend(this, {
 
 		/**
@@ -13,11 +13,13 @@ angular.module('imgurapp')
 		 * @param  {array} images
 		 * @return {array}        list of images
 		 */
-		makeGrid:function(images, gridSize, gutter){
+		makeGrid:function(images){
 	    var Utils = this;
 	    var grid = [];
 	    var gridWidth = 4;
 	    var sY = 0;
+	    var gridSize = imageSize.thumbnail();
+	    var gutter = imageSize.gutter();
 
 	    var reservePoint = function (x, y, id) {
 	        if (!grid[y]) {

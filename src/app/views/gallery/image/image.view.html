@@ -1,5 +1,5 @@
 <div class="view view-background">
-	<h2 class="view-image-position-counter" ng-bind="::Image.position"></h2>
+	<!-- <h2 class="view-image-position-counter" ng-bind="::Image.position"></h2> -->
 	<h2 class="view-background-title view-image-title" ng-bind="::Image.image.title"></h2>
 
 </div>
@@ -24,17 +24,28 @@
 				<p ng-if="::Image.image.account_url" class="view-image-user" ng-bind="::Image.image.account_url"></p>
 
 			</div>
-			<button class="image-comments-button" ng-click="Image.loadComments($event)">Show comments</button>
+
+
+			<div class="text-center view-colored">
+				<div class="icon-button" ng-click="Image.loadComments()"><i class="ion-ios-chatbubble-outline"></i></div>
+			</div>
 		</div>
 
 		<div
+			id="image-comments"
 			ng-if="Image.comments.length > 0"
 			comments="Image.comments"
 			limit="Image.commentLimit"
 			class="comment-animate">
 		</div>
-		<button ng-show="Image.commentLimit < Image.comments.length" class="ghost ghost-dark" ng-click="Image.showMoreComments()">show 10 more</button>
 
+		<div class="text-center view-colored">
+			<div class="icon-button"
+			ng-show="Image.commentLimit < Image.comments.length"
+			ng-click="Image.showMoreComments()">
+				<i class="ion-ios-more-outline"></i>
+			</div>
+		</div>
 
 
 

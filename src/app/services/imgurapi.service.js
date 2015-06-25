@@ -28,21 +28,21 @@ h Huge Thumbnail  1024x1024 Yes
            * @type {Array}
            */
           thumbnails:[
-            {name:'s', width:90},
-            {name:'b', width:160},
-            {name:'m', width:320},
-            {name:'l', width:640},
-            {name:'h', width:1024}
+            {name:'s', size:90},
+            {name:'b', size:160},
+            {name:'m', size:320, proportions:true},
+            {name:'l', size:640, proportions:true},
+            {name:'h', size:1024, proportions:true}
           ],
 
           /**
-           * find thumbnail for width
-           * @param  {int} size container width
+           * find thumbnail for size
+           * @param  {int} size container size
            * @return {object}      nearest thumbnail size
            */
           findThumbnail:function(size){
             return this.thumbnails.reduce(function (prev, curr) {
-              return (Math.abs(curr.width - size) < Math.abs(prev.width - size) ? curr : prev);
+              return (Math.abs(curr.size - size) < Math.abs(prev.size - size) ? curr : prev);
             });
           },
 

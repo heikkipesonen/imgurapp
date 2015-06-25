@@ -19,6 +19,10 @@
 		// background-color: transparent;
 		background-size: contain;
 	}
+
+	#loading-bar-spinner{
+		position: absolute;
+	}
 }
 
 .view-image-wrapper{
@@ -31,16 +35,16 @@
 	}
 }
 
-.view-image-position-counter{
-	position: absolute;
-	top:0;
-	left:0;
-	width: 100%;
-	text-align: center;
-	opacity: 0.3;
-	font-size: 20pt;
-	padding: 10px 40px;
-}
+// .view-image-position-counter{
+// 	position: absolute;
+// 	top:0;
+// 	left:0;
+// 	width: 100%;
+// 	text-align: center;
+// 	opacity: 0.1;
+// 	font-size: 60pt;
+// 	padding: 10px 0px;
+// }
 
 .view-image-description{
 	text-align: left;
@@ -50,9 +54,17 @@
 }
 
 .image-comments-button{
-	width: 100%;
-	padding: 40px 15px;
-	background-color: white;
+	transition: 0.4s;
+	overflow: hidden;
+	display:inline-block;
+
+
+	&.ng-hide{
+		display:inline-block !important;
+		max-height: 0;
+		padding: 0 15px;
+		line-height: 0px;
+	}
 }
 
 .view-image-user{

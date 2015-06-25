@@ -22,3 +22,18 @@ button.ghost{
 	border-radius: 15px;
 	border: 1px solid;
 }
+
+.icon-button{
+	display: inline-block;
+	width: 64px;
+	text-align: center;
+	background-color: #222;
+	border-radius: 50%;
+	color: white;
+	margin:10px;
+
+	i{
+		font-size: 36px;
+		line-height: 64px;
+	}
+}

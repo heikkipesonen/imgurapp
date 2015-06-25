@@ -2,32 +2,35 @@
 
 'use strict';
 
-	function ImageController($rootScope, $scope, $state, $timeout,  image, imagePosition, $stateParams, nextImage, prevImage, imgurApi, directionManager, Utils){
+	function ImageController($rootScope, $scope, $state, $timeout,  image, imagePosition, $stateParams, nextImage, prevImage, imgurApi, directionManager, imageSize){
 		// var imageController = this;
 		var imageController = this;
 		this.image = image;
 		this.thumbnails = [];
-		this.imageSize = null;
-		this.position = imagePosition.index +1 + '/' + imagePosition.count;
+		this.imageSize = imageSize.getResizedImage(this.image, window.innerWidth * window.devicePixelRatio);
+		// this.position = imagePosition.index +1 + '/' + imagePosition.count;
 
 		this.commentsLoaded = false;
 		this.comments = [];
 		this.commentLimit = 10;
+		this.loadingComments = false;
 		// imgurApi.getComments(this.image.id).then(function(comments){
 		// 	console.log(comments);
 		// })
 
 		this.loadComments = function(evt){
 			if (!imageController.commentsLoaded){
+				this.loadingComments = true;
 				return imgurApi.getComments(imageController.image.id).then(function(comments){
 					imageController.comments = comments;
 					if (imageController.comments.length > 0){
 						$timeout(function(){
-							$scope.$broadcast('scroll.toAnimated', evt.srcElement);
+							$scope.$broadcast('scroll.toAnimated', document.getElementById('image-comments'));
 						},200);
 					}
 				}).finally(function(){
 					imageController.commentsLoaded = true;
+					imageController.loadingComments = false;
 				});
 			}
 		};
@@ -39,12 +42,6 @@
 		$scope.$on('drag.hold.down', function(){
 			imageController.loadComments();
 		});
-		// check if image is not an animation, if it is do not resize
-		// else get suitable thumbnail for screen size
-		if (this.image && !this.image.animated){
-			// if image has outragous aspect ratio
-			this.imageSize = imgurApi.findThumbnail(window.innerWidth * window.devicePixelRatio);
-		}
 
 		// setup available directions for dragging
 		directionManager.set('up',{

@@ -73,18 +73,6 @@ angular.module('imgurapp')
         url:'/:type/{galleryId:[a-zA-Z0-9]+}/{galleryPage:[0-9]+}',
         resolve:{
 
-
-          /**
-           * precalculate thumbnail sizes (for uniformity)
-           * @return {int} thumbnail width
-           */
-          thumbnailSize:function(){
-            return window.innerWidth/4;
-          },
-
-          imageSize:function(){
-            return window.innerWidth;
-          },
           /**
            * fetch images from gallery
            * @param  {[type]} $http        [description]
@@ -117,7 +105,7 @@ angular.module('imgurapp')
            * @param  {[type]} galleryImages
            * @return {[type]}
            */
-          thumbnails:function(galleryImages, thumbnailSize, $state, $stateParams, Utils){
+          thumbnails:function(galleryImages, $state, $stateParams, Utils){
             /**
              * make thumbnails (add 's' on image file name)
              */
@@ -135,7 +123,7 @@ angular.module('imgurapp')
             /**
              * compose grid of images
              */
-            return Utils.makeGrid(thumbnails, thumbnailSize, 10);
+            return Utils.makeGrid(thumbnails);
           },
         },
         controller: 'GalleryPageController',
@@ -153,7 +141,7 @@ angular.module('imgurapp')
            * @param  {[type]} $q            [description]
            * @return {[type]}               [description]
            */
-      		image:function(galleryImages, $state, $stateParams, imgurApi, thumbnailSize, Utils){
+      		image:function(galleryImages, $state, $stateParams, imgurApi, Utils){
             var image =  _.find(galleryImages, {id: $stateParams.imageId});
 
             if (image.is_album){
@@ -171,7 +159,7 @@ angular.module('imgurapp')
                   return albumImage;
                 });
 
-                image.grid = Utils.makeGrid(images, thumbnailSize, 10);
+                image.grid = Utils.makeGrid(images);
                 return image;
 
                   // set down as available drag direction to reveal

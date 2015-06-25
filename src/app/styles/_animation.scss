@@ -2,3 +2,49 @@
 	transition: 0.4s;
 	transition-timing-function: cubic-bezier(.1, .7, .1, 1);
 }
+
+.icon-spinner{
+	@extend .spinner;
+	width: 32px;
+	height: 32px;
+	border-left: 2px solid #d00;
+	border-radius: 50%;
+	position: relative;
+	left:50%;
+	margin-left: -16px;
+	transition: 0.4s;
+}
+
+.icon-spinner.ng-hide{
+	height: 0;
+	width: 0;
+}
+
+.spinner{
+  -webkit-animation: animation-spinner 400ms linear infinite;
+  -moz-animation:    animation-spinner 400ms linear infinite;
+  -ms-animation:     animation-spinner 400ms linear infinite;
+  -o-animation:      animation-spinner 400ms linear infinite;
+  animation:         animation-spinner 400ms linear infinite;
+}
+
+@-webkit-keyframes animation-spinner {
+  0%   { -webkit-transform: rotate(0deg);   transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@-moz-keyframes animation-spinner {
+  0%   { -moz-transform: rotate(0deg);   transform: rotate(0deg); }
+  100% { -moz-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@-o-keyframes animation-spinner {
+  0%   { -o-transform: rotate(0deg);   transform: rotate(0deg); }
+  100% { -o-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@-ms-keyframes animation-spinner {
+  0%   { -ms-transform: rotate(0deg);   transform: rotate(0deg); }
+  100% { -ms-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@keyframes animation-spinner {
+  0%   { transform: rotate(0deg);   transform: rotate(0deg); }
+  100% { transform: rotate(360deg); transform: rotate(360deg); }
+}
