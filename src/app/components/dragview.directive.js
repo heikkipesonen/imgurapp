@@ -6,12 +6,18 @@
 		this.options = {
 			// how many pixels per ms should be enough to trigger view change
 			changeVelocity:0.8,
+
 			 // ratio of drag distance to width or height (dependin on the direction)
 			 // until a view change is triggered
 			changeDragDistance:0.3,
+
+			// minimum distance to drag view until a change is possible
+			minimumDragDistance:0.2,
+
 			// multiplier to apply to drag when there is nothing
 			// in the drag direction (or the opposite of it actually)
 			tension:0.3,
+
 			// animation duration when view leaves
 			leaveAnimationDuration:400,
 			// animation duration when view returns to its original position
@@ -209,50 +215,53 @@
 			// used for calulcating if page should be changed
 			var movedRatio = {x: this.offset.x / this.width, y: this.offset.y / this.height };
 
+			// minimum drag threshold must be overcome until change
+			if (Math.abs(movedRatio.x) > this.options.minimumDragDistance || Math.abs(movedRatio.y) > this.options.minimumDragDistance){
 
-			/**
-			 * decide action when dragging has stopped
-			 */
-			if (Math.abs(movedRatio.y) > this.options.changeDragDistance || Math.abs(this.velocity.y) > this.options.changeVelocity){
-				// if drag was down (moved < 0 and there is something down of here)
-				if (movedRatio.y < 0 && this.directionManager.down){
-					// set animation to down
-					this.transitionManager.setAnimationDirection('down');
+				/**
+				 * decide action when dragging has stopped
+				 */
+				if (Math.abs(movedRatio.y) > this.options.changeDragDistance || Math.abs(this.velocity.y) > this.options.changeVelocity){
+					// if drag was down (moved < 0 and there is something down of here)
+					if (movedRatio.y < 0 && this.directionManager.down){
+						// set animation to down
+						this.transitionManager.setAnimationDirection('down');
 
-					// init state change
-					this.directionManager.go('down');
+						// init state change
+						this.directionManager.go('down');
 
-					// set element offset
-					this.offset.y = -this.height;
-					// animate to offset
-					this.setPosition(this.options.leaveAnimationDuration);
-					return;
-				} else if (movedRatio.y > 0 && this.directionManager.up){ // drag was up
-					this.transitionManager.setAnimationDirection('up');
-					this.directionManager.go('up');
-					this.offset.y = this.height;
-					this.setPosition(this.options.leaveAnimationDuration);
-					return;
+						// set element offset
+						this.offset.y = -this.height;
+						// animate to offset
+						this.setPosition(this.options.leaveAnimationDuration);
+						return;
+					} else if (movedRatio.y > 0 && this.directionManager.up){ // drag was up
+						this.transitionManager.setAnimationDirection('up');
+						this.directionManager.go('up');
+						this.offset.y = this.height;
+						this.setPosition(this.options.leaveAnimationDuration);
+						return;
+					}
+
 				}
 
-			}
+				// left and right dragging
+				if (Math.abs(movedRatio.x) > this.options.changeDragDistance || Math.abs(this.velocity.x) > this.options.changeVelocity){
+					if (movedRatio.x < 0 && this.directionManager.right){
+						this.transitionManager.setAnimationDirection('forward');
+						this.directionManager.go('right');
 
-			// left and right dragging
-			if (Math.abs(movedRatio.x) > this.options.changeDragDistance || Math.abs(this.velocity.x) > this.options.changeVelocity){
-				if (movedRatio.x < 0 && this.directionManager.right){
-					this.transitionManager.setAnimationDirection('forward');
-					this.directionManager.go('right');
+						this.offset.x = -this.width;
+						this.setPosition(this.options.leaveAnimationDuration);
+						return;
+					} else if (movedRatio.x > 0 && this.directionManager.left){
+						this.transitionManager.setAnimationDirection('back');
+						this.directionManager.go('left');
 
-					this.offset.x = -this.width;
-					this.setPosition(this.options.leaveAnimationDuration);
-					return;
-				} else if (movedRatio.x > 0 && this.directionManager.left){
-					this.transitionManager.setAnimationDirection('back');
-					this.directionManager.go('left');
-
-					this.offset.x = this.width;
-					this.setPosition(this.options.leaveAnimationDuration);
-					return;
+						this.offset.x = this.width;
+						this.setPosition(this.options.leaveAnimationDuration);
+						return;
+					}
 				}
 			}
 
