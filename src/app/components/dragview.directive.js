@@ -2,10 +2,20 @@
 	'use strict';
 
 	function DragViewController($scope, $element, $q, $timeout, $state, transitionManager, directionManager, Utils){
+
 		this.options = {
+			// how many pixels per ms should be enough to trigger view change
 			changeVelocity:0.8,
+			 // ratio of drag distance to width or height (dependin on the direction)
+			 // until a view change is triggered
 			changeDragDistance:0.3,
-			tension:0.3
+			// multiplier to apply to drag when there is nothing
+			// in the drag direction (or the opposite of it actually)
+			tension:0.3,
+			// animation duration when view leaves
+			leaveAnimationDuration:400,
+			// animation duration when view returns to its original position
+			returnAnimationDuration:400
 		};
 
 		this.$timeout = $timeout;
@@ -29,9 +39,9 @@
 		this.setPosition();
 
 		// bind to events
-		this.el.addEventListener('touchstart', function(evt){me.dragStart(evt);});
-		this.el.addEventListener('touchmove', function(evt){me.dragMove(evt);});
-		this.el.addEventListener('touchend', function(evt){me.dragEnd(evt);});
+		this.el.addEventListener('touchstart', function touchStart(evt){me.dragStart(evt);});
+		this.el.addEventListener('touchmove', function touchMove(evt){me.dragMove(evt);});
+		this.el.addEventListener('touchend', function touchEnd(evt){me.dragEnd(evt);});
 	}
 
 	DragViewController.prototype = {
@@ -215,13 +225,13 @@
 					// set element offset
 					this.offset.y = -this.height;
 					// animate to offset
-					this.setPosition(200);
+					this.setPosition(this.options.leaveAnimationDuration);
 					return;
 				} else if (movedRatio.y > 0 && this.directionManager.up){ // drag was up
 					this.transitionManager.setAnimationDirection('up');
 					this.directionManager.go('up');
 					this.offset.y = this.height;
-					this.setPosition(200);
+					this.setPosition(this.options.leaveAnimationDuration);
 					return;
 				}
 
@@ -234,14 +244,14 @@
 					this.directionManager.go('right');
 
 					this.offset.x = -this.width;
-					this.setPosition(200);
+					this.setPosition(this.options.leaveAnimationDuration);
 					return;
 				} else if (movedRatio.x > 0 && this.directionManager.left){
 					this.transitionManager.setAnimationDirection('back');
 					this.directionManager.go('left');
 
 					this.offset.x = this.width;
-					this.setPosition(200);
+					this.setPosition(this.options.leaveAnimationDuration);
 					return;
 				}
 			}
@@ -254,7 +264,7 @@
 			this.offset.y = 0;
 
 			// set element position to zero (css actually overrides this to disable flickering)
-			this.setPosition(400);
+			this.setPosition(this.options.returnAnimationDuration);
 		}
 	};
 

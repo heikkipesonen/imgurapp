@@ -1,0 +1,44 @@
+.list-item{
+	display: block;
+	overflow: hidden;
+}
+
+.list-item-animate{
+	max-height: 52px;
+	&.ng-enter, &.ng-leave, &.ng-move{
+		transition: 0.4s;
+	}
+
+	&.ng-leave.ng-leave-active,
+	&.ng-move,
+	&.ng-enter {
+		padding:0;
+		max-height: 0;
+	}
+
+	&.ng-leave,
+	&.ng-move.ng-move-active,
+	&.ng-enter.ng-enter-active {
+		max-height: 52px;
+	}
+}
+
+.list-item-animate-line-height{
+	line-height: 250%;
+
+	&.ng-enter, &.ng-leave, &.ng-move{
+		@extend .animation-transition;
+	}
+
+	&.ng-leave.ng-leave-active,
+	&.ng-move,
+	&.ng-enter {
+		line-height: 0%;
+	}
+
+	&.ng-leave,
+	&.ng-move.ng-move-active,
+	&.ng-enter.ng-enter-active {
+		line-height: 250%;
+	}
+}

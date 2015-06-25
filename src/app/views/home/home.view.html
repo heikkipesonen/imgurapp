@@ -8,7 +8,7 @@
 	<div class="view-colored" slide-list>
 		<div
 				id="gallery-{{galleryGroupIndex}}"
-				class="list-item gallery-group"
+				class="list-item home-list-gallery-group"
 				ng-repeat="(galleryGroupIndex, galleryGroup) in Home.galleryGroups track by galleryGroupIndex">
 
 			<h2 class="group-title-label"
@@ -17,7 +17,7 @@
 
 			<a
 				ng-if="galleryGroup.active"
-				class="list-item list-animate"
+				class="list-item home-list-item list-item-animate-line-height"
 				slide-item="x"
 				ng-href="{{gallery.href}}"
 				ng-repeat="(galleryIndex, gallery) in galleryGroup.items track by galleryIndex"
