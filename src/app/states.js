@@ -34,7 +34,7 @@ angular.module('imgurapp')
            */
           galleryGroups:function(galleries){
 
-            var p = _.chain(galleries)
+            return _.chain(galleries)
 
               .uniq()
 
@@ -54,8 +54,6 @@ angular.module('imgurapp')
               })
 
               .sortBy('name').value();
-
-              return p;
           }
         },
         controller:'RootController',
