@@ -8,22 +8,36 @@ angular.module('imgurapp')
       .state('root', {
         abstract:true,
         resolve:{
+
+          /**
+           * load grouped galleries from json file
+           * @param  {[type]} $http [description]
+           * @return {[type]}       [description]
+           */
+          galleryGroups:function($http){
+            return $http.get('app/galleries.json').then(function(response){
+              return response.data;
+            });
+          },
           /**
            * get gallery listing from api (not really, but could...)
            * @param  {object} imgurApi
            * @param  {object} $q
            * @return {object}         promise
            */
-          galleries:function(imgurApi, $q){
-            var d = $q.defer();
-            imgurApi.getGalleries().then(function(success){
-              d.resolve(success);
-              return success;
-            }, function(){
-              d.resolve([]);
-            });
+          galleries:function(galleryGroups){
+            return _.flatten( galleryGroups.map(function(item){
+              return item.items;
+            }) );
+            // var d = $q.defer();
+            // imgurApi.getGalleries().then(function(success){
+            //   d.resolve(success);
+            //   return success;
+            // }, function(){
+            //   d.resolve([]);
+            // });
 
-            return d.promise;
+            // return d.promise;
           },
 
           /**
@@ -32,29 +46,31 @@ angular.module('imgurapp')
            * @param  {object} Utils
            * @return {object}           grouped list of galleries
            */
-          galleryGroups:function(galleries){
+          // galleryGroups:function(galleries){
 
-            return _.chain(galleries)
+//             var p =  _.chain(galleries)
 
-              .uniq()
+//               .uniq()
 
-              .groupBy(function(gallery){
-                if (/.(\/)[0-9]+/.test(gallery)){
-                  return '1-10';
-                } else {
-                  return gallery.slice(gallery.lastIndexOf('/')).substring(1,2).toLowerCase();
-                }
-              })
+//               .groupBy(function(gallery){
+//                 if (/.(\/)[0-9]+/.test(gallery)){
+//                   return '1-10';
+//                 } else {
+//                   return gallery.slice(gallery.lastIndexOf('/')).substring(1,2).toLowerCase();
+//                 }
+//               })
 
-              .map(function(group, groupIndex){
-                return {
-                  name:groupIndex,
-                  items:group
-                };
-              })
+//               .map(function(group, groupIndex){
+//                 return {
+//                   name:groupIndex,
+//                   items:group
+//                 };
+//               })
 
-              .sortBy('name').value();
-          }
+//               .sortBy('name').value();
+// console.log(p);
+//             return p;
+          // }
         },
         controller:'RootController',
         controllerAs:'Root',
