@@ -22,23 +22,3 @@
 		max-height: 52px;
 	}
 }
-
-.list-item-animate-line-height{
-	line-height: 250%;
-
-	&.ng-enter, &.ng-leave, &.ng-move{
-		@extend .animation-transition;
-	}
-
-	&.ng-leave.ng-leave-active,
-	&.ng-move,
-	&.ng-enter {
-		line-height: 0%;
-	}
-
-	&.ng-leave,
-	&.ng-move.ng-move-active,
-	&.ng-enter.ng-enter-active {
-		line-height: 250%;
-	}
-}

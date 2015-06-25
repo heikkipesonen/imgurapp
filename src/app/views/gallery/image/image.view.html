@@ -4,7 +4,7 @@
 
 </div>
 <div class="view view-image" scroll-y>
-
+	<div class="view-image-wrapper">
 		<div class="view-image-title-offset">
 			<h2 class="view-background-title view-image-title text-hidden" ng-bind="::Image.image.title"></h2>
 		</div>
@@ -23,11 +23,18 @@
 				<p ng-if="::Image.image.description" class="view-image-description"  ng-bind="::Image.image.description"></p>
 				<p ng-if="::Image.image.account_url" class="view-image-user" ng-bind="::Image.image.account_url"></p>
 
-
-				<button class="image-comments-button" ng-click="Image.loadComments()">Show comments</button>
-
-				<div comment="comment" class="list-item-animate-line-height" ng-repeat="(commentIndex, comment) in Image.comments | limitTo: Image.commentLimit track by commentIndex"></div>
 			</div>
+			<button class="image-comments-button" ng-click="Image.loadComments($event)">Show comments</button>
+		</div>
+
+		<div
+			ng-if="Image.comments.length > 0"
+			comments="Image.comments"
+			limit="Image.commentLimit"
+			class="comment-animate">
+		</div>
+		<button ng-show="Image.commentLimit < Image.comments.length" class="ghost ghost-dark" ng-click="Image.showMoreComments()">show 10 more</button>
+
 
 
 

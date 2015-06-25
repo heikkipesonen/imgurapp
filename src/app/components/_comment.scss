@@ -1,40 +1,72 @@
 .comment{
-	padding: 15px 40px 0 40px;
+	padding: 0 40px 0 40px;
 	text-align: left;
 	line-height: 150%;
 	font-weight: 300;
-	overflow: hidden;
-	border-bottom: 1px solid #ddd;
+	background-color: white;
+}
+
+.comment-comment{
+
+}
+.comment .comment{
+	max-height: 160px;
+	position: relative;
+	margin-left: -40px;
+	margin-right: -40px;
+	padding-left: 40px;
+	padding-right: 40px;
+	background-color: #ddd;
+}
+
+.comment-author, .comment-children-count, .comment-comment{
+	pointer-events: none;
 }
 
 .comment-author{
 	opacity: 0.7;
 	text-align: left;
 	font-weight: 600;
+	padding: 10px 0 10px 0;
+	width: 100%;
+	text-overflow:ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
-.comment-comment{
-
-}
-.comment-child{
-	margin-left: -40px;
-	margin-right: -40px;
-	padding: 10px 40px 0 40px;
-	background-color: #ddd;
-	border-bottom: 1px solid #aaa;
-}
-
-.comment-children{
+.comment-children-count{
 	opacity: 0.5;
 	margin-top: 10px;
 	padding-bottom: 10px;
 	text-align: right;
 }
 
+.comment-children-pointer{
+	position: absolute;
+	left:50%;
+	margin-left: -10px;
+	width:10px;
+	margin-top: -10px;
+	border-bottom: 10px solid #ddd;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+}
 
-.image-comments{
-	display: block;
-	font-weight: 100;
-	text-align: center;
-	background-color: #eee;
+.comment-animate{
+	&.ng-enter, &.ng-leave, &.ng-move{
+		transition: 0.4s;
+		overflow: hidden;
+	}
+
+	&.ng-leave.ng-leave-active,
+	&.ng-move,
+	&.ng-enter {
+		max-height: 0px;
+	}
+
+	&.ng-leave,
+	&.ng-move.ng-move-active,
+	&.ng-enter.ng-enter-active {
+		max-height: 160px;
+	}
 }

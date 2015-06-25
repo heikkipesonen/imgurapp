@@ -116,10 +116,10 @@ angular.module('imgurapp')
 				});
 
 				$scope.$on('scroll.toAnimated', function(evt, element){
+console.log(evt, element);
 			    var startTime = Date.now();
 			    var duration = 500;
 			    var fromTop = element.offsetTop - el.scrollTop;
-
 			    var animate = function () {
 			        var time = Date.now() - startTime;
 			        var val = easeInOutQuad(time, fromTop, -fromTop, duration);

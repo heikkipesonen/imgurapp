@@ -2,7 +2,7 @@
 
 'use strict';
 
-	function ImageController($scope, image, $state, imagePosition, $stateParams, nextImage, prevImage, imgurApi, directionManager, Utils){
+	function ImageController($rootScope, $scope, $state, $timeout,  image, imagePosition, $stateParams, nextImage, prevImage, imgurApi, directionManager, Utils){
 		// var imageController = this;
 		var imageController = this;
 		this.image = image;
@@ -12,19 +12,28 @@
 
 		this.commentsLoaded = false;
 		this.comments = [];
-		this.commentLimit = 30;
+		this.commentLimit = 10;
 		// imgurApi.getComments(this.image.id).then(function(comments){
 		// 	console.log(comments);
 		// })
 
-		this.loadComments = function(){
+		this.loadComments = function(evt){
 			if (!imageController.commentsLoaded){
 				return imgurApi.getComments(imageController.image.id).then(function(comments){
 					imageController.comments = comments;
+					if (imageController.comments.length > 0){
+						$timeout(function(){
+							$scope.$broadcast('scroll.toAnimated', evt.srcElement);
+						},200);
+					}
 				}).finally(function(){
 					imageController.commentsLoaded = true;
 				});
 			}
+		};
+
+		this.showMoreComments = function(){
+			this.commentLimit += 10;
 		};
 
 		$scope.$on('drag.hold.down', function(){
