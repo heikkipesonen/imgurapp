@@ -26,20 +26,20 @@
 			</div>
 
 
-			<div class="text-center view-colored">
+			<div class="text-center view-colored" ng-if="Image.image.comment_count">
 				<div class="icon-button" ng-click="Image.loadComments()"><i class="ion-ios-chatbubble-outline"></i></div>
 			</div>
 		</div>
 
 		<div
 			id="image-comments"
-			ng-if="Image.comments.length > 0"
+			ng-if="Image.comments.length > 0 && Image.image.comment_count"
 			comments="Image.comments"
 			limit="Image.commentLimit"
 			class="comment-animate">
 		</div>
 
-		<div class="text-center view-colored">
+		<div class="text-center view-colored" ng-if="Image.image.comment_count">
 			<div class="icon-button"
 			ng-show="Image.commentLimit < Image.comments.length"
 			ng-click="Image.showMoreComments()">

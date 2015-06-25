@@ -24,16 +24,50 @@ button.ghost{
 }
 
 .icon-button{
+	position: relative;
 	display: inline-block;
 	width: 64px;
 	text-align: center;
-	background-color: #222;
 	border-radius: 50%;
-	color: white;
 	margin:10px;
 
 	i{
 		font-size: 36px;
 		line-height: 64px;
 	}
+
+	&.small{
+		width: 42px;
+
+		i{
+			font-size: 24px;
+			line-height: 42px;
+		}
+	}
+
+	&.has-label{
+		margin-bottom: 25px;
+	}
+
+	.icon-button-label{
+		position: absolute;
+		bottom: -15px;
+		width: 100%;
+		font-size: 7pt;
+		overflow: hidden;
+	}
+}
+
+input[type="text"],input[type="email"],input[type="tel"],input[type="number"]{
+	outline:none;
+	border:none;
+	padding:10px 15px;
+	font-family: inherit;
+	font-size: 10pt;
+	font-weight: 100;
+	display: block;
+	width: 100%;
+	text-align: center;
+	box-sizing:border-box;
+	line-height: 42px;
 }

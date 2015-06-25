@@ -1,13 +1,36 @@
+$main-color: white;
+$title-color: #222;
+$text-color: #444;
+$icon-button-background: #222;
+$icon-button-active: #D82DBC;
+$item-open-title: #D82DBC;
+
 .view-colored{
 	// background-color: rgba(255,255,255,0.8);
 	// background-color: #2A41B3;
-	background-color: white;
+	background-color: $main-color;
 }
 
 .view-gallery-title, .view-gallery-title-offset{
-	color: #222;
+	color: $title-color;
 }
 
 .view-image-description{
-	color: #777;
+	color: $text-color;
+}
+
+.icon-button{
+	background-color: $icon-button-background;
+
+	&.active{
+		background-color: $icon-button-active;
+	}
+
+	i{
+		color: white;
+	}
+}
+
+.item-open h2{
+	color: $item-open-title;
 }

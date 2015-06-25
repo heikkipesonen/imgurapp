@@ -52,21 +52,21 @@
 	border-right: 10px solid transparent;
 }
 
-.comment-animate{
-	&.ng-enter, &.ng-leave, &.ng-move{
-		transition: 0.4s;
-		overflow: hidden;
-	}
+// .comment-animate{
+// 	&.ng-enter, &.ng-leave, &.ng-move{
+// 		transition: 0.4s;
+// 		overflow: hidden;
+// 	}
 
-	&.ng-leave.ng-leave-active,
-	&.ng-move,
-	&.ng-enter {
-		max-height: 0px;
-	}
+// 	&.ng-leave.ng-leave-active,
+// 	&.ng-move,
+// 	&.ng-enter {
+// 		max-height: 0px;
+// 	}
 
-	&.ng-leave,
-	&.ng-move.ng-move-active,
-	&.ng-enter.ng-enter-active {
-		max-height: 160px;
-	}
-}
+// 	&.ng-leave,
+// 	&.ng-move.ng-move-active,
+// 	&.ng-enter.ng-enter-active {
+// 		max-height: 160px;
+// 	}
+// }

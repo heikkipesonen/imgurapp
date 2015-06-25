@@ -39,13 +39,16 @@ body{
 	background-repeat: repeat-x;
 }
 
-.view-gallery-title, .view-gallery-title-offset{
+.view-gallery-title{
 	height: 200px;
 	line-height: 200px;
 	background-size: 1px 64px;
 	font-size: 20pt;
 }
-
+.view-gallery-title-offset{
+	height: 200px;
+	padding-top: 128px;
+}
 
 
 

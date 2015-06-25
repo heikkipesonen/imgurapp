@@ -14,11 +14,13 @@
 		this.comments = [];
 		this.commentLimit = 10;
 		this.loadingComments = false;
-		// imgurApi.getComments(this.image.id).then(function(comments){
-		// 	console.log(comments);
-		// })
 
-		this.loadComments = function(evt){
+
+		/**
+		 * load image comments from imgur
+		 * @return {promise || boolean}
+		 */
+		this.loadComments = function(){
 			if (!imageController.commentsLoaded){
 				this.loadingComments = true;
 				return imgurApi.getComments(imageController.image.id).then(function(comments){
@@ -33,8 +35,15 @@
 					imageController.loadingComments = false;
 				});
 			}
+
+			return false;
 		};
 
+console.log(this.image);
+		/**
+		 * increase visible comments limit
+		 * @return {[type]} [description]
+		 */
 		this.showMoreComments = function(){
 			this.commentLimit += 10;
 		};
