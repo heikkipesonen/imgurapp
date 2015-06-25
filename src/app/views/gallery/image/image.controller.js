@@ -39,7 +39,6 @@
 			return false;
 		};
 
-console.log(this.image);
 		/**
 		 * increase visible comments limit
 		 * @return {[type]} [description]
@@ -48,9 +47,11 @@ console.log(this.image);
 			this.commentLimit += 10;
 		};
 
-		$scope.$on('drag.hold.down', function(){
-			imageController.loadComments();
-		});
+		// if (this.image.comment_count > 0){
+		// 	$scope.$on('drag.hold.down', function(){
+		// 		imageController.loadComments();
+		// 	});
+		// }
 
 		// setup available directions for dragging
 		directionManager.set('up',{
