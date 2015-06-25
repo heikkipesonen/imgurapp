@@ -170,6 +170,19 @@ angular.module('imgurapp')
 			});
 		},
 
+
+		getGalleryState:function(name, page){
+			var parts = name.split('/');
+			return {
+					name: 'root.gallery.page',
+					params:{
+						type:parts[0],
+						galleryId:parts[1],
+						galleryPage:page || '0'
+					}
+				};
+		},
+
 		/**
 		 * get next item of array
 		 * if next is the last, return first one

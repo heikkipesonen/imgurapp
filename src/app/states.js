@@ -32,23 +32,17 @@ angular.module('imgurapp')
            * @param  {object} Utils
            * @return {object}           grouped list of galleries
            */
-          galleryGroups:function(galleries, Utils){
-            return _.chain(galleries)
+          galleryGroups:function(galleries){
+
+            var p = _.chain(galleries)
 
               .uniq()
 
-              .map(function(gallery){
-                return {
-                  name:gallery,
-                  href:Utils.getGalleryLink(gallery)
-                };
-              })
-
               .groupBy(function(gallery){
-                if (/.(\/)[0-9]+/.test(gallery.name)){
+                if (/.(\/)[0-9]+/.test(gallery)){
                   return '1-10';
                 } else {
-                  return gallery.name.slice(gallery.name.lastIndexOf('/')).substring(1,2).toLowerCase();
+                  return gallery.slice(gallery.lastIndexOf('/')).substring(1,2).toLowerCase();
                 }
               })
 
@@ -60,6 +54,8 @@ angular.module('imgurapp')
               })
 
               .sortBy('name').value();
+
+              return p;
           }
         },
         controller:'RootController',

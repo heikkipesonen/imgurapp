@@ -33,11 +33,6 @@
 	padding: 10px 40px;
 }
 
-
-.view-image-footer-offset{
-	height: 113px;
-}
-
 .view-image-description{
 	text-align: left;
 	font-size: 10pt;
@@ -53,11 +48,21 @@
 		font-size: 16pt;
 	}
 }
+
+
 .image-comments-text{
+	position: absolute;
+	bottom: 0;
+	left:0;
+	width: 100%;
 	text-align: center;
 	padding: 15px 40px;
-	background-color: #eee;
 }
+.view-image-footer-offset{
+	height: 93px;
+}
+
+
 
 .image-comments{
 	display: block;

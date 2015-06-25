@@ -17,11 +17,11 @@
 
 			<a
 				ng-if="galleryGroup.active"
-				class="list-item home-list-item list-item-animate-line-height"
+				class="list-item home-list-item list-item-animate"
 				slide-item="x"
-				ng-href="{{gallery.href}}"
+				ng-click="Home.gotoGallery(gallery)"
 				ng-repeat="(galleryIndex, gallery) in galleryGroup.items track by galleryIndex"
-				ng-bind="::gallery.name"></a>
+				ng-bind="::gallery"></a>
 		</div>
 	</div>
 </div>

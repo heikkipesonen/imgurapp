@@ -1,8 +1,19 @@
 (function(){
 'use strict';
 
-	function HomeController($scope, $timeout, galleries, galleryGroups){
+	function HomeController($scope, $timeout, galleries, galleryGroups, Utils, $state){
 		this.galleryGroups = galleryGroups;
+
+
+		/**
+		 * goto gallery page when item is clicked
+		 * @param  {[type]} gallery [description]
+		 * @return {[type]}         [description]
+		 */
+		this.gotoGallery = function(gallery){
+			var state = Utils.getGalleryState(gallery);
+			$state.go(state.name, state.params);
+		};
 
 		/**
 		 * toggle gallery group active state
