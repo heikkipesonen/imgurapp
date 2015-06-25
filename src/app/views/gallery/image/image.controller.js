@@ -15,7 +15,6 @@
 		this.commentLimit = 10;
 		this.loadingComments = false;
 
-
 		/**
 		 * load image comments from imgur
 		 * @return {promise || boolean}
