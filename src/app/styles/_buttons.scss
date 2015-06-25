@@ -10,30 +10,15 @@ button{
 	padding: 10px;
 
 	&:focus, &:hover, &:active{
-		border:inherit;
-		outline: inherit;
-		background-color: inherit;
+		outline:none;
+		// border:initial;
+		// outline: initial;
+		// background-color: initial;
 	}
 }
 
 button.ghost{
 	padding: 15px;
 	border-radius: 15px;
-	border: 2px solid white;
-	color: white;
-}
-
-button.load-abort-button{
-	position: absolute;
-	top:-100%;
-	left:50%;
-	width: 200px;
-	margin-left: -100px;
-	box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.3);
-	color: black;
-	border: 2px solid black;
-}
-
-.view.on-load + button.load-abort-button{
-	top: 50%;
+	border: 1px solid;
 }
