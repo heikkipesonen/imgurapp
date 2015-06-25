@@ -2,8 +2,16 @@
 'use strict';
 
 	function HomeController($scope, $timeout, galleries, galleryGroups, Utils, $state){
+		var homeController = this;
 		this.galleryGroups = galleryGroups;
+		this.actionDisabled = false;
 
+		this.disableAction = function(){
+			this.actionDisabled = true;
+			$timeout(function(){
+				homeController.actionDisabled = false;
+			},500);
+		}
 
 		/**
 		 * goto gallery page when item is clicked
@@ -11,8 +19,11 @@
 		 * @return {[type]}         [description]
 		 */
 		this.gotoGallery = function(gallery){
+			if (this.actionDisabled) return;
+
 			var state = Utils.getGalleryState(gallery);
 			$state.go(state.name, state.params);
+			this.disableAction();
 		};
 
 		/**
@@ -22,6 +33,8 @@
 		 * @return {void}
 		 */
 		this.toggleGalleryGroup = function(galleryGroup, evt){
+			if (this.actionDisabled) return;
+
 			if (!galleryGroup.active){
 				var openGroups = _.filter(this.galleryGroups, {'active':true});
 				_.forEach(openGroups, function(group){
@@ -37,13 +50,9 @@
 			galleryGroup.active = !galleryGroup.active;
 
 			if (galleryGroup.active){
-				$timeout(function(){
-					// $scope.$broadcast('scroll.release');
-					// $timeout(function(){
-						$scope.$broadcast('scroll.toAnimated', evt.srcElement.offsetTop);
-					// },100)
-				}, 500);
+				$scope.$broadcast('scroll.toAnimated', evt.srcElement);
 			}
+			this.disableAction();
 		};
 	}
 

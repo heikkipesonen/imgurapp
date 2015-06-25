@@ -9,6 +9,7 @@
 		<div
 				id="gallery-{{galleryGroupIndex}}"
 				class="list-item home-list-gallery-group"
+				ng-class="{'item-open' : galleryGroup.active}"
 				ng-repeat="(galleryGroupIndex, galleryGroup) in Home.galleryGroups track by galleryGroupIndex">
 
 			<h2 class="group-title-label"
