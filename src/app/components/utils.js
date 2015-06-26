@@ -4,7 +4,7 @@ angular.module('imgurapp')
 
 
 
-.service('Utils', function($state, imgurApi, imageSize){
+.service('Utils', function($state, imgurApi, imageSize, $http, appConfig){
 	angular.extend(this, {
 
 		/**
@@ -183,6 +183,18 @@ angular.module('imgurapp')
 						galleryPage:page || '0'
 					}
 				};
+		},
+
+		/**
+		 * load resource from url
+		 * @param  {[type]} appConfig [description]
+		 * @param  {[type]} file      [description]
+		 * @return {[type]}           [description]
+		 */
+		getResource:function(file){
+			return $http.get(appConfig.resource_url + '/' + file).then(function(response){
+				return response.data;
+			});
 		},
 
 		/**

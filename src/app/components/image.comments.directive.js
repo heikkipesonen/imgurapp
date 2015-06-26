@@ -35,7 +35,6 @@ angular.module('imgurapp')
 					}
 
 					disableTap();
-					console.log(evt);
 				};
 
 			},

@@ -1,0 +1,40 @@
+<div class="view view-background view-gallery-title view-home-title">
+	<h2 class="view-background-title view-gallery-title">Feedback</h2>
+</div>
+
+<div class="view">
+	<div class="view-gallery-title-offset">
+	</div>
+
+	<div class="home-form form-wrapper view-colored">
+		<div class="form-title text-center">
+			<p class="padding">Your feedback will be ignored, until it is not ignored anymore and then done nothing about.</p>
+		</div>
+		<form ng-submit="Feedback.submit(Feedback.form.feedback)" name="Feedback.form.feedback">
+
+			<div class="input-wrapper">
+				<input type="text" name="name" ng-model="Feedback.model.name">
+				<span class="input-label">Name</span>
+			</div>
+
+			<div class="input-wrapper">
+				<input type="email" name="email" ng-model="Feedback.model.email">
+				<span class="input-label">Email</span>
+			</div>
+
+			<div class="input-wrapper">
+				<textarea name="message" ng-model="Feedback.model.message"></textarea>
+				<span class="input-label">Message</span>
+			</div>
+
+
+			<div class="form-controls text-center">
+				<p class="padding">Your message will, or will not be handled confidentially</p>
+				<button class="icon-button small has-label">
+					<i class="ion-ios-paperplane-outline"></i>
+					<div class="icon-button-label">send</div>
+				</button>
+			</div>
+		</form>
+	</div>
+</div>

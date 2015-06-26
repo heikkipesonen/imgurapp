@@ -3,7 +3,7 @@
 angular.module('imgurapp')
 
 
-	.directive('gridImage', function(imgurApi){
+	.directive('gridImage', function(imgurApi, appConfig){
 		return {
 			restrict:'A',
 			scope:{
@@ -29,27 +29,32 @@ angular.module('imgurapp')
 				function preload(){
 					var item = $scope.gridImage;
 
-					el.classList.add('image-loading');
-					el.classList.remove('image-ready');
+					if (item.image.nsfw) el.classList.add('image-nsfw');
+					if (appConfig.nsfwFilter !== true || item.image.nsfw !== true){
 
-					img = new Image();
+						el.classList.add('image-loading');
+						el.classList.remove('image-ready');
+						img = new Image();
 
-					img.onload = function(){
-						loadComplete();
-					};
+						img.onload = function(){
+							loadComplete();
+						};
 
-					img.onerror = function(){
-						loadComplete();
-					};
+						img.onerror = function(){
+							loadComplete();
+						};
 
-					if ( /\.(gif|jpg|jpeg|png)$/i.test(item.image.link)){
-						if (item.thumbnail){
-							img.src = imgurApi.getThumbnail(item.image.link, item.thumbnail.name);
+						if ( /\.(gif|jpg|jpeg|png)$/i.test(item.image.link)){
+							if (item.thumbnail){
+								img.src = imgurApi.getThumbnail(item.image.link, item.thumbnail.name);
+							} else {
+								img.src = item.image.link;
+							}
 						} else {
-							img.src = item.image.link;
+							img.src = null;
 						}
 					} else {
-						img.src = null;
+						el.classList.add('image-ready');
 					}
 
 					el.style.position = 'absolute';

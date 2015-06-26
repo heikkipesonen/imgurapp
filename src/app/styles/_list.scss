@@ -6,7 +6,7 @@
 .list-item-animate{
 	max-height: 52px;
 	&.ng-enter, &.ng-leave, &.ng-move{
-		transition: 0.4s;
+		@extend .animation-transition;
 	}
 
 	&.ng-leave.ng-leave-active,

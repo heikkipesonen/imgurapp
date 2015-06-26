@@ -82,14 +82,12 @@ h Huge Thumbnail  1024x1024 Yes
           },
 
           /**
-           * load up gallery list
-           * @return {Promise} resolved as list of galleries
+           * get topics list from imgur
+           * @return {Promise}
            */
-          getGalleries:function(){
-            return $http.get('app/galleries.txt').then(function(response){
-              return _.uniq( _.map( response.data.split('\n') , function(galleryUrl){
-                return galleryUrl.replace('http://imgur.com/','').split('/').slice(0,2).join('/');
-              }) );
+          getTopics:function(){
+            return $http.get('/app/resources/topics.json').then(function(response){
+              return response.data;
             });
           },
 
@@ -102,6 +100,20 @@ h Huge Thumbnail  1024x1024 Yes
           getGallery:function(type, gallery, page){
             if (page === undefined) page = '';
             return this._get('gallery/'+type + '/' + gallery + '/'+ page).then(function(response){
+              return response.data.data;
+            });
+          },
+
+          /**
+           * get topic listing from api
+           * @param  {string} id   topic id
+           * @param  {int} page page number
+           * @return {Promise}
+           */
+          getTopic:function(id, page){
+            if (page === undefined) page = '';
+
+            return this._get('/topics/'+id+'/'+page).then(function(response){
               return response.data.data;
             });
           },

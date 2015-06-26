@@ -140,7 +140,6 @@ angular.module('imgurapp')
 				 */
 				function touchEnd(){
 					var movedRatio = offset.x / width;
-					console.log(movedRatio);
 
 					lastEvent = false;
 					offset.x = 0;

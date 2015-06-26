@@ -6,23 +6,26 @@
 	<div class="view-gallery-title-offset">
 	</div>
 	<div class="view-colored" slide-list>
-	<div class="text-center">
-		<div class="icon-button small has-label">
-			<i class="ion-ios-plus-empty"></i>
-			<div class="icon-button-label">add new</div>
+		<div class="text-center">
+			<div class="icon-button small has-label" ng-class="{'active' : !Home.config.nsfwFilter}" ng-click="Home.config.nsfwFilter = !Home.config.nsfwFilter">
+				<i class="ion-woman"></i>
+				<div class="icon-button-label">nsfw</div>
+			</div>
+			<div class="icon-button small has-label">
+				<i class="ion-ios-plus-empty"></i>
+				<div class="icon-button-label">add new</div>
+			</div>
+			<div class="icon-button small has-label">
+				<i class="ion-ios-search-strong"></i>
+				<div class="icon-button-label">search</div>
+			</div>
+			<div class="icon-button small has-label" ui-sref="root.feedback">
+				<i class="ion-ios-email-outline"></i>
+				<div class="icon-button-label">feedback</div>
+			</div>
+
 		</div>
-		<div class="icon-button small has-label">
-			<i class="ion-ios-search-strong"></i>
-			<div class="icon-button-label">search</div>
-		</div>
-		<div class="icon-button small has-label">
-			<i class="ion-ios-email-outline"></i>
-			<div class="icon-button-label">feedback</div>
-		</div>
-	</div>
-	<div class="gallery-input-wrapper">
-		<input type="text">
-	</div>
+
 		<div
 				id="gallery-{{galleryGroupIndex}}"
 				class="list-item home-list-gallery-group"
@@ -37,9 +40,9 @@
 				ng-if="galleryGroup.active"
 				class="list-item home-list-item list-item-animate"
 				slide-item="x"
-				ng-click="Home.gotoGallery(gallery)"
 				ng-repeat="(galleryIndex, gallery) in galleryGroup.items track by galleryIndex"
-				ng-bind="::gallery"></a>
+				ng-bind="::gallery.name"
+				ng-href="{{::gallery.href}}"></a>
 		</div>
 	</div>
 </div>

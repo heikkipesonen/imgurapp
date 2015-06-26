@@ -9,14 +9,31 @@ angular.module('imgurapp')
         abstract:true,
         resolve:{
 
+          topics:function(Utils){
+            return Utils.getResource('topics.json');
+          },
+
           /**
            * load grouped galleries from json file
            * @param  {[type]} $http [description]
            * @return {[type]}       [description]
            */
-          galleryGroups:function($http){
-            return $http.get('app/galleries.json').then(function(response){
-              return response.data;
+          galleryGroups:function(Utils){
+
+            return Utils.getResource('galleries.json').then(function(data){
+
+
+              return _.map(data,function(group){
+                group.items = _.map(group.items, function(gallery){
+                  return {
+                    src:'gallery/'+gallery,
+                    name: gallery,
+                    href: Utils.getGalleryLink(gallery, 0)
+                  };
+                });
+
+                return group;
+              });
             });
           },
           /**
@@ -27,7 +44,7 @@ angular.module('imgurapp')
            */
           galleries:function(galleryGroups){
             return _.flatten( galleryGroups.map(function(item){
-              return item.items;
+              return _.map(item.items, 'name');
             }) );
             // var d = $q.defer();
             // imgurApi.getGalleries().then(function(success){
@@ -85,8 +102,15 @@ angular.module('imgurapp')
         controllerAs:'Home'
       })
 
+      .state('root.feedback',{
+        url:'/feedback',
+        templateUrl:'app/views/forms/forms.feedback.html',
+        controller:'FeedbackController',
+        controllerAs:'Feedback'
+      })
+
       .state('root.gallery', {
-        url:'/:type/{galleryId:[a-zA-Z0-9]+}/{galleryPage:[0-9]+}',
+        url:'/:type/{galleryId:[a-zA-Z0-9\-\_]+}/{galleryPage:[0-9]+}', // jshint ignore : line
         resolve:{
 
           /**

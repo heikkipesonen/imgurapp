@@ -1,17 +1,27 @@
 (function(){
 'use strict';
 
-	function HomeController($scope, $timeout, galleries, galleryGroups, Utils, $state){
+	function HomeController($scope, $timeout, galleries, galleryGroups, Utils, $state, appConfig){
 		var homeController = this;
 		this.galleryGroups = galleryGroups;
 		this.actionDisabled = false;
+		this.config = appConfig;
+
+		this.forms = {};
+		this.formdata = {
+			feedback:{
+				name:'',
+				email:'',
+				message:''
+			}
+		};
 
 		this.disableAction = function(){
 			this.actionDisabled = true;
 			$timeout(function(){
 				homeController.actionDisabled = false;
 			},500);
-		}
+		};
 
 		/**
 		 * goto gallery page when item is clicked

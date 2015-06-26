@@ -61,6 +61,7 @@
 				}
 			});
 		} else {
+
 			directionManager.set('up', {
 				name:'root.home',
 				params:{}
