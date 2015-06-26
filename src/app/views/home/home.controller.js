@@ -1,7 +1,7 @@
 (function(){
 'use strict';
 
-	function HomeController($scope, $timeout, galleries, galleryGroups, Utils, $state, appConfig){
+	function HomeController($scope, $timeout, galleries, galleryGroups, Utils, $state, appConfig, directionManager){
 		var homeController = this;
 		this.galleryGroups = galleryGroups;
 		this.actionDisabled = false;
@@ -64,6 +64,14 @@
 			}
 			this.disableAction();
 		};
+
+		directionManager.set('up');
+		directionManager.set('down');
+		directionManager.set('left');
+
+		directionManager.set('right',{
+			name:'root.feedback'
+		});
 	}
 
 	angular.module('imgurapp')

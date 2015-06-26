@@ -27,7 +27,7 @@
 
 
 			<div class="text-center view-colored" ng-if="Image.image.comment_count">
-				<div class="icon-button" ng-click="Image.loadComments()"><i class="ion-ios-chatbubble-outline"></i></div>
+				<div class="icon-button" ng-class="{'button-busy' : Image.loadingComments}" ng-click="Image.loadComments()"><i class="ion-ios-chatbubble-outline"></i></div>
 			</div>
 		</div>
 

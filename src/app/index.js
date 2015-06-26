@@ -83,7 +83,7 @@ angular.module('imgurapp', ['angular-loading-bar','ngAnimate', 'ngCookies', 'ngT
         transitionManager.setAnimationDirection('down');
       } else if (current === 'root.gallery.image' && newstate.name === 'root.gallery.album'){
         transitionManager.setAnimationDirection('down');
-      }  else if (current === 'root.home'){
+      }  else if (current === 'root.home' && newstate.name !== 'root.feedback'){
         // on home view, the only direction is down
         transitionManager.setAnimationDirection('down');
       }

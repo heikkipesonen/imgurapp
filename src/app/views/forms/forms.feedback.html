@@ -7,9 +7,9 @@
 	</div>
 
 	<div class="home-form form-wrapper view-colored">
-
-		<p class="text-box">Your feedback will be ignored, until it is not ignored anymore and yet it might be that nothing is done about it, or could be that something would be done, if the subject is apparently interesting, but this might not be the case.</p>
-		<p class="text-box">btw: this application is a freetime project, do not take it too seriously. haters will be hated. i will mock you if you hate. promise.</p>
+		<p class="text-box">If you have any suggestions, ideas, even crazy ones, other than "i want to post comments", please submit those valuable productions of brainwavepatters (or lack of).</p>
+		<p class="text-box">Your feedback might be valuable or it might be ignored, maybe until it is not ignored, or cannot be ignored anymore and yet it might be that nothing is done about it, or could be that something would be done, but this might not be the case.</p>
+		<p class="text-box">btw: this application is a freetime project, do not take it too seriously.</p>
 
 		<form ng-submit="Feedback.submit(Feedback.form.feedback)" novalidate="true" name="Feedback.form.feedback" class="text-box">
 
@@ -28,9 +28,10 @@
 				<span class="input-label">Message</span>
 			</div>
 
+			<p class="text-box text-hilight text-center" ng-show="Feedback.message" ng-bind="Feedback.message"></p>
 
 			<div class="form-controls text-center">
-				<button class="icon-button small has-label">
+				<button class="icon-button small has-label" ng-class="{'button-busy' : Feedback.busy}">
 					<i class="ion-ios-paperplane-outline"></i>
 					<div class="icon-button-label">send</div>
 				</button>

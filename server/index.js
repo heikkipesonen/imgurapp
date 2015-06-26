@@ -23,30 +23,8 @@ app.get('/', function(req, res){
 });
 
 app.post('/feedback', function(req, res){
-	var data = req.body;
-	if ( validator.isEmail(data.email) && validator.isAlphanumeric(data.name)){
-
-
-		var emailData = {
-			email: validator.normalizeEmail( data.email ),
-			subject:'imgur app Feedback',
-			message: data.name + '\n\n from:' + data.email + '\n\n\n' + 'message:'+'\n\n' + validator.escape( data.message )
-		};
-
-		email.send(emailData, function(response){
-			res.status(200);
-			res.end(JSON.stringify(response));
-		});
-
-	} else {
-		res.status(400);
-		res.end(JSON.stringify({ ok: false }));
-	}
-
-	// email.send({koira:1}, function(response){
-	// 	res.end(JSON.stringify(response))
-	// });
-})
+	email.feedback(req, res);
+});
 
 http.listen(8080, function(){
   console.log('juu kuule');

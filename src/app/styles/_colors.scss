@@ -1,8 +1,9 @@
 $main-color: white;
 $title-color: #222;
 $text-color: #666;
+$text-hilight-color: #D82DBC;
 $icon-button-background: #222;
-$icon-button-active: #D82DBC;
+$icon-button-background-active: #D82DBC;
 $item-open-title: #D82DBC;
 $input-active-label: #D82DBC;
 
@@ -21,11 +22,15 @@ p{
 	font-weight: 200;
 }
 
+
+.text-hilight{
+	color: $text-hilight-color;
+}
 .icon-button{
 	background-color: $icon-button-background;
 
 	&.active{
-		background-color: $icon-button-active;
+		background-color: $icon-button-background-active;
 	}
 
 	i{

@@ -12,7 +12,7 @@
 			changeDragDistance:0.3,
 
 			// minimum distance to drag view until a change is possible
-			minimumDragDistance:100,
+			minimumDragDistance:60,
 
 			// multiplier to apply to drag when there is nothing
 			// in the drag direction (or the opposite of it actually)

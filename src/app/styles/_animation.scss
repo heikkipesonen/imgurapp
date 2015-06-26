@@ -28,22 +28,47 @@
   animation:         animation-spinner 400ms linear infinite;
 }
 
+.button-busy{
+ animation:         animation-button-blink 800ms linear infinite;
+}
+
+$icon-button-background: #222;
+$icon-button-background-active: #D82DBC;
+@-webkit-keyframes animation-button-blink {
+  0%   {
+    background-color: $icon-button-background;
+  }
+
+  50% {
+    background-color: $icon-button-background-active;
+  }
+
+  100% {
+    background-color: $icon-button-background;
+  }
+}
+
+@keyframes animation-button-blink {
+  0%   {
+    background-color: $icon-button-background;
+  }
+
+  50% {
+    background-color: $icon-button-background-active;
+  }
+
+  100% {
+    background-color: $icon-button-background;
+  }
+}
+
+
 @-webkit-keyframes animation-spinner {
   0%   { -webkit-transform: rotate(0deg);   transform: rotate(0deg); }
   100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
 }
-@-moz-keyframes animation-spinner {
-  0%   { -moz-transform: rotate(0deg);   transform: rotate(0deg); }
-  100% { -moz-transform: rotate(360deg); transform: rotate(360deg); }
-}
-@-o-keyframes animation-spinner {
-  0%   { -o-transform: rotate(0deg);   transform: rotate(0deg); }
-  100% { -o-transform: rotate(360deg); transform: rotate(360deg); }
-}
-@-ms-keyframes animation-spinner {
-  0%   { -ms-transform: rotate(0deg);   transform: rotate(0deg); }
-  100% { -ms-transform: rotate(360deg); transform: rotate(360deg); }
-}
+
+
 @keyframes animation-spinner {
   0%   { transform: rotate(0deg);   transform: rotate(0deg); }
   100% { transform: rotate(360deg); transform: rotate(360deg); }
