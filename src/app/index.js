@@ -7,12 +7,17 @@ angular.module('imgurapp', ['angular-loading-bar','ngAnimate', 'ngCookies', 'ngT
 		client_id: 'b84e33b2ff595f6',
 		client_secret: '8ebf546494d982fdd5b9c4155218ab1ddd06cbbd',
     resource_url:'app/resources',
+    backend_url:'http://192.168.0.16/projects/imgurapp/server',
     nsfwFilter:true
 	})
 
   .config(function(imgurApiProvider, appConfig) {
     imgurApiProvider.client_id = appConfig.client_id;
     imgurApiProvider.client_secret = appConfig.client_secret;
+  })
+
+  .config(function(backendServiceProvider, appConfig){
+    backendServiceProvider.url = appConfig.backend_url;
   })
 
   .config(function(cfpLoadingBarProvider) {

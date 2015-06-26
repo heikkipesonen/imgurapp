@@ -13,7 +13,7 @@ input[type="text"],input[type="email"],input[type="tel"],input[type="number"], t
 	background-color: transparent;
 	padding: 0;
 	margin:0;
-
+	border-radius: 0;
 	&:focus, &.ng-dirty{
 		border-color: $input-active-label;
 	}
@@ -25,11 +25,11 @@ textarea{
 }
 
 .form-wrapper{
-	padding:15px;
+
 }
 
 .form-controls{
-	padding:15px;
+	padding:15px 0;
 }
 
 .input-wrapper{
@@ -53,12 +53,12 @@ textarea{
 	}
 
 	input:focus + .input-label, input.ng-dirty + .input-label{
-		transform: scale(0.8) translate(0px, -24px);
+		transform: scale(0.8) translate(0px, -30px);
 		color: $input-active-label;
 	}
 
 	textarea:focus + .input-label, textarea.ng-dirty + .input-label{
-		transform: scale(0.8) translate(0px, 0px);
+		transform: scale(0.8) translate(0px, -5px);
 		color: $input-active-label;
 	}
 }

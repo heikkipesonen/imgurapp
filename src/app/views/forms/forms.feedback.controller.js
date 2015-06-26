@@ -1,7 +1,7 @@
 (function(){
 'use strict';
 
-	function FeedbackController(directionManager){
+	function FeedbackController(directionManager, backendService){
 		this.form = {};
 		this.model = {
 			name:'',
@@ -9,8 +9,10 @@
 			message:''
 		};
 
-		this.submit = function(form){
-
+		this.submit = function(){
+			return backendService.post('/feedback', this.model).then(function(response){
+				console.log(response);
+			});
 		};
 
 

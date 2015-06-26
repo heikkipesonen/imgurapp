@@ -55,6 +55,7 @@ angular.module('imgurapp')
 						}
 					} else {
 						el.classList.add('image-ready');
+						el.classList.add('image-nsfw-blocked');
 					}
 
 					el.style.position = 'absolute';

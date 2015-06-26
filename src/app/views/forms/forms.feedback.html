@@ -1,16 +1,17 @@
-<div class="view view-background view-gallery-title view-home-title">
+<div class="view view-background view-home-title">
 	<h2 class="view-background-title view-gallery-title">Feedback</h2>
 </div>
 
-<div class="view">
+<div class="view" scroll-y>
 	<div class="view-gallery-title-offset">
 	</div>
 
 	<div class="home-form form-wrapper view-colored">
-		<div class="form-title text-center">
-			<p class="padding">Your feedback will be ignored, until it is not ignored anymore and then done nothing about.</p>
-		</div>
-		<form ng-submit="Feedback.submit(Feedback.form.feedback)" name="Feedback.form.feedback">
+
+		<p class="text-box">Your feedback will be ignored, until it is not ignored anymore and yet it might be that nothing is done about it, or could be that something would be done, if the subject is apparently interesting, but this might not be the case.</p>
+		<p class="text-box">btw: this application is a freetime project, do not take it too seriously. haters will be hated. i will mock you if you hate. promise.</p>
+
+		<form ng-submit="Feedback.submit(Feedback.form.feedback)" novalidate="true" name="Feedback.form.feedback" class="text-box">
 
 			<div class="input-wrapper">
 				<input type="text" name="name" ng-model="Feedback.model.name">
@@ -29,7 +30,6 @@
 
 
 			<div class="form-controls text-center">
-				<p class="padding">Your message will, or will not be handled confidentially</p>
 				<button class="icon-button small has-label">
 					<i class="ion-ios-paperplane-outline"></i>
 					<div class="icon-button-label">send</div>

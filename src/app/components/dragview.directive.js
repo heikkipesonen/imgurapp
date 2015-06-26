@@ -12,7 +12,7 @@
 			changeDragDistance:0.3,
 
 			// minimum distance to drag view until a change is possible
-			minimumDragDistance:0.2,
+			minimumDragDistance:100,
 
 			// multiplier to apply to drag when there is nothing
 			// in the drag direction (or the opposite of it actually)
@@ -216,7 +216,7 @@
 			var movedRatio = {x: this.offset.x / this.width, y: this.offset.y / this.height };
 
 			// minimum drag threshold must be overcome until change
-			if (Math.abs(movedRatio.x) > this.options.minimumDragDistance || Math.abs(movedRatio.y) > this.options.minimumDragDistance){
+			if (Math.abs(this.offset.x) > this.options.minimumDragDistance || Math.abs(this.offset.y) > this.options.minimumDragDistance){
 
 				/**
 				 * decide action when dragging has stopped

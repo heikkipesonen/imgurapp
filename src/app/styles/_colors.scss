@@ -1,6 +1,6 @@
 $main-color: white;
 $title-color: #222;
-$text-color: #444;
+$text-color: #666;
 $icon-button-background: #222;
 $icon-button-active: #D82DBC;
 $item-open-title: #D82DBC;
@@ -16,8 +16,9 @@ $input-active-label: #D82DBC;
 	color: $title-color;
 }
 
-.view-image-description{
+p{
 	color: $text-color;
+	font-weight: 200;
 }
 
 .icon-button{

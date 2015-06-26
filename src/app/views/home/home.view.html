@@ -32,9 +32,9 @@
 				ng-class="{'item-open' : galleryGroup.active}"
 				ng-repeat="(galleryGroupIndex, galleryGroup) in Home.galleryGroups track by galleryGroupIndex">
 
-			<h2 class="group-title-label"
+			<h4 class="group-title-label"
 					ng-click="Home.toggleGalleryGroup(galleryGroup, $event)"
-					ng-bind="::galleryGroup.name"></h2>
+					ng-bind="::galleryGroup.name"></h4>
 
 			<a
 				ng-if="galleryGroup.active"

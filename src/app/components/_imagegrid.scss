@@ -30,11 +30,9 @@
 	// }
 }
 
-.image-nsfw{
-	opacity: 0.3;
-}
 
 [image-loader], [grid-image]{
+	position: relative;
 	background-color: #EFEFEF;
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -48,5 +46,22 @@
 	&.image-ready{
 		transition-duration: 0.4s;
 		opacity:1;
+	}
+
+	&.image-nsfw-blocked{
+
+
+	  &:after{
+	  	content : 'NSFW';
+	  	position: absolute;
+	  	font-size: 10pt;
+	  	font-weight: 100;
+	  	top:50%;
+	  	margin-top: -5pt;
+	  	left:0;
+	  	width: 100%;
+	  	text-align: center;
+	  	color: #444;
+	  }
 	}
 }

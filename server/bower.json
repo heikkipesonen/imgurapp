@@ -1,0 +1,20 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "authors": [
+    "Heikki Pesonen"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "flight": "git@github.com:mikecao/flight.git#~1.2.13",
+    "idiorm": "git@github.com:j4mie/idiorm.git#~1.5.1"
+  }
+}

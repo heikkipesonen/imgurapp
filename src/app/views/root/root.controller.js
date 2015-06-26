@@ -1,7 +1,7 @@
 (function(){
 'use strict';
 
-function RootController($rootScope){
+function RootController(){
 	this.homeScroll = {
 		x:0,
 		y:0
