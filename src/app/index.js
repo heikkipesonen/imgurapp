@@ -7,7 +7,7 @@ angular.module('imgurapp', ['angular-loading-bar','ngAnimate', 'ngCookies', 'ngT
 		client_id: 'b84e33b2ff595f6',
 		client_secret: '8ebf546494d982fdd5b9c4155218ab1ddd06cbbd',
     resource_url:'app/resources',
-    backend_url:'http://192.168.0.16/projects/imgurapp/server',
+    backend_url:'http://192.168.0.10:8080',
     nsfwFilter:true
 	})
 

@@ -4,4 +4,4 @@ bower_components/
 .tmp/
 dist/
 .DS_Store
-conf.php
+conf.js
