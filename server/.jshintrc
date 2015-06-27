@@ -27,6 +27,7 @@
     "it": false,
     "_":false,
     "require":false,
-    "console":false
+    "console":false,
+    "process":true
   }
 }

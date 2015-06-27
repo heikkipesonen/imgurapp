@@ -26,6 +26,6 @@ app.post('/feedback', function(req, res){
 	email.feedback(req, res);
 });
 
-http.listen(8080, function(){
+http.listen(process.env.PORT, function(){
   console.log('juu kuule');
 });

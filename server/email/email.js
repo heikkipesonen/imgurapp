@@ -20,7 +20,8 @@ module.exports = {
 		    replyTo: data.email
 		}, function(error){
 			callback({
-				ok: error ? false : true
+				ok: error ? false : true,
+				valid: true
 			});
 		});
 	},
@@ -39,14 +40,17 @@ module.exports = {
 				message: data.name + ' <' + data.email + '>\n\n\n' + 'message:'+'\n\n' + validator.escape( data.message )
 			};
 
-			this.send(emailData, function(response){
+console.log(emailData);
+
+			this.send(emailData, function(response, error){
 				res.status(response.ok ? 200 : 400);
 				res.end(JSON.stringify(response));
+console.log(error);
 			});
 
 		} else {
 			res.status(400);
-			res.end(JSON.stringify({ ok: false }));
+			res.end(JSON.stringify({ ok: false , valid:false}));
 		}
 	}
 };
