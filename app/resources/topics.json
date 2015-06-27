@@ -1,0 +1,65 @@
+[
+  {
+    "id": 2,
+    "name": "Funny",
+    "description": "If it makes you laugh, you'll find it here.",
+    "css": null,
+    "ephemeral": false
+  },
+  {
+    "id": 5,
+    "name": "Awesome",
+    "description": "The stuff that makes you say, \"that's cool,\" or just leaves you speechless.",
+    "css": null,
+    "ephemeral": false
+  },
+  {
+    "id": 8,
+    "name": "Aww",
+    "description": "The cute, the fluffy and the adorable. Get ready to say, \"d'aww.\"",
+    "css": null,
+    "ephemeral": false
+  },
+  {
+    "id": 11,
+    "name": "The More You Know",
+    "description": "Imgur's knowledge bank. Expect movie recommendations, recipes, facts, life pro tips, and more.",
+    "css": null,
+    "ephemeral": false
+  },
+  {
+    "id": 14,
+    "name": "Storytime",
+    "description": "Interesting stories about that one time.",
+    "css": null,
+    "ephemeral": false
+  },
+  {
+    "id": 17,
+    "name": "Current Events",
+    "description": "A wide variety of topical posts about things happening in the world right now.",
+    "css": null,
+    "ephemeral": false
+  },
+  {
+    "id": 20,
+    "name": "Design & Art",
+    "description": "The beautiful, the creative and the impressive.",
+    "css": null,
+    "ephemeral": false
+  },
+  {
+    "id": 23,
+    "name": "Reaction",
+    "description": "A treasure trove of responses and \"my reaction when…\" moments.",
+    "css": null,
+    "ephemeral": false
+  },
+  {
+    "id": 29,
+    "name": "No Topic",
+    "description": "Posts that don't quite fit anywhere else.",
+    "css": null,
+    "ephemeral": false
+  }
+]
