@@ -1,6 +1,8 @@
-'use strict';
+(function(){
 
-angular.module('imgurapp')
+  'use strict';
+
+  angular.module('imgurapp')
 
   .config(function ($stateProvider, $urlRouterProvider) {
 
@@ -330,3 +332,5 @@ angular.module('imgurapp')
 
     $urlRouterProvider.otherwise('/');
   });
+
+})();

@@ -1,3 +1,6 @@
+(function(){
+
+
   'use strict';
 
   angular.module('imgurapp')
@@ -19,3 +22,4 @@
   			}
   		});
   	});
+})();

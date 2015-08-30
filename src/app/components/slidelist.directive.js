@@ -1,3 +1,5 @@
+(function(){
+
 'use strict';
 
 angular.module('imgurapp')
@@ -155,3 +157,4 @@ angular.module('imgurapp')
 			}
 		};
 	});
+})();

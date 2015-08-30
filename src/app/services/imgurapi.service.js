@@ -1,3 +1,5 @@
+(function(){
+
   'use strict';
 /**
  *
@@ -169,3 +171,4 @@ h Huge Thumbnail  1024x1024 Yes
         });
       };
     });
+})();

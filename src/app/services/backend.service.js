@@ -1,3 +1,4 @@
+(function(){
   'use strict';
 
   angular.module('imgurapp')
@@ -39,3 +40,4 @@
         return new BackendService({url:this.url});
       };
   	});
+})();

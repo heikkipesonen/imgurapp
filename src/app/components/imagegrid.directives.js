@@ -1,6 +1,8 @@
-'use strict';
+(function(){
 
-angular.module('imgurapp')
+	'use strict';
+
+	angular.module('imgurapp')
 
 
 	.directive('gridImage', function(imgurApi, appConfig){
@@ -93,3 +95,4 @@ angular.module('imgurapp')
 			'</div>'
 		};
 	});
+})();

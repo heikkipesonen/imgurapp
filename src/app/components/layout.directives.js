@@ -1,3 +1,5 @@
+(function(){
+
 'use strict';
 
 angular.module('imgurapp')
@@ -10,3 +12,4 @@ angular.module('imgurapp')
 			template:'<div class="layout-inner-wrapper" ng-transclude></div>'
 		};
 	});
+})();
