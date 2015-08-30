@@ -1,5 +1,5 @@
 #imgurapp
-an application for browsing (porn, or cats) from imgur, contains a list of different subreddits to browse through.
+an application for browsing images (porn, or cats) from imgur, contains a list of different subreddits to browse through.
 has few bugs on view transitioning and swiping.
 
 ###quirks
