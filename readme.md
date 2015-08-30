@@ -7,7 +7,7 @@ has few bugs on view transitioning and swiping.
 * scrolling occasionally works at double speed (due to overflow scroll rubberband and transform running in same time)
 * rapidly doing random things sometimes leads to random occurrences of random things
 * tested only on iphone 5
-* does not work correctly on desktops (iphone5 emulation on chrome should be ok, apart from occasional flickering in new chrome..)
+* does not work correctly on desktops (iphone5 emulation on chrome should be ok, apart from occasional flickering in new chrome & osx el capitan..)
 
 ##dev requirements
 `npm`, `gulp`, `bower`
@@ -34,6 +34,9 @@ on image view
 * swipe up -> back to gallery
 
 two finger swipe up goes back without scrolling to the top first.
+
+###Demo
+[Link](http://heikkipesonen.github.io/imgurapp/)
 
 ###license
 all rights reserved.
