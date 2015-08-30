@@ -7,6 +7,7 @@ has few bugs on view transitioning and swiping.
 * scrolling occasionally works at double speed (due to overflow scroll rubberband and transform running in same time)
 * rapidly doing random things sometimes leads to random occurrences of random things
 * tested only on iphone 5
+* does not work correctly on desktops (ios5 emulation on chrome should be ok, apart from occasional flickering in new chrome..)
 
 ##dev requirements
 `npm`, `gulp`, `bower`
