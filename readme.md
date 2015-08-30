@@ -14,6 +14,7 @@ has few bugs on view transitioning and swiping.
 
 ##installation
 `npm install` & `bower install` -> `gulp serve`
+edit conf.dist.js and put your configuration there, youll need to get imgur api key and client secret from imgur.com to be able to run this app.
 
 ##building
 `gulp` creates a dist folder of compiled things
