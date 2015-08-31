@@ -8,6 +8,7 @@ has few bugs on view transitioning and swiping.
 * rapidly doing random things sometimes leads to random occurrences of random things
 * tested only on iphone 5
 * does not work correctly on desktops (iphone5 emulation on chrome should be ok, apart from occasional flickering in new chrome & osx el capitan..)
+* animation direction is not correct, when hardware back is used 
 
 ##dev requirements
 `npm`, `gulp`, `bower`
